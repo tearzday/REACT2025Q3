@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import type { InputProps } from './Input.type';
+import type { InputProps } from './input.type';
 
 class Input extends Component<InputProps> {
   render() {
