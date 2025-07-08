@@ -8,12 +8,15 @@ class Card extends Component<CardProps> {
       <div className={classes.card}>
         <img
           className={classes.card__img}
-          src={this.props.info.img}
+          src={this.props.info.image}
           alt={`Image ${this.props.info.name}`}
         />
-        <h3 className={classes.card__name}>{this.props.info.name}</h3>
-        <h4 className={classes.card__description}>
-          {this.props.info.description}
+        <h3 className={classes.card__title}>{this.props.info.name}</h3>
+        <h4 className={classes.card__subtitle}>
+          Species: {this.props.info.species}
+        </h4>
+        <h4 className={classes.card__subtitle}>
+          Gender: {this.props.info.gender}
         </h4>
       </div>
     );

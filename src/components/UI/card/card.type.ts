@@ -1,7 +1,11 @@
+export type CardInfo = {
+  id: number;
+  name: string;
+  gender: string;
+  species: string;
+  image: string;
+};
+
 export type CardProps = {
-  info: {
-    name: string;
-    description: string;
-    img: string;
-  };
+  info: CardInfo;
 };
