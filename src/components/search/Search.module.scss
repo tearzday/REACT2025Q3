@@ -1,0 +1,7 @@
+.search {
+  display: flex;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  @include glass-effect;
+}

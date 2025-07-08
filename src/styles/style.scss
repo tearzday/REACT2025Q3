@@ -1,5 +1,9 @@
 @import url('./normalize.scss');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: $font-stack;
   background: url('../assets/bg.svg');
@@ -8,10 +12,10 @@ body {
 }
 
 .app {
-  padding: 20px;
+  padding: 0px 20px;
   margin: 20px auto;
   max-width: 1200px;
   display: flex;
+  flex-direction: column;
   gap: 20px;
-  //@include glass-effect;
 }
