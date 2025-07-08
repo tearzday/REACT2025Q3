@@ -2,5 +2,15 @@
 
 body {
   font-family: $font-stack;
-  background-color: $primary-color;
+  background: url('../assets/bg.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.app {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+  display: flex;
+  @include glass-effect;
 }

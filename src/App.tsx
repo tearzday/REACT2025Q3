@@ -2,7 +2,7 @@ import Input from './components/UI/input/Input';
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <Input
         type="text"
         placeholder="placeholder"

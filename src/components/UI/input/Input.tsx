@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import type { InputProps } from './input.type';
+import classes from './Input.module.scss';
 
 class Input extends Component<InputProps> {
   render() {
@@ -8,6 +9,7 @@ class Input extends Component<InputProps> {
         type={this.props.type}
         placeholder={this.props.placeholder}
         onChange={this.props.onChange}
+        className={[this.props.className, classes.input].join(' ')}
       ></input>
     );
   }
