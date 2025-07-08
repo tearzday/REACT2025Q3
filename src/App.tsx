@@ -1,3 +1,4 @@
+import Button from './components/UI/button/Button';
 import Input from './components/UI/input/Input';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
         className="text"
         onChange={(event) => console.log(event.target.value)}
       ></Input>
+      <Button onClick={() => console.log('click')}>Search</Button>
     </div>
   );
 }
