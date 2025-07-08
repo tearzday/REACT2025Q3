@@ -1,0 +1,11 @@
+.card {
+  @include glass-effect;
+  width: 250px;
+  padding: 20px;
+  color: $color-dark;
+
+  &__img {
+    width: 200px;
+    border-radius: $radius-m;
+  }
+}
