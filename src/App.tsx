@@ -2,17 +2,16 @@ import { Component } from 'react';
 import CardList from './components/card-list/CardList';
 import Search from './components/search/Search';
 import APICard from './api/card';
+import type { CardListProps } from './components/card-list/CardList.type';
 
 class App extends Component {
   state = {
-    carts: [],
+    cards: [],
   };
 
   componentDidMount() {
-    //this.setState(APICard.getCards())
     APICard.getCards().then((body) => {
-      //console.log(body)
-      this.setState({ carts: body });
+      this.setState({ cards: body });
     });
     //   {
     //     id: 0,
@@ -53,11 +52,16 @@ class App extends Component {
     // ];
   }
 
+  changeCards(cards: CardListProps) {
+
+     this.setState({cards});
+  }
+
   render() {
     return (
       <div className="app">
-        <Search />
-        <CardList carts={this.state.carts} />
+        <Search changeCards={this.changeCards.bind(this)}/>
+        <CardList cards={this.state.cards} />
       </div>
     );
   }

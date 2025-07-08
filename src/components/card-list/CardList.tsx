@@ -46,7 +46,7 @@ class CardList extends Component<CardListProps> {
   render() {
     return (
       <div className={classes.card_list}>
-        {this.props.carts.map((info) => (
+        {this.props.cards.map((info) => (
           <Card info={info} key={info.id} />
         ))}
       </div>
