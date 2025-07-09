@@ -6,6 +6,7 @@ import Button from '../UI/button/Button';
 interface MainProps {
   cards: CardInfo[];
   loading: boolean;
+  errorMessage: string;
 }
 
 class Main extends Component<MainProps> {
@@ -20,11 +21,11 @@ class Main extends Component<MainProps> {
 
     return (
       <main>
-        {this.props.cards ? (
-          <CardList cards={this.props.cards} isLoading={this.props.loading} />
-        ) : (
-          <p>Таких карточек не найдено</p>
-        )}
+        <CardList
+          cards={this.props.cards}
+          isLoading={this.props.loading}
+          errorMessage={this.props.errorMessage}
+        />
         <Button onClick={() => this.setState({ isError: true })}>
           Call Error
         </Button>

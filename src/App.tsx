@@ -10,17 +10,24 @@ class App extends Component {
     cards: [],
     loading: true,
     currentParams: undefined,
+    errorMessage: '',
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const currentParams =
       localStorage.getItem('search-character-value') ?? undefined;
     this.setState({ currentParams });
 
-    APICard.getCards(currentParams).then((body) => {
-      this.changeCards(body);
+    try {
+      const cards = await APICard.getCards(currentParams);
+      this.changeCards(cards);
+    } catch (e) {
+      this.setState({
+        errorMessage: e instanceof Error ? e.message : String(e),
+      });
+    } finally {
       this.changeLoading(false);
-    });
+    }
   }
 
   changeCards = (cards: CardInfo[]) => {
@@ -39,8 +46,15 @@ class App extends Component {
             currentValue={this.state.currentParams}
             changeCards={this.changeCards}
             changeLoading={this.changeLoading}
+            changeErrorMessage={(message) => {
+              this.setState({ errorMessage: message });
+            }}
           />
-          <Main cards={this.state.cards} loading={this.state.loading} />
+          <Main
+            cards={this.state.cards}
+            loading={this.state.loading}
+            errorMessage={this.state.errorMessage}
+          />
         </ErrorBoundary>
       </div>
     );

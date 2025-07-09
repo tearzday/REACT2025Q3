@@ -18,12 +18,17 @@ class Search extends Component<SearchProps> {
 
   async searchCards() {
     this.props.changeLoading(true);
-    const cards = await APICard.getCards(this.state.value);
 
-    localStorage.setItem('search-character-value', this.state.value);
-    console.log(cards);
-    this.props.changeCards(cards);
-    this.props.changeLoading(false);
+    try {
+      const cards = await APICard.getCards(this.state.value);
+      this.props.changeErrorMessage('');
+      this.props.changeCards(cards);
+    } catch (e) {
+      this.props.changeErrorMessage(e instanceof Error ? e.message : String(e));
+    } finally {
+      localStorage.setItem('search-character-value', this.state.value);
+      this.props.changeLoading(false);
+    }
   }
 
   render() {
