@@ -1,6 +1,10 @@
 import { Component } from 'react';
 import classes from './Card.module.scss';
-import type { CardProps } from './card.type';
+import type { CardInfo } from '../../../types';
+
+export type CardProps = {
+  info: CardInfo;
+};
 
 class Card extends Component<CardProps> {
   render() {

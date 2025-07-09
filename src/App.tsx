@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Search from './components/search/Search';
 import APICard from './api/card';
-import type { CardInfo } from './components/UI/card/card.type';
+import type { CardInfo } from './types';
 import Main from './components/main/Main';
 import ErrorBoundary from './components/error-boundary/ErrorBoundary';
 

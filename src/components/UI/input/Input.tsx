@@ -1,6 +1,13 @@
-import { Component } from 'react';
-import type { InputProps } from './input.type';
+import { Component, type ChangeEvent } from 'react';
 import classes from './Input.module.scss';
+
+export type InputProps = {
+  type: string;
+  placeholder: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  className?: string;
+};
 
 class Input extends Component<InputProps> {
   render() {

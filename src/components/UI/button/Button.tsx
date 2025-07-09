@@ -1,6 +1,12 @@
-import { Component } from 'react';
-import type { ButtonProps } from './button.type';
+import { Component, type ReactNode } from 'react';
 import classes from './Button.module.scss';
+
+export type ButtonProps = {
+  children: ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+  className?: string;
+};
 
 class Button extends Component<ButtonProps> {
   render() {

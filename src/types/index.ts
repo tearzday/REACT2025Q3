@@ -5,7 +5,3 @@ export type CardInfo = {
   species: string;
   image: string;
 };
-
-export type CardProps = {
-  info: CardInfo;
-};

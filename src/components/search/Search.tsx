@@ -3,7 +3,14 @@ import Input from '../UI/input/Input';
 import Button from '../UI/button/Button';
 import classes from './Search.module.scss';
 import APICard from '../../api/card';
-import type { SearchProps } from './Search.type';
+import type { CardInfo } from '../../types';
+
+export type SearchProps = {
+  currentValue?: string;
+  changeErrorMessage: (message: string) => void;
+  changeCards: (cards: CardInfo[]) => void;
+  changeLoading: (loading: boolean) => void;
+};
 
 class Search extends Component<SearchProps> {
   state = {
