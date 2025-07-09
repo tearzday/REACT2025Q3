@@ -9,6 +9,7 @@ class Search extends Component<SearchProps> {
   state = {
     value: '',
   };
+
   componentDidMount() {
     this.setState({
       value: localStorage.getItem('search-character-value') ?? undefined,
@@ -20,7 +21,7 @@ class Search extends Component<SearchProps> {
     const cards = await APICard.getCards(this.state.value);
 
     localStorage.setItem('search-character-value', this.state.value);
-
+    console.log(cards);
     this.props.changeCards(cards);
     this.props.changeLoading(false);
   }

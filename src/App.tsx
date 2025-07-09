@@ -3,6 +3,7 @@ import CardList from './components/card-list/CardList';
 import Search from './components/search/Search';
 import APICard from './api/card';
 import type { CardInfo } from './components/UI/card/card.type';
+import ErrorBoundary from './components/error-boundary/ErrorBoundary';
 
 class App extends Component {
   state = {
@@ -38,7 +39,13 @@ class App extends Component {
           changeCards={this.changeCards}
           changeLoading={this.changeLoading}
         />
-        <CardList cards={this.state.cards} isLoading={this.state.loading} />
+        <ErrorBoundary>
+          {this.state.cards ? (
+            <CardList cards={this.state.cards} isLoading={this.state.loading} />
+          ) : (
+            <p>Таких карточек не найдено</p>
+          )}
+        </ErrorBoundary>
       </div>
     );
   }
