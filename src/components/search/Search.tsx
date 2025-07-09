@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Input from '../UI/input/Input';
 import Button from '../UI/button/Button';
-import classes from './Search.module.scss';
+import style from './Search.module.scss';
 import APICard from '../../api/card';
 import type { CardInfo } from '../../types';
 
@@ -40,7 +40,7 @@ class Search extends Component<SearchProps> {
 
   render() {
     return (
-      <div className={classes.search}>
+      <div className={style.search}>
         <Input
           type="text"
           placeholder="placeholder"

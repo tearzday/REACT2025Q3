@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import Card from '../UI/card/Card';
-import classes from './CardList.module.scss';
+import style from './CardList.module.scss';
 import Loader from '../UI/loader/Loader';
 import type { CardInfo } from '../../types';
 
@@ -13,7 +13,7 @@ export type CardListProps = {
 class CardList extends Component<CardListProps> {
   render() {
     return (
-      <div className={classes.card_list}>
+      <div className={style.card_list}>
         {this.props.errorMessage ? (
           <p>{this.props.errorMessage}</p>
         ) : this.props.isLoading ? (

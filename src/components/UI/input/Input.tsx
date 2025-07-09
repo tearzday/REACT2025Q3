@@ -1,5 +1,5 @@
 import { Component, type ChangeEvent } from 'react';
-import classes from './Input.module.scss';
+import style from './Input.module.scss';
 
 export type InputProps = {
   type: string;
@@ -17,7 +17,7 @@ class Input extends Component<InputProps> {
         value={this.props.value}
         placeholder={this.props.placeholder}
         onChange={this.props.onChange}
-        className={[this.props.className, classes.input].join(' ')}
+        className={[this.props.className, style.input].join(' ')}
       ></input>
     );
   }

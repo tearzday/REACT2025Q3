@@ -1,5 +1,5 @@
 import { Component, type ReactNode } from 'react';
-import classes from './Button.module.scss';
+import style from './Button.module.scss';
 
 export type ButtonProps = {
   children: ReactNode;
@@ -14,7 +14,7 @@ class Button extends Component<ButtonProps> {
       <button
         onClick={this.props.onClick}
         disabled={this.props.disabled}
-        className={[this.props.className, classes.button].join(' ')}
+        className={[this.props.className, style.button].join(' ')}
       >
         {this.props.children}
       </button>
