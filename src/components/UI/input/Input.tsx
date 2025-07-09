@@ -7,6 +7,7 @@ class Input extends Component<InputProps> {
     return (
       <input
         type={this.props.type}
+        value={this.props.value}
         placeholder={this.props.placeholder}
         onChange={this.props.onChange}
         className={[this.props.className, classes.input].join(' ')}

@@ -8,10 +8,15 @@ class App extends Component {
   state = {
     cards: [],
     loading: true,
+    currentParams: undefined,
   };
 
   componentDidMount() {
-    APICard.getCards().then((body) => {
+    const currentParams =
+      localStorage.getItem('search-character-value') ?? undefined;
+    this.setState({ currentParams });
+
+    APICard.getCards(currentParams).then((body) => {
       this.changeCards(body);
       this.changeLoading(false);
     });
@@ -29,6 +34,7 @@ class App extends Component {
     return (
       <div className="app">
         <Search
+          currentValue={this.state.currentParams}
           changeCards={this.changeCards}
           changeLoading={this.changeLoading}
         />
