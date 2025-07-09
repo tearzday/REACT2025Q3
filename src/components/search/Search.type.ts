@@ -1,6 +1,6 @@
-import type { CardListProps } from "../card-list/CardList.type";
+import type { CardInfo } from '../UI/card/card.type';
 
 export type SearchProps = {
-    changeCards: (cards: CardListProps) => void;
-}
-
+  changeCards: (cards: CardInfo[]) => void;
+  changeLoading: (loading: boolean) => void;
+};

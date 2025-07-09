@@ -3,17 +3,19 @@ import Input from '../UI/input/Input';
 import Button from '../UI/button/Button';
 import classes from './Search.module.scss';
 import APICard from '../../api/card';
-import type { SearchProps } from './search.type';
+import type { SearchProps } from './Search.type';
 
 class Search extends Component<SearchProps> {
   state = {
-    value: ''
-  }
+    value: '',
+  };
 
   async searchCards() {
-    const cards = await APICard.getCards(this.state.value)
+    this.props.changeLoading(true);
+    const cards = await APICard.getCards(this.state.value);
 
-    this.props.changeCards(cards)
+    this.props.changeCards(cards);
+    this.props.changeLoading(false);
   }
 
   render() {
