@@ -22,9 +22,7 @@ class App extends Component {
       const cards = await APICard.getCards(currentParams);
       this.changeCards(cards);
     } catch (e) {
-      this.setState({
-        errorMessage: e instanceof Error ? e.message : String(e),
-      });
+      this.changeMessage(e instanceof Error ? e.message : String(e));
     } finally {
       this.changeLoading(false);
     }
@@ -38,6 +36,10 @@ class App extends Component {
     this.setState({ loading });
   };
 
+  changeMessage = (errorMessage: string) => {
+    this.setState({ errorMessage });
+  };
+
   render() {
     return (
       <div className="app">
@@ -46,9 +48,7 @@ class App extends Component {
             currentValue={this.state.currentParams}
             changeCards={this.changeCards}
             changeLoading={this.changeLoading}
-            changeErrorMessage={(message) => {
-              this.setState({ errorMessage: message });
-            }}
+            changeErrorMessage={this.changeMessage}
           />
           <Main
             cards={this.state.cards}

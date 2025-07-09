@@ -23,7 +23,7 @@ class Search extends Component<SearchProps> {
     });
   }
 
-  async searchCards() {
+  searchCards = async () => {
     this.props.changeLoading(true);
 
     try {
@@ -36,7 +36,7 @@ class Search extends Component<SearchProps> {
       localStorage.setItem('search-character-value', this.state.value);
       this.props.changeLoading(false);
     }
-  }
+  };
 
   render() {
     return (
@@ -47,7 +47,7 @@ class Search extends Component<SearchProps> {
           value={this.state.value}
           onChange={(event) => this.setState({ value: event.target.value })}
         ></Input>
-        <Button onClick={this.searchCards.bind(this)}>Search</Button>
+        <Button onClick={this.searchCards}>Search</Button>
       </div>
     );
   }
