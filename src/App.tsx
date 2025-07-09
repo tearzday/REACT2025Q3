@@ -1,8 +1,8 @@
 import { Component } from 'react';
-import CardList from './components/card-list/CardList';
 import Search from './components/search/Search';
 import APICard from './api/card';
 import type { CardInfo } from './components/UI/card/card.type';
+import Main from './components/main/Main';
 import ErrorBoundary from './components/error-boundary/ErrorBoundary';
 
 class App extends Component {
@@ -34,17 +34,13 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Search
-          currentValue={this.state.currentParams}
-          changeCards={this.changeCards}
-          changeLoading={this.changeLoading}
-        />
         <ErrorBoundary>
-          {this.state.cards ? (
-            <CardList cards={this.state.cards} isLoading={this.state.loading} />
-          ) : (
-            <p>Таких карточек не найдено</p>
-          )}
+          <Search
+            currentValue={this.state.currentParams}
+            changeCards={this.changeCards}
+            changeLoading={this.changeLoading}
+          />
+          <Main cards={this.state.cards} loading={this.state.loading} />
         </ErrorBoundary>
       </div>
     );
