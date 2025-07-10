@@ -1,6 +1,8 @@
-class APICard {
-  static async getCards(name?: string) {
-    let url = 'https://rickandmortyapi.com/api/character';
+const APICard = {
+  baseUrl: 'https://rickandmortyapi.com/api/character',
+
+  async getCards(name?: string) {
+    let url = this.baseUrl;
 
     if (name) {
       url += `?name=${name}`;
@@ -14,7 +16,7 @@ class APICard {
     }
 
     return data.results;
-  }
-}
+  },
+};
 
 export default APICard;
