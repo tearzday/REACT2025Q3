@@ -12,11 +12,12 @@ export type CardListProps = {
 
 class CardList extends Component<CardListProps> {
   render() {
+    if (this.props.errorMessage) {
+      return <p className={style.error}>{this.props.errorMessage}</p>;
+    }
     return (
-      <div className={style.card_list}>
-        {this.props.errorMessage ? (
-          <p>{this.props.errorMessage}</p>
-        ) : this.props.isLoading ? (
+      <div className={style.card__list}>
+        {this.props.isLoading ? (
           <Loader />
         ) : (
           this.props.cards.map((info) => <Card info={info} key={info.id} />)

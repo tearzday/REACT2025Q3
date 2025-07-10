@@ -2,10 +2,14 @@
   @include glass-effect;
   width: 250px;
   padding: 20px;
-  color: $color-dark;
+  color: $color-light;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
   &__img {
     width: 200px;
     border-radius: $radius-m;
+    margin-bottom: 20px;
   }
 }

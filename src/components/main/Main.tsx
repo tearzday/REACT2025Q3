@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import CardList from '../card-list/CardList';
-import type { CardInfo } from '../UI/card/card.type';
 import Button from '../UI/button/Button';
+import type { CardInfo } from '../../types';
+import style from './Main.module.scss';
 
 interface MainProps {
   cards: CardInfo[];
@@ -20,7 +21,7 @@ class Main extends Component<MainProps> {
     }
 
     return (
-      <main>
+      <main className={style.main}>
         <CardList
           cards={this.props.cards}
           isLoading={this.props.loading}

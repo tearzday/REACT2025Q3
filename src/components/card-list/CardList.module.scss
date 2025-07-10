@@ -1,6 +1,11 @@
-.card_list {
+.card__list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 25px;
+}
+
+.error {
+  font-size: 20px;
+  color: $color-light;
 }

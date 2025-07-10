@@ -43,7 +43,7 @@ class Search extends Component<SearchProps> {
       <div className={style.search}>
         <Input
           type="text"
-          placeholder="placeholder"
+          placeholder="What are you looking for?"
           value={this.state.value}
           onChange={(event) => this.setState({ value: event.target.value })}
         ></Input>
