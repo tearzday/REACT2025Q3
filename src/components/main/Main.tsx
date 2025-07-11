@@ -17,7 +17,9 @@ class Main extends Component<MainProps> {
 
   render() {
     if (this.state.isError) {
-      throw new Error('Error');
+      throw new Error(
+        'Call Error (is output from the main UI using ErrorBounder)'
+      );
     }
 
     return (

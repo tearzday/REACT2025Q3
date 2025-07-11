@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import Search from './components/search/Search';
-import APICard from './api/card';
 import type { CardInfo } from './types';
 import Main from './components/main/Main';
 import ErrorBoundary from './components/error-boundary/ErrorBoundary';
@@ -12,21 +11,6 @@ class App extends Component {
     currentParams: undefined,
     errorMessage: '',
   };
-
-  async componentDidMount() {
-    const currentParams =
-      localStorage.getItem('search-character-value') ?? undefined;
-    this.setState({ currentParams });
-
-    try {
-      const cards = await APICard.getCards(currentParams);
-      this.changeCards(cards);
-    } catch (e) {
-      this.changeMessage(e instanceof Error ? e.message : String(e));
-    } finally {
-      this.changeLoading(false);
-    }
-  }
 
   changeCards = (cards: CardInfo[]) => {
     this.setState({ cards });

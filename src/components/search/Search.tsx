@@ -18,16 +18,25 @@ class Search extends Component<SearchProps> {
   };
 
   componentDidMount() {
-    this.setState({
-      value: localStorage.getItem('search-character-value') ?? undefined,
-    });
+    this.setState(
+      {
+        value: localStorage.getItem('search-character-value') ?? '',
+      },
+      () => {
+        this.searchCards();
+      }
+    );
   }
 
   searchCards = async () => {
     this.props.changeLoading(true);
 
     try {
-      const cards = await APICard.getCards(this.state.value);
+      const body = {
+        name: this.state.value,
+        page: this.state.value ? '1' : '',
+      };
+      const cards = await APICard.getCards(body);
       this.props.changeErrorMessage('');
       this.props.changeCards(cards);
     } catch (e) {

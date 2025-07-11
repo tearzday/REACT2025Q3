@@ -1,11 +1,16 @@
 const APICard = {
   baseUrl: 'https://rickandmortyapi.com/api/character',
 
-  async getCards(name?: string) {
+  async getCards(params: { name?: string; page?: string }) {
+    const { name, page } = params;
     let url = this.baseUrl;
 
     if (name) {
-      url += `?name=${name}`;
+      url += `/?name=${name.trimEnd()}`;
+    }
+
+    if (page) {
+      url += `&page=${page}`;
     }
 
     const response = await fetch(url);
@@ -13,7 +18,7 @@ const APICard = {
 
     if (!response.ok) {
       throw new Error(
-        data.error ?? 'Something went wrong, try again another time!'
+        data.error || 'Something went wrong, try again another time!'
       );
     }
 
