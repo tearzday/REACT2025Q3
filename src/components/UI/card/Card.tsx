@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import style from './Card.module.scss';
-import type { CardInfo } from '../../../types';
+import type { CardInfo } from '@/types';
 
 export type CardProps = {
   info: CardInfo;

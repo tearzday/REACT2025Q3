@@ -2,7 +2,7 @@ import { Component } from 'react';
 import Card from '../UI/card/Card';
 import style from './CardList.module.scss';
 import Loader from '../UI/loader/Loader';
-import type { CardInfo } from '../../types';
+import type { CardInfo } from '@/types';
 
 export type CardListProps = {
   cards: CardInfo[];

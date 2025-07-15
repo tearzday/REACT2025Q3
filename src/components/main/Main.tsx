@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import CardList from '../card-list/CardList';
 import Button from '../UI/button/Button';
-import type { CardInfo } from '../../types';
+import type { CardInfo } from '@/types';
 import style from './Main.module.scss';
 
 interface MainProps {

@@ -2,8 +2,8 @@ import { Component } from 'react';
 import Input from '../UI/input/Input';
 import Button from '../UI/button/Button';
 import style from './Search.module.scss';
-import APICard from '../../api/card';
-import type { CardInfo } from '../../types';
+import APICard from '@/api/card';
+import type { CardInfo } from '@/types';
 
 export type SearchProps = {
   currentValue?: string;
