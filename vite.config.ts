@@ -21,6 +21,8 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     coverage: {
+      provider: 'v8',
+      reporter: ['text'],
       include: ['src/**/*.{js,jsx,ts,tsx}'],
       exclude: [
         'src/**/*.test.{js,jsx,ts,tsx}',
@@ -29,6 +31,14 @@ export default defineConfig({
         'src/setupTests.{js,ts}',
         'src/**/*.d.ts',
       ],
+      thresholds: {
+        global: {
+          statements: 80,
+          branches: 50,
+          functions: 50,
+          lines: 50,
+        },
+      },
     },
   },
 });
