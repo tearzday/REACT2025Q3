@@ -6,7 +6,7 @@ const APICard = {
     let url = this.baseUrl;
 
     if (name) {
-      url += `/?name=${name.trimEnd()}`;
+      url += `/?name=${name}`;
     }
 
     if (page) {

@@ -30,7 +30,7 @@ class Search extends Component<SearchProps> {
 
   searchCards = async () => {
     this.props.changeLoading(true);
-
+    this.setState({ value: this.state.value.trimEnd() });
     try {
       const body = {
         name: this.state.value,

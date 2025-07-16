@@ -24,6 +24,8 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+
+    "types": ["vitest/globals"]
   },
   "include": ["src"]
 }
