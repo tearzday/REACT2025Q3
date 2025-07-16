@@ -17,11 +17,9 @@ const APICard = {
     const data = await response.json();
 
     if (!response.ok) {
-      const errorMessage =
-        data.error === 'There is nothing here'
-          ? 'No results'
-          : 'Something went wrong, try again another time!';
-      throw new Error(errorMessage);
+      if (data.error === 'There is nothing here') return [];
+
+      throw new Error('Something went wrong, try again another time!');
     }
 
     return data.results;

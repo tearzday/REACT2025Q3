@@ -3,7 +3,7 @@ import classname from './Loader.module.scss';
 
 class Loader extends Component {
   render() {
-    return <div className={classname.loader}></div>;
+    return <div data-testid="loader" className={classname.loader}></div>;
   }
 }
 
