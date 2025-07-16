@@ -1,0 +1,19 @@
+@import url('./normalize.scss');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-stack;
+  background: url('/img/bg.svg') no-repeat center/cover;
+}
+
+.app {
+  padding: 0px 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

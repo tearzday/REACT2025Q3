@@ -1,0 +1,9 @@
+.button {
+  min-width: 200px;
+  cursor: pointer;
+  border: none;
+  border-radius: $radius-m;
+  background-color: $color-light;
+  color: $color-dark;
+  padding: 10px 0;
+}
