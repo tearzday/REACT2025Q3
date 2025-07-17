@@ -15,6 +15,11 @@ class CardList extends Component<CardListProps> {
     if (this.props.errorMessage) {
       return <p className={style.error}>{this.props.errorMessage}</p>;
     }
+
+    if (!this.props.cards.length) {
+      return <p className={style.error}>No results</p>;
+    }
+
     return (
       <div className={style.card__list}>
         {this.props.isLoading ? (
