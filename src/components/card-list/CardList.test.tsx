@@ -82,8 +82,8 @@ describe('CardList Component Tests', () => {
     });
   });
 
-  describe('', () => {
-    test('', () => {
+  describe('Error Handling Tests', () => {
+    test('Display error message', () => {
       render(
         <CardList
           isLoading={false}
