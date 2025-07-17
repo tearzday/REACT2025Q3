@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import Loader from './Loader';
-import '@testing-library/jest-dom';
 
 describe('Loading Component Tests', () => {
   test('Render loading', () => {

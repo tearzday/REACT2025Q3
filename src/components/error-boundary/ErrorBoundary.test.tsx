@@ -1,6 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import ErrorBoundary from './ErrorBoundary';
-import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import Main from '../main/Main';
 

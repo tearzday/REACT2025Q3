@@ -1,18 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import Card from './Card';
-
-const card = {
-  id: 1,
-  name: 'Rick Sanchez',
-  gender: 'Male',
-  species: 'Human',
-  image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-};
+import { dataCard } from '@/__tests__/__mocks__/MockCard';
 
 describe('Card Component Tests', () => {
   test('Render Card Component', () => {
-    render(<Card info={card} />);
+    render(<Card info={dataCard} />);
 
     const cardName = screen.getByText('Rick Sanchez');
     const cardGenders = screen.getByText('Gender: Male');
