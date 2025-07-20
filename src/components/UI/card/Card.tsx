@@ -10,7 +10,7 @@ class Card extends Component<CardProps> {
   render() {
     const { card, card__img, card__title, card__subtitle } = style;
     return (
-      <div className={card}>
+      <div data-testid="card-item" className={card}>
         <img
           className={card__img}
           src={this.props.info.image}

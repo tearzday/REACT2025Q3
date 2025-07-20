@@ -30,7 +30,7 @@ class Search extends Component<SearchProps> {
 
   searchCards = async () => {
     this.props.changeLoading(true);
-
+    this.setState({ value: this.state.value.trimEnd() });
     try {
       const body = {
         name: this.state.value,
@@ -49,7 +49,7 @@ class Search extends Component<SearchProps> {
 
   render() {
     return (
-      <div className={style.search}>
+      <div className={style.search} data-testid="search">
         <Input
           type="text"
           placeholder="What are you looking for?"
