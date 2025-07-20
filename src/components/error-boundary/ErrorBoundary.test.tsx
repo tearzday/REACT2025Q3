@@ -41,7 +41,7 @@ describe('Error Boundary Tests', () => {
 
     const btn = screen.getByText('Call Error');
 
-    userEvent.click(btn);
+    await userEvent.click(btn);
     await waitFor(() =>
       expect(screen.getByTestId('fallback')).toBeInTheDocument()
     );

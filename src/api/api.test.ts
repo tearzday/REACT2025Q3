@@ -5,6 +5,10 @@ describe('Test API', () => {
   const mockFetch = vi.fn();
   global.fetch = mockFetch;
 
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+
   test('Success fetch', async () => {
     const successGetCards = vi
       .spyOn(APICard, 'getCards')
