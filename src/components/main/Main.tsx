@@ -23,7 +23,7 @@ class Main extends Component<MainProps> {
     }
 
     return (
-      <main className={style.main}>
+      <main className={style.main} data-testid="main">
         <CardList
           cards={this.props.cards}
           isLoading={this.props.loading}
