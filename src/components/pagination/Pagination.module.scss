@@ -1,0 +1,26 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pagination__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  @include glass-effect;
+  color: $color-light;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background-color: $color-dark;
+  }
+}
+
+.active {
+  background-color: $color-dark;
+}

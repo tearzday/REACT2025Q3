@@ -1,49 +1,27 @@
-import { useEffect, useState } from 'react';
 import Input from '../UI/input/Input';
 import Button from '../UI/button/Button';
 import style from './Search.module.scss';
-import APICard from '@/api/card';
-import type { CardInfo } from '@/types';
+import { useEffect, useState } from 'react';
+import type { GetCards } from '@/types';
 
 export type SearchProps = {
-  changeErrorMessage: (message: string) => void;
-  changeCards: (cards: CardInfo[]) => void;
-  changeLoading: (loading: boolean) => void;
+  search: (params: GetCards) => void;
 };
 
-function Search({
-  changeErrorMessage,
-  changeCards,
-  changeLoading,
-}: SearchProps) {
-  const [value, setValue] = useState('');
+function Search({ search }: SearchProps) {
+  const [value, setValue] = useState<string>('');
 
   useEffect(() => {
     const currentValue = localStorage.getItem('search-character-value') ?? '';
     setValue(currentValue);
-    searchCards(currentValue);
+    search({ name: currentValue });
   }, []);
 
-  const searchCards = async (currentValue: string) => {
-    const trimValue = currentValue.trimEnd();
-
-    changeLoading(true);
+  const handlerClick = () => {
+    const trimValue = value.trimEnd();
     setValue(trimValue);
-
-    try {
-      const body = {
-        name: trimValue,
-        page: trimValue ? '1' : '',
-      };
-      const cards = await APICard.getCards(body);
-      changeErrorMessage('');
-      changeCards(cards);
-    } catch (e) {
-      changeErrorMessage(e instanceof Error ? e.message : String(e));
-    } finally {
-      localStorage.setItem('search-character-value', trimValue);
-      changeLoading(false);
-    }
+    search({ name: trimValue });
+    localStorage.setItem('search-character-value', trimValue);
   };
 
   return (
@@ -54,7 +32,7 @@ function Search({
         value={value}
         onChange={(event) => setValue(event.target.value)}
       ></Input>
-      <Button onClick={() => searchCards(value)}>Search</Button>
+      <Button onClick={handlerClick}>Search</Button>
     </div>
   );
 }

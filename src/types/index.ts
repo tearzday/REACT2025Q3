@@ -5,3 +5,10 @@ export type CardInfo = {
   species: string;
   image: string;
 };
+
+export type APIData = {
+  total: number;
+  cards: CardInfo[];
+};
+
+export type GetCards = { name?: string; page?: string };

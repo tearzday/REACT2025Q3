@@ -6,10 +6,12 @@ vi.mock('./api/card', () => ({
   getCards: vi.fn(),
 }));
 
+const cards = dataCards.cards;
+
 describe('CardList Component Tests', () => {
   describe('Rendering Tests', () => {
     test('Renders correct number of items when data is provided', async () => {
-      render(<CardList isLoading={false} cards={dataCards} errorMessage="" />);
+      render(<CardList isLoading={false} cards={cards} errorMessage="" />);
 
       const cardCount = await screen.findAllByTestId('card-item');
       expect(cardCount.length).toBe(5);
@@ -24,7 +26,7 @@ describe('CardList Component Tests', () => {
     });
 
     test('Shows loading', async () => {
-      render(<CardList isLoading={true} cards={dataCards} errorMessage="" />);
+      render(<CardList isLoading={true} cards={cards} errorMessage="" />);
 
       const loader = await screen.findByTestId('loader');
 
@@ -34,7 +36,7 @@ describe('CardList Component Tests', () => {
 
   describe('Data Display Tests', () => {
     test('Correctly displays item names and descriptions', () => {
-      render(<CardList isLoading={false} cards={dataCards} errorMessage="" />);
+      render(<CardList isLoading={false} cards={cards} errorMessage="" />);
 
       const cardName = screen.getByText('Rick Sanchez');
       const cardGenders = screen.getAllByText('Gender: Male');
@@ -49,7 +51,7 @@ describe('CardList Component Tests', () => {
       render(
         <CardList
           isLoading={false}
-          cards={dataCards}
+          cards={cards}
           errorMessage="Something went wrong, try again another time!"
         />
       );

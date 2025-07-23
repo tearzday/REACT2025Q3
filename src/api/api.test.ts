@@ -38,7 +38,10 @@ describe('Test API', () => {
       json: vi.fn().mockResolvedValue({ error: 'There is nothing here' }),
     });
 
-    const result = await APICard.getCards({});
-    expect(result).toEqual([]);
+    const result = await APICard.getCards({ name: 'rick', page: '1' });
+    expect(result).toEqual({
+      total: 0,
+      cards: [],
+    });
   });
 });
