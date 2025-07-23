@@ -1,4 +1,4 @@
-import { Component, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import style from './Button.module.scss';
 
 export type ButtonProps = {
@@ -8,18 +8,16 @@ export type ButtonProps = {
   className?: string;
 };
 
-class Button extends Component<ButtonProps> {
-  render() {
-    return (
-      <button
-        onClick={this.props.onClick}
-        disabled={this.props.disabled}
-        className={[this.props.className, style.button].join(' ')}
-      >
-        {this.props.children}
-      </button>
-    );
-  }
+function Button({ children, onClick, disabled, className }: ButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={[className, style.button].join(' ')}
+    >
+      {children}
+    </button>
+  );
 }
 
 export default Button;

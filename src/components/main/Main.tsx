@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import CardList from '../card-list/CardList';
 import type { CardInfo } from '@/types';
 import style from './Main.module.scss';
@@ -9,18 +8,12 @@ interface MainProps {
   errorMessage: string;
 }
 
-class Main extends Component<MainProps> {
-  render() {
-    return (
-      <main className={style.main} data-testid="main">
-        <CardList
-          cards={this.props.cards}
-          isLoading={this.props.loading}
-          errorMessage={this.props.errorMessage}
-        />
-      </main>
-    );
-  }
+function Main({ cards, loading, errorMessage }: MainProps) {
+  return (
+    <main className={style.main} data-testid="main">
+      <CardList cards={cards} isLoading={loading} errorMessage={errorMessage} />
+    </main>
+  );
 }
 
 export default Main;

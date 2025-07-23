@@ -1,4 +1,4 @@
-import { Component, type ChangeEvent } from 'react';
+import { type ChangeEvent } from 'react';
 import style from './Input.module.scss';
 
 export type InputProps = {
@@ -9,18 +9,16 @@ export type InputProps = {
   className?: string;
 };
 
-class Input extends Component<InputProps> {
-  render() {
-    return (
-      <input
-        type={this.props.type}
-        value={this.props.value}
-        placeholder={this.props.placeholder}
-        onChange={this.props.onChange}
-        className={[this.props.className, style.input].join(' ')}
-      ></input>
-    );
-  }
+function Input({ type, placeholder, onChange, value, className }: InputProps) {
+  return (
+    <input
+      type={type}
+      value={value}
+      placeholder={placeholder}
+      onChange={onChange}
+      className={[className, style.input].join(' ')}
+    ></input>
+  );
 }
 
 export default Input;
