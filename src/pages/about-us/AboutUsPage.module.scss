@@ -1,0 +1,14 @@
+.about__page {
+  height: 100svh;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  width: 300px;
+  height: 200px;
+  padding: 20px;
+  @include glass-effect;
+}
