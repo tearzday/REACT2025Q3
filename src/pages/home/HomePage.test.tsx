@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import HomePage from './HomePage';
 
-describe('Tests App Component', () => {
-  test('Render App', () => {
-    render(<App />);
+describe('Tests HomePage Component', () => {
+  test('Render HomePage', () => {
+    render(<HomePage />);
 
     const searchComponent = screen.getByTestId('search');
     const main = screen.getByTestId('main');

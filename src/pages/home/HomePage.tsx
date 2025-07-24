@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import Search from './components/search/Search';
-import type { APIData, CardInfo, GetCards } from './types';
-import Main from './components/main/Main';
-import ErrorBoundary from './components/error-boundary/ErrorBoundary';
-import APICard from './api/card';
+import Search from '../../components/search/Search';
+import type { APIData, CardInfo, GetCards } from '../../types';
+import Main from '../../components/main/Main';
+import APICard from '../../api/card';
 
-function App() {
+function HomePage() {
   const [cards, setCards] = useState<CardInfo[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -35,19 +34,17 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <ErrorBoundary>
-        <Search search={getCards} />
-        <Main
-          cards={cards}
-          getCards={getCards}
-          loading={loading}
-          errorMessage={errorMessage}
-          totalPages={totalPages}
-        />
-      </ErrorBoundary>
+    <div className="home">
+      <Search search={getCards} />
+      <Main
+        cards={cards}
+        getCards={getCards}
+        loading={loading}
+        errorMessage={errorMessage}
+        totalPages={totalPages}
+      />
     </div>
   );
 }
 
-export default App;
+export default HomePage;
