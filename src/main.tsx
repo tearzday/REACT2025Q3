@@ -4,11 +4,16 @@ import HomePage from './pages/home/HomePage.tsx';
 import './styles/style.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import ErrorBoundary from './components/error-boundary/ErrorBoundary.tsx';
+import ErrorPage from './pages/error/ErrorPage.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
+  },
+  {
+    path: '*',
+    element: <ErrorPage />,
   },
 ]);
 
