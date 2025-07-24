@@ -1,0 +1,30 @@
+.details__page {
+  min-width: 350px;
+  position: relative;
+}
+
+.info {
+  @include glass-effect;
+  height: 100svh;
+  padding: 20px;
+  width: 350px;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  color: $color-light;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.img {
+  border-radius: $radius-m;
+}
+
+.title {
+  text-align: center;
+}
+
+.btn {
+  margin-top: 30px;
+}

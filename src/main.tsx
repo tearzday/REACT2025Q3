@@ -6,19 +6,23 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import ErrorBoundary from './components/error-boundary/ErrorBoundary.tsx';
 import ErrorPage from './pages/error/ErrorPage.tsx';
 import AboutUsPage from './pages/about-us/AboutUsPage.tsx';
+import DetailsPage from './pages/details/Details.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: ':cardId',
+        element: <DetailsPage />,
+      },
+    ],
   },
   {
-    path: '/about',
+    path: 'about',
     element: <AboutUsPage />,
-  },
-  {
-    path: '*',
-    element: <ErrorPage />,
   },
 ]);
 

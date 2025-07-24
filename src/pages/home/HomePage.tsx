@@ -3,6 +3,8 @@ import Search from '../../components/search/Search';
 import type { APIData, CardInfo, GetCards } from '../../types';
 import Main from '../../components/main/Main';
 import APICard from '../../api/card';
+import style from './HomePage.module.scss';
+import { Outlet } from 'react-router';
 
 function HomePage() {
   const [cards, setCards] = useState<CardInfo[]>([]);
@@ -34,15 +36,18 @@ function HomePage() {
   };
 
   return (
-    <div className="home">
-      <Search search={getCards} />
-      <Main
-        cards={cards}
-        getCards={getCards}
-        loading={loading}
-        errorMessage={errorMessage}
-        totalPages={totalPages}
-      />
+    <div className={style.home__page}>
+      <div className={style.main__content}>
+        <Search search={getCards} />
+        <Main
+          cards={cards}
+          getCards={getCards}
+          loading={loading}
+          errorMessage={errorMessage}
+          totalPages={totalPages}
+        />
+      </div>
+      <Outlet />
     </div>
   );
 }

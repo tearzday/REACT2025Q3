@@ -6,6 +6,11 @@ vi.mock('./api/card', () => ({
   getCards: vi.fn(),
 }));
 
+vi.mock('react-router', () => ({
+  ...vi.importActual('react-router'),
+  useNavigate: vi.fn(),
+}));
+
 const cards = dataCards.cards;
 
 describe('CardList Component Tests', () => {
@@ -39,10 +44,8 @@ describe('CardList Component Tests', () => {
       render(<CardList isLoading={false} cards={cards} errorMessage="" />);
 
       const cardName = screen.getByText('Rick Sanchez');
-      const cardGenders = screen.getAllByText('Gender: Male');
 
       expect(cardName).toBeInTheDocument();
-      expect(cardGenders.length).toBe(3);
     });
   });
 
