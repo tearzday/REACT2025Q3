@@ -1,6 +1,6 @@
 import style from './Card.module.scss';
 import type { CardInfo } from '@/types';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 
 export type CardProps = {
   info: CardInfo;
@@ -8,10 +8,12 @@ export type CardProps = {
 
 function Card({ info: { id, image, name } }: CardProps) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { card, card__img, card__title } = style;
 
   const checkDetails = () => {
-    navigate(`/${id}`);
+    const pageNumber = searchParams.get('page') || '1';
+    navigate(`/${id}/?page=${pageNumber}`);
   };
 
   return (

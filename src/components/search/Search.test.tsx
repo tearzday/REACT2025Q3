@@ -5,6 +5,13 @@ import { userEvent } from '@testing-library/user-event';
 describe('Test Search Component', () => {
   const searchCards = vi.fn();
 
+  vi.mock('react-router', () => ({
+    ...vi.importActual('react-router'),
+    useNavigate: vi.fn(),
+    useLocation: vi.fn(),
+    useSearchParams: vi.fn(() => [new URLSearchParams({ page: '1' }), vi.fn()]),
+  }));
+
   describe('Rendering Tests', () => {
     test('Renders search input and search button', () => {
       render(<Search search={searchCards} />);

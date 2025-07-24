@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from './Pagination.module.scss';
 import type { GetCards } from '@/types';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
 interface PaginationProps {
   count: number;
@@ -9,8 +10,19 @@ interface PaginationProps {
 
 function Pagination({ count, getCards }: PaginationProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const page = searchParams.get('page');
+    if (page) {
+      setCurrentPage(Number(page));
+    }
+  }, [searchParams]);
 
   const handlerClick = async (pageNumber: number) => {
+    navigate(`${location.pathname}?page=${pageNumber}`);
     getCards({ page: String(pageNumber) });
     setCurrentPage(pageNumber);
   };

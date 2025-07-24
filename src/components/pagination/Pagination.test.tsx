@@ -5,6 +5,13 @@ import userEvent from '@testing-library/user-event';
 describe('Pagination Component Tests', () => {
   const getCards = vi.fn();
 
+  vi.mock('react-router', () => ({
+    ...vi.importActual('react-router'),
+    useNavigate: vi.fn(() => vi.fn()),
+    useLocation: vi.fn(() => ({ pathname: '/' })),
+    useSearchParams: vi.fn(() => [new URLSearchParams({ page: '1' }), vi.fn()]),
+  }));
+
   test('Render', () => {
     render(<Pagination getCards={getCards} count={10} />);
 

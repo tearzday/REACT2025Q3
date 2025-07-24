@@ -1,14 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import CardList from './CardList';
 import { dataCards } from '@/__tests__/__mocks__/MockCard';
+import { MemoryRouter } from 'react-router';
 
 vi.mock('./api/card', () => ({
   getCards: vi.fn(),
-}));
-
-vi.mock('react-router', () => ({
-  ...vi.importActual('react-router'),
-  useNavigate: vi.fn(),
 }));
 
 const cards = dataCards.cards;
@@ -16,14 +12,22 @@ const cards = dataCards.cards;
 describe('CardList Component Tests', () => {
   describe('Rendering Tests', () => {
     test('Renders correct number of items when data is provided', async () => {
-      render(<CardList isLoading={false} cards={cards} errorMessage="" />);
+      render(
+        <MemoryRouter>
+          <CardList isLoading={false} cards={cards} errorMessage="" />
+        </MemoryRouter>
+      );
 
       const cardCount = await screen.findAllByTestId('card-item');
       expect(cardCount.length).toBe(5);
     });
 
     test('Displays "no results" message when data array is empty', async () => {
-      render(<CardList isLoading={false} cards={[]} errorMessage="" />);
+      render(
+        <MemoryRouter>
+          <CardList isLoading={false} cards={[]} errorMessage="" />
+        </MemoryRouter>
+      );
 
       const emptyInfo = screen.getByText('No results');
 
@@ -31,7 +35,11 @@ describe('CardList Component Tests', () => {
     });
 
     test('Shows loading', async () => {
-      render(<CardList isLoading={true} cards={cards} errorMessage="" />);
+      render(
+        <MemoryRouter>
+          <CardList isLoading={true} cards={cards} errorMessage="" />
+        </MemoryRouter>
+      );
 
       const loader = await screen.findByTestId('loader');
 
@@ -41,7 +49,11 @@ describe('CardList Component Tests', () => {
 
   describe('Data Display Tests', () => {
     test('Correctly displays item names and descriptions', () => {
-      render(<CardList isLoading={false} cards={cards} errorMessage="" />);
+      render(
+        <MemoryRouter>
+          <CardList isLoading={false} cards={cards} errorMessage="" />
+        </MemoryRouter>
+      );
 
       const cardName = screen.getByText('Rick Sanchez');
 

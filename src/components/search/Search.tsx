@@ -3,6 +3,7 @@ import Button from '../UI/button/Button';
 import style from './Search.module.scss';
 import { useEffect, useState } from 'react';
 import type { GetCards } from '@/types';
+import { useSearchParams } from 'react-router';
 
 export type SearchProps = {
   search: (params: GetCards) => void;
@@ -10,17 +11,19 @@ export type SearchProps = {
 
 function Search({ search }: SearchProps) {
   const [value, setValue] = useState<string>('');
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const currentValue = localStorage.getItem('search-character-value') ?? '';
     setValue(currentValue);
-    search({ name: currentValue });
+    search({ name: currentValue, page: searchParams.get('page') || '1' });
   }, []);
 
   const handlerClick = () => {
+    setSearchParams('page=1');
     const trimValue = value.trimEnd();
     setValue(trimValue);
-    search({ name: trimValue });
+    search({ name: trimValue, page: '1' });
     localStorage.setItem('search-character-value', trimValue);
   };
 

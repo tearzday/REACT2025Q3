@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react';
 import style from './Details.module.scss';
 import APICard from '@/api/card';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 import type { CardInfo } from '@/types';
 import Loader from '@/components/UI/loader/Loader';
 import Button from '@/components/UI/button/Button';
 
 function DetailsPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { cardId } = useParams();
   const [info, setInfo] = useState<CardInfo>();
 
   useEffect(() => {
     APICard.getCardInfo(Number(cardId)).then((body) => {
       setInfo(body);
-      console.log(body);
     });
   }, [cardId]);
 
   const closeDetails = () => {
-    navigate('/');
+    navigate(`/?page=${searchParams.get('page')}`);
   };
 
   return (
