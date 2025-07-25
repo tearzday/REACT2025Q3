@@ -1,38 +1,18 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import HomePage from './pages/home/HomePage.tsx';
 import './styles/style.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import ErrorBoundary from './components/error-boundary/ErrorBoundary.tsx';
-import ErrorPage from './pages/error/ErrorPage.tsx';
-import AboutUsPage from './pages/about-us/AboutUsPage.tsx';
-import DetailsPage from './pages/details/Details.tsx';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <HomePage />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: ':cardId',
-        element: <DetailsPage />,
-      },
-    ],
-  },
-  {
-    path: 'about',
-    element: <AboutUsPage />,
-  },
-]);
+import router from './router/router.tsx';
 
 const root = document.getElementById('root');
+const browserRouter = createBrowserRouter(router);
 
 if (root) {
   createRoot(root).render(
     <StrictMode>
       <ErrorBoundary>
-        <RouterProvider router={router} />
+        <RouterProvider router={browserRouter} />
       </ErrorBoundary>
     </StrictMode>
   );
