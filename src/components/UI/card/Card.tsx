@@ -11,7 +11,8 @@ function Card({ info: { id, image, name } }: CardProps) {
   const [searchParams] = useSearchParams();
   const { card, card__img, card__title } = style;
 
-  const checkDetails = () => {
+  const checkDetails = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     const pageNumber = searchParams.get('page') || '1';
     navigate(`/${id}/?page=${pageNumber}`);
   };

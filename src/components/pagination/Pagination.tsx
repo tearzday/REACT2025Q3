@@ -21,7 +21,11 @@ function Pagination({ count, getCards }: PaginationProps) {
     }
   }, [searchParams]);
 
-  const handlerClick = async (pageNumber: number) => {
+  const handlerClick = async (
+    e: React.MouseEvent<HTMLDivElement>,
+    pageNumber: number
+  ) => {
+    e.stopPropagation();
     navigate(`${location.pathname}?page=${pageNumber}`);
     getCards({ page: String(pageNumber) });
     setCurrentPage(pageNumber);
@@ -34,8 +38,8 @@ function Pagination({ count, getCards }: PaginationProps) {
         return (
           <div
             data-testid="pagination-item"
-            onClick={() => {
-              handlerClick(pageNumber);
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+              handlerClick(e, pageNumber);
             }}
             className={[
               style.pagination__item,
