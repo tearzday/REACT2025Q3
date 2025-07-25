@@ -42,35 +42,37 @@ function DetailsPage() {
 
   return (
     <div className={style.details__page} data-testid="details-page">
-      {info ? (
-        <div className={style.info} style={{ height }}>
-          <img
-            className={style.img}
-            src={info.image}
-            alt={`Image ${info.name}`}
-          />
-          <div className={style.info__text}>
-            <h2 className={style.title}>{info.name}</h2>
-            <p className={style.subtitle}>
-              <b>Status:</b> {info.status}
-            </p>
-            <p className={style.subtitle}>
-              <b>Species:</b> {info.species}
-            </p>
-            <p className={style.subtitle}>
-              <b>Gender:</b> {info.gender}
-            </p>
-            <p className={style.subtitle}>
-              <b>Location:</b> {info.location.name}
-            </p>
-            <Button onClick={closeDetails} className={style.btn}>
-              Close
-            </Button>
-          </div>
-        </div>
-      ) : (
-        <Loader />
-      )}
+      <div className={style.info} style={{ height }}>
+        {info ? (
+          <>
+            <img
+              className={style.img}
+              src={info.image}
+              alt={`Image ${info.name}`}
+            />
+            <div className={style.info__text}>
+              <h2 className={style.title}>{info.name}</h2>
+              <p className={style.subtitle}>
+                <b>Status:</b> {info.status}
+              </p>
+              <p className={style.subtitle}>
+                <b>Species:</b> {info.species}
+              </p>
+              <p className={style.subtitle}>
+                <b>Gender:</b> {info.gender}
+              </p>
+              <p className={style.subtitle}>
+                <b>Location:</b> {info.location.name}
+              </p>
+              <Button onClick={closeDetails} className={style.btn}>
+                Close
+              </Button>
+            </div>
+          </>
+        ) : (
+          <Loader />
+        )}
+      </div>
     </div>
   );
 }
