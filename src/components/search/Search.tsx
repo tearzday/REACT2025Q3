@@ -4,6 +4,7 @@ import style from './Search.module.scss';
 import { useEffect, useState } from 'react';
 import type { GetCards } from '@/types';
 import { useSearchParams } from 'react-router';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 export type SearchProps = {
   search: (params: GetCards) => void;
@@ -12,11 +13,11 @@ export type SearchProps = {
 function Search({ search }: SearchProps) {
   const [value, setValue] = useState<string>('');
   const [searchParams, setSearchParams] = useSearchParams();
+  const [lsValue, setLsValue] = useLocalStorage('search-character-value');
 
   useEffect(() => {
-    const currentValue = localStorage.getItem('search-character-value') ?? '';
-    setValue(currentValue);
-    search({ name: currentValue, page: searchParams.get('page') || '1' });
+    setValue(lsValue);
+    search({ name: lsValue, page: searchParams.get('page') || '1' });
   }, []);
 
   const handlerClick = () => {
@@ -24,7 +25,7 @@ function Search({ search }: SearchProps) {
     const trimValue = value.trimEnd();
     setValue(trimValue);
     search({ name: trimValue, page: '1' });
-    localStorage.setItem('search-character-value', trimValue);
+    setLsValue(trimValue);
   };
 
   return (
