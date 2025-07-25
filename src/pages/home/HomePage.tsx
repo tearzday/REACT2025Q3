@@ -5,6 +5,7 @@ import Main from '../../components/main/Main';
 import APICard from '../../api/card';
 import style from './HomePage.module.scss';
 import { Outlet } from 'react-router';
+import Header from '@/components/header/Header';
 
 function HomePage() {
   const [cards, setCards] = useState<CardInfo[]>([]);
@@ -36,19 +37,22 @@ function HomePage() {
   };
 
   return (
-    <div className={style.home__page}>
-      <div className={style.main__content}>
-        <Search search={getCards} />
-        <Main
-          cards={cards}
-          getCards={getCards}
-          loading={loading}
-          errorMessage={errorMessage}
-          totalPages={totalPages}
-        />
+    <>
+      <Header />
+      <div className={style.home__page}>
+        <div className={style.main__content}>
+          <Search search={getCards} />
+          <Main
+            cards={cards}
+            getCards={getCards}
+            loading={loading}
+            errorMessage={errorMessage}
+            totalPages={totalPages}
+          />
+        </div>
+        <Outlet />
       </div>
-      <Outlet />
-    </div>
+    </>
   );
 }
 

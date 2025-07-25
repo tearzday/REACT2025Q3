@@ -11,12 +11,30 @@ function DetailsPage() {
   const [searchParams] = useSearchParams();
   const { cardId } = useParams();
   const [info, setInfo] = useState<CardInfo>();
+  const [height, setHeight] = useState('calc(100svh - 97.4px)');
 
   useEffect(() => {
     APICard.getCardInfo(Number(cardId)).then((body) => {
       setInfo(body);
     });
   }, [cardId]);
+
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+
+    if (scrollPosition > 100) {
+      setHeight('100vh');
+    } else {
+      setHeight('calc(100svh - 97.4px)');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const closeDetails = () => {
     navigate(`/?page=${searchParams.get('page')}`);
@@ -25,7 +43,7 @@ function DetailsPage() {
   return (
     <div className={style.details__page} data-testid="details-page">
       {info ? (
-        <div className={style.info}>
+        <div className={style.info} style={{ height }}>
           <img
             className={style.img}
             src={info.image}

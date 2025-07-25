@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import AboutUsPage from './AboutUsPage';
+import Header from './Header';
 import { MemoryRouter } from 'react-router';
 
-describe('AboutUsPage Tests', () => {
+describe('Header Component Tests', () => {
   test('Render', () => {
     render(
       <MemoryRouter>
-        <AboutUsPage />
+        <Header />
       </MemoryRouter>
     );
 
-    expect(screen.getByTestId('about-page')).toBeInTheDocument();
+    expect(screen.getByTestId('header')).toBeInTheDocument();
   });
 });
