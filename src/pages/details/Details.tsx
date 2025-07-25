@@ -42,7 +42,7 @@ function DetailsPage() {
 
   return (
     <div className={style.details__page} data-testid="details-page">
-      <div className={style.info} style={{ height }}>
+      <div className={style.info} style={{ height }} data-testid="details-info">
         {info ? (
           <>
             <img
@@ -50,7 +50,7 @@ function DetailsPage() {
               src={info.image}
               alt={`Image ${info.name}`}
             />
-            <div className={style.info__text}>
+            <div className={style.info__text} data-testid="details-info-text">
               <h2 className={style.title}>{info.name}</h2>
               <p className={style.subtitle}>
                 <b>Status:</b> {info.status}
@@ -62,7 +62,7 @@ function DetailsPage() {
                 <b>Gender:</b> {info.gender}
               </p>
               <p className={style.subtitle}>
-                <b>Location:</b> {info.location.name}
+                <b>Location:</b> {info.location ? info.location.name : '-'}
               </p>
               <Button onClick={closeDetails} className={style.btn}>
                 Close
