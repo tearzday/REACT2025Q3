@@ -1,10 +1,11 @@
 .error__page {
-  height: 100svh;
+  height: calc(100svh - 78.4px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 50px;
+  color: $color-light;
 }
 
 .container {
@@ -16,14 +17,26 @@
 
 .img {
   width: 200px;
+
+  @media (max-width: $brackpoint-md) {
+    width: 100px;
+  }
 }
 
 .title {
   font-size: $font-xxl;
+
+  @media (max-width: $brackpoint-md) {
+    font-size: $font-xl;
+  }
 }
 
 .subtitle {
   @include glass-effect;
   padding: 20px 50px;
   font-size: $font-l;
+  @media (max-width: $brackpoint-md) {
+    font-size: $font-m;
+    padding: 20px;
+  }
 }
