@@ -21,7 +21,7 @@ function Main({
   return (
     <main className={style.main} data-testid="main">
       <CardList cards={cards} isLoading={loading} errorMessage={errorMessage} />
-      <Pagination count={totalPages} getCards={getCards} />
+      {!loading && <Pagination count={totalPages} getCards={getCards} />}
     </main>
   );
 }
