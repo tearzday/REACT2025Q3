@@ -1,0 +1,19 @@
+.header {
+  padding: 20px 0px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.link {
+  @include glass-effect;
+  text-decoration: none;
+  padding: 10px 20px;
+  color: $color-light;
+  font-weight: bold;
+  cursor: pointer;
+}

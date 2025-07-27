@@ -1,65 +1,44 @@
-import { Component } from 'react';
 import Input from '../UI/input/Input';
 import Button from '../UI/button/Button';
 import style from './Search.module.scss';
-import APICard from '@/api/card';
-import type { CardInfo } from '@/types';
+import { useEffect, useState } from 'react';
+import type { GetCards } from '@/types';
+import { useSearchParams } from 'react-router';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 export type SearchProps = {
-  currentValue?: string;
-  changeErrorMessage: (message: string) => void;
-  changeCards: (cards: CardInfo[]) => void;
-  changeLoading: (loading: boolean) => void;
+  search: (params: GetCards) => void;
 };
 
-class Search extends Component<SearchProps> {
-  state = {
-    value: '',
+function Search({ search }: SearchProps) {
+  const [value, setValue] = useState<string>('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [lsValue, setLsValue] = useLocalStorage('search-character-value');
+
+  useEffect(() => {
+    setValue(lsValue);
+    search({ name: lsValue, page: searchParams.get('page') || '1' });
+  }, []);
+
+  const handlerClick = () => {
+    setSearchParams('page=1');
+    const trimValue = value.trimEnd();
+    setValue(trimValue);
+    search({ name: trimValue, page: '1' });
+    setLsValue(trimValue);
   };
 
-  componentDidMount() {
-    this.setState(
-      {
-        value: localStorage.getItem('search-character-value') ?? '',
-      },
-      () => {
-        this.searchCards();
-      }
-    );
-  }
-
-  searchCards = async () => {
-    this.props.changeLoading(true);
-    this.setState({ value: this.state.value.trimEnd() });
-    try {
-      const body = {
-        name: this.state.value,
-        page: this.state.value ? '1' : '',
-      };
-      const cards = await APICard.getCards(body);
-      this.props.changeErrorMessage('');
-      this.props.changeCards(cards);
-    } catch (e) {
-      this.props.changeErrorMessage(e instanceof Error ? e.message : String(e));
-    } finally {
-      localStorage.setItem('search-character-value', this.state.value);
-      this.props.changeLoading(false);
-    }
-  };
-
-  render() {
-    return (
-      <div className={style.search} data-testid="search">
-        <Input
-          type="text"
-          placeholder="What are you looking for?"
-          value={this.state.value}
-          onChange={(event) => this.setState({ value: event.target.value })}
-        ></Input>
-        <Button onClick={this.searchCards}>Search</Button>
-      </div>
-    );
-  }
+  return (
+    <div className={style.search} data-testid="search">
+      <Input
+        type="text"
+        placeholder="What are you looking for?"
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+      ></Input>
+      <Button onClick={handlerClick}>Search</Button>
+    </div>
+  );
 }
 
 export default Search;

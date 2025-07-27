@@ -3,19 +3,18 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 describe('Test Search Component', () => {
-  const changeLoading = vi.fn();
-  const changeCards = vi.fn();
-  const changeErrorMessage = vi.fn();
+  const searchCards = vi.fn();
+
+  vi.mock('react-router', () => ({
+    ...vi.importActual('react-router'),
+    useNavigate: vi.fn(),
+    useLocation: vi.fn(),
+    useSearchParams: vi.fn(() => [new URLSearchParams({ page: '1' }), vi.fn()]),
+  }));
 
   describe('Rendering Tests', () => {
     test('Renders search input and search button', () => {
-      render(
-        <Search
-          changeCards={changeCards}
-          changeLoading={changeLoading}
-          changeErrorMessage={changeErrorMessage}
-        />
-      );
+      render(<Search search={searchCards} />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       const btn = screen.getByRole('button');
@@ -24,30 +23,8 @@ describe('Test Search Component', () => {
       expect(btn).toBeInTheDocument();
     });
 
-    test('Displays previously saved search term from localStorage on mount', () => {
-      localStorage.setItem('search-character-value', 'rick');
-
-      render(
-        <Search
-          changeCards={changeCards}
-          changeLoading={changeLoading}
-          changeErrorMessage={changeErrorMessage}
-        />
-      );
-
-      const input = screen.getByPlaceholderText('What are you looking for?');
-
-      expect(input).toHaveValue('rick');
-    });
-
     test('Shows empty input when no saved term exists', () => {
-      render(
-        <Search
-          changeCards={changeCards}
-          changeLoading={changeLoading}
-          changeErrorMessage={changeErrorMessage}
-        />
-      );
+      render(<Search search={searchCards} />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
 
@@ -57,13 +34,7 @@ describe('Test Search Component', () => {
 
   describe('User Interaction Tests', () => {
     test('Updates input value when user types', async () => {
-      render(
-        <Search
-          changeCards={changeCards}
-          changeLoading={changeLoading}
-          changeErrorMessage={changeErrorMessage}
-        />
-      );
+      render(<Search search={searchCards} />);
       const input = screen.getByPlaceholderText('What are you looking for?');
 
       await userEvent.type(input, 'rick');
@@ -71,14 +42,18 @@ describe('Test Search Component', () => {
       expect(input).toHaveValue('rick');
     });
 
+    test('Displays previously saved search term from localStorage on mount', () => {
+      localStorage.setItem('search-character-value', 'rick');
+
+      render(<Search search={searchCards} />);
+
+      const input = screen.getByPlaceholderText('What are you looking for?');
+
+      expect(input).toHaveValue('rick');
+    });
+
     test('Updates localStorage when input changes', async () => {
-      render(
-        <Search
-          changeCards={changeCards}
-          changeLoading={changeLoading}
-          changeErrorMessage={changeErrorMessage}
-        />
-      );
+      render(<Search search={searchCards} />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick');
@@ -95,13 +70,7 @@ describe('Test Search Component', () => {
     });
 
     test('Saves search term to localStorage when search button is clicked', async () => {
-      render(
-        <Search
-          changeCards={changeCards}
-          changeLoading={changeLoading}
-          changeErrorMessage={changeErrorMessage}
-        />
-      );
+      render(<Search search={searchCards} />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick');
@@ -115,13 +84,7 @@ describe('Test Search Component', () => {
     });
 
     test('Trims whitespace from search input before saving', async () => {
-      render(
-        <Search
-          changeCards={changeCards}
-          changeLoading={changeLoading}
-          changeErrorMessage={changeErrorMessage}
-        />
-      );
+      render(<Search search={searchCards} />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick   ');
@@ -135,13 +98,7 @@ describe('Test Search Component', () => {
     });
 
     test('Triggers search callback with correct parameters', async () => {
-      render(
-        <Search
-          changeCards={changeCards}
-          changeLoading={changeLoading}
-          changeErrorMessage={changeErrorMessage}
-        />
-      );
+      render(<Search search={searchCards} />);
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick');
 
@@ -150,8 +107,7 @@ describe('Test Search Component', () => {
       await userEvent.click(btn);
 
       await waitFor(() => {
-        expect(changeLoading).toHaveBeenCalledWith(true);
-        expect(changeCards).toHaveBeenCalled();
+        expect(searchCards).toHaveBeenCalled();
       });
     });
   });

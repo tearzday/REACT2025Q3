@@ -1,40 +1,40 @@
-import { Component } from 'react';
 import CardList from '../card-list/CardList';
-import Button from '../UI/button/Button';
-import type { CardInfo } from '@/types';
+import type { CardInfo, GetCards } from '@/types';
 import style from './Main.module.scss';
+import Pagination from '../pagination/Pagination';
+import { useNavigate, useSearchParams } from 'react-router';
 
 interface MainProps {
+  totalPages: number;
   cards: CardInfo[];
   loading: boolean;
   errorMessage: string;
+  getCards: (params: GetCards) => void;
 }
 
-class Main extends Component<MainProps> {
-  state = {
-    isError: false,
+function Main({
+  totalPages,
+  cards,
+  loading,
+  errorMessage,
+  getCards,
+}: MainProps) {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const closeDetails = () => {
+    const page = searchParams.get('page');
+    if (page) {
+      navigate(`/?page=${page}`);
+    }
   };
 
-  render() {
-    if (this.state.isError) {
-      throw new Error(
-        'Call Error (is output from the main UI using ErrorBounder)'
-      );
-    }
-
-    return (
-      <main className={style.main} data-testid="main">
-        <CardList
-          cards={this.props.cards}
-          isLoading={this.props.loading}
-          errorMessage={this.props.errorMessage}
-        />
-        <Button onClick={() => this.setState({ isError: true })}>
-          Call Error
-        </Button>
-      </main>
-    );
-  }
+  return (
+    <main className={style.main} data-testid="main" onClick={closeDetails}>
+      <CardList cards={cards} isLoading={loading} errorMessage={errorMessage} />
+      {!loading && <Pagination count={totalPages} getCards={getCards} />}
+    </main>
+  );
 }
 
 export default Main;

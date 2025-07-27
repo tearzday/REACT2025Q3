@@ -1,0 +1,12 @@
+.home__page {
+  display: flex;
+}
+
+.main__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0px 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+}

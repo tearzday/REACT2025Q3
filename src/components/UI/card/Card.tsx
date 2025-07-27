@@ -1,27 +1,29 @@
-import { Component } from 'react';
 import style from './Card.module.scss';
 import type { CardInfo } from '@/types';
+import { useNavigate, useSearchParams } from 'react-router';
+import { type MouseEvent } from 'react';
 
 export type CardProps = {
   info: CardInfo;
 };
 
-class Card extends Component<CardProps> {
-  render() {
-    const { card, card__img, card__title, card__subtitle } = style;
-    return (
-      <div data-testid="card-item" className={card}>
-        <img
-          className={card__img}
-          src={this.props.info.image}
-          alt={`Image ${this.props.info.name}`}
-        />
-        <h3 className={card__title}>{this.props.info.name}</h3>
-        <h4 className={card__subtitle}>Species: {this.props.info.species}</h4>
-        <h4 className={card__subtitle}>Gender: {this.props.info.gender}</h4>
-      </div>
-    );
-  }
+function Card({ info: { id, image, name } }: CardProps) {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { card, card__img, card__title } = style;
+
+  const checkDetails = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    const pageNumber = searchParams.get('page') || '1';
+    navigate(`details/${id}/?page=${pageNumber}`);
+  };
+
+  return (
+    <div data-testid="card-item" className={card} onClick={checkDetails}>
+      <img className={card__img} src={image} alt={`Image ${name}`} />
+      <h3 className={card__title}>{name}</h3>
+    </div>
+  );
 }
 
 export default Card;
