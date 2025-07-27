@@ -25,7 +25,7 @@ describe('Router Test', () => {
 
   test('Home Page and Detail Page', () => {
     const route = createMemoryRouter(router, {
-      initialEntries: ['/1'],
+      initialEntries: ['/details/1'],
     });
 
     render(<RouterProvider router={route} />);
