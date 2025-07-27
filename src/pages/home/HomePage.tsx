@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Search from '../../components/search/Search';
-import type { APIData, CardInfo, GetCards } from '../../types';
-import Main from '../../components/main/Main';
-import APICard from '../../api/card';
+import Search from '@/components/search/Search';
+import type { APIData, CardInfo, GetCards } from '@/types';
+import Main from '@/components/main/Main';
+import APICard from '@/api/card';
 import style from './HomePage.module.scss';
 import { Outlet } from 'react-router';
 import Header from '@/components/header/Header';

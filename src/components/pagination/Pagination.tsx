@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import style from './Pagination.module.scss';
 import type { GetCards } from '@/types';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
@@ -22,7 +22,7 @@ function Pagination({ count, getCards }: PaginationProps) {
   }, [searchParams]);
 
   const handlerClick = async (
-    e: React.MouseEvent<HTMLDivElement>,
+    e: MouseEvent<HTMLDivElement>,
     pageNumber: number
   ) => {
     e.stopPropagation();
@@ -38,7 +38,7 @@ function Pagination({ count, getCards }: PaginationProps) {
         return (
           <div
             data-testid="pagination-item"
-            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+            onClick={(e: MouseEvent<HTMLDivElement>) => {
               handlerClick(e, pageNumber);
             }}
             className={[

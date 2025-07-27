@@ -1,6 +1,7 @@
 import style from './Card.module.scss';
 import type { CardInfo } from '@/types';
 import { useNavigate, useSearchParams } from 'react-router';
+import { type MouseEvent } from 'react';
 
 export type CardProps = {
   info: CardInfo;
@@ -11,10 +12,10 @@ function Card({ info: { id, image, name } }: CardProps) {
   const [searchParams] = useSearchParams();
   const { card, card__img, card__title } = style;
 
-  const checkDetails = (e: React.MouseEvent<HTMLDivElement>) => {
+  const checkDetails = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     const pageNumber = searchParams.get('page') || '1';
-    navigate(`/${id}/?page=${pageNumber}`);
+    navigate(`details/${id}/?page=${pageNumber}`);
   };
 
   return (
