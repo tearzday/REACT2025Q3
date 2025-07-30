@@ -1,7 +1,8 @@
-import { useEffect, useState, type MouseEvent } from 'react';
+import { useContext, useEffect, useState, type MouseEvent } from 'react';
 import style from './Pagination.module.scss';
 import type { GetCards } from '@/types';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
+import ThemeContext from '@/context';
 
 interface PaginationProps {
   count: number;
@@ -13,6 +14,7 @@ function Pagination({ count, getCards }: PaginationProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const page = searchParams.get('page');
@@ -43,7 +45,14 @@ function Pagination({ count, getCards }: PaginationProps) {
             }}
             className={[
               style.pagination__item,
-              pageNumber === currentPage ? style.active : '',
+              theme === 'dark'
+                ? style.pagination__item__dark
+                : style.pagination__item__light,
+              pageNumber === currentPage
+                ? theme === 'dark'
+                  ? style.active__dark
+                  : style.active__light
+                : '',
             ].join(' ')}
             key={pageNumber}
           >

@@ -3,7 +3,15 @@
   cursor: pointer;
   border: none;
   border-radius: $radius-m;
-  background-color: $color-light;
-  color: $color-dark;
   padding: 10px 0;
+
+  &__dark {
+    background-color: $color-dark;
+    color: $color-light;
+  }
+
+  &__light {
+    background-color: $color-light;
+    color: $color-dark;
+  }
 }

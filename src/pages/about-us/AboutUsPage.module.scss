@@ -4,7 +4,7 @@
   gap: 20px;
   align-items: center;
   justify-content: center;
-  color: $color-light;
+  // color: $color-light;
 
   @media (max-width: $brackpoint-sm) {
     flex-direction: column;
@@ -21,6 +21,10 @@
   @include glass-effect;
 }
 
-.link {
+.link__light {
   color: $color-light;
+}
+
+.link__dark {
+  color: $color-dark;
 }

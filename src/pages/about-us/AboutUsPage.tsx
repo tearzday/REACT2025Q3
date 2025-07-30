@@ -1,10 +1,16 @@
 import Header from '@/components/header/Header';
 import style from './AboutUsPage.module.scss';
 import { Link } from 'react-router';
+import { useContext } from 'react';
+import ThemeContext from '@/context';
 
 function AboutUsPage() {
+  const { theme } = useContext(ThemeContext);
+
+  const classNameLink = theme === 'dark' ? style.link__dark : style.link__light;
+
   return (
-    <>
+    <div className={theme}>
       <Header />
       <div className={style.about__page} data-testid="about-page">
         <div className={style.card}>
@@ -20,7 +26,7 @@ function AboutUsPage() {
           </p>
           <p>
             <b>GitHub:</b>{' '}
-            <Link className={style.link} to="https://github.com/tearzday">
+            <Link className={classNameLink} to="https://github.com/tearzday">
               tearzday
             </Link>
           </p>
@@ -29,19 +35,22 @@ function AboutUsPage() {
           <h2>RS School</h2>
           <p>
             <b>Course:</b>{' '}
-            <Link className={style.link} to="https://rs.school/courses/reactjs">
+            <Link
+              className={classNameLink}
+              to="https://rs.school/courses/reactjs"
+            >
               Click
             </Link>
           </p>
           <p>
             <b>Docs:</b>{' '}
-            <Link className={style.link} to="https://rs.school/docs/en">
+            <Link className={classNameLink} to="https://rs.school/docs/en">
               Click
             </Link>
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

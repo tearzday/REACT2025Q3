@@ -4,6 +4,24 @@
   padding: 10px;
   width: 100%;
   border-radius: $radius-m;
-  background-color: $color-light;
-  color: $color-dark;
+
+  &::placeholder {
+    opacity: 0.5;
+  }
+
+  &__light {
+    background-color: $color-light;
+    color: $color-dark;
+    &::placeholder {
+      color: $color-dark;
+    }
+  }
+
+  &__dark {
+    background-color: $color-dark;
+    color: $color-light;
+    &::placeholder {
+      color: $color-light;
+    }
+  }
 }

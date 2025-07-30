@@ -1,9 +1,12 @@
 import Header from '@/components/header/Header';
 import style from './ErrorPage.module.scss';
+import { useContext } from 'react';
+import ThemeContext from '@/context';
 
 function ErrorPage() {
+  const { theme } = useContext(ThemeContext);
   return (
-    <>
+    <div className={theme}>
       <Header />
       <div className={style.error__page}>
         <div className={style.container}>
@@ -17,7 +20,7 @@ function ErrorPage() {
         </div>
         <h4 className={style.subtitle}>Oops! This page doesn&apos;t exist.</h4>
       </div>
-    </>
+    </div>
   );
 }
 

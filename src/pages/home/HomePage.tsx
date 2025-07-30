@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Search from '@/components/search/Search';
 import type { APIData, CardInfo, GetCards } from '@/types';
 import Main from '@/components/main/Main';
@@ -6,6 +6,7 @@ import APICard from '@/api/card';
 import style from './HomePage.module.scss';
 import { Outlet } from 'react-router';
 import Header from '@/components/header/Header';
+import ThemeContext from '@/context';
 
 function HomePage() {
   const [cards, setCards] = useState<CardInfo[]>([]);
@@ -13,6 +14,7 @@ function HomePage() {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [totalPages, setTotalPages] = useState<number>(10);
   const [name, setName] = useState<string>('');
+  const { theme } = useContext(ThemeContext);
 
   const getCards = async (params: GetCards) => {
     setLoading(true);
@@ -37,7 +39,7 @@ function HomePage() {
   };
 
   return (
-    <>
+    <div className={theme}>
       <Header />
       <div className={style.home__page}>
         <div className={style.main__content}>
@@ -52,7 +54,7 @@ function HomePage() {
         </div>
         <Outlet />
       </div>
-    </>
+    </div>
   );
 }
 
