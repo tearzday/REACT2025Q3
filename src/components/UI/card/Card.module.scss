@@ -1,7 +1,7 @@
 .card {
   @include glass-effect;
   width: 250px;
-  padding: 20px;
+  padding: 25px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -10,5 +10,13 @@
     width: 200px;
     border-radius: $radius-m;
     margin-bottom: 20px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 5px;
   }
 }
