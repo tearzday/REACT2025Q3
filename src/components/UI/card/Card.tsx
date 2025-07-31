@@ -29,7 +29,7 @@ function Card({ info }: CardProps) {
 
   return (
     <div data-testid="card-item" className={card} onClick={checkDetails}>
-      <img className={card__img} src={info.image} alt={`Image ${name}`} />
+      <img className={card__img} src={info.image} alt={`Image ${info.name}`} />
       <div className={card__info}>
         <h3 className={card__title}>{info.name}</h3>
         <Checkbox

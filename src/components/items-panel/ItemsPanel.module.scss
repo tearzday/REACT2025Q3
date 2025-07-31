@@ -1,0 +1,27 @@
+.panel {
+  @include glass-effect;
+  padding: 10px;
+  width: 150px;
+  z-index: 99;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+
+  &__title {
+    font-size: $font-s;
+    font-weight: 400;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  &__controllers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__btn {
+    min-width: auto;
+    font-size: $font-s;
+  }
+}

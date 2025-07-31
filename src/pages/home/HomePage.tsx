@@ -7,6 +7,7 @@ import style from './HomePage.module.scss';
 import { Outlet } from 'react-router';
 import Header from '@/components/header/Header';
 import ThemeContext from '@/context';
+import ItemsPanel from '@/components/items-panel/ItemsPanel';
 
 function HomePage() {
   const [cards, setCards] = useState<CardInfo[]>([]);
@@ -53,6 +54,7 @@ function HomePage() {
           />
         </div>
         <Outlet />
+        <ItemsPanel />
       </div>
     </div>
   );

@@ -11,7 +11,6 @@ interface CheckboxProps {
 function Checkbox({ checked, onChecked, onUnchecked }: CheckboxProps) {
   const [isChecked, setIsChecked] = useState(!!checked);
 
-  console.log(isChecked);
   const { theme } = useContext(ThemeContext);
 
   const checkboxChange = (e: ChangeEvent<HTMLInputElement>) => {
