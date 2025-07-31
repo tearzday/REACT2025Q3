@@ -1,0 +1,43 @@
+.checkbox {
+  border-radius: $radius-xl;
+  appearance: none;
+  position: relative;
+  min-width: 20px;
+  min-height: 20px;
+  transition: $transition;
+  cursor: pointer;
+
+  &:checked {
+    &::after {
+      content: '\2717';
+    }
+  }
+
+  &::after {
+    content: '\002B';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__light {
+    background-color: $color-light;
+    color: $color-dark;
+
+    &:checked {
+      background-color: $color-dark;
+      color: $color-light;
+    }
+  }
+
+  &__dark {
+    background-color: $color-dark;
+    color: $color-light;
+
+    &:checked {
+      background-color: $color-light;
+      color: $color-dark;
+    }
+  }
+}
