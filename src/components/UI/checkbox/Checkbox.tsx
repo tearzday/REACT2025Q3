@@ -12,7 +12,6 @@ function Checkbox({ checked, onChecked, onUnchecked }: CheckboxProps) {
   const { theme } = useContext(ThemeContext);
 
   const checkboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(checked);
     e.stopPropagation();
 
     if (!checked) {

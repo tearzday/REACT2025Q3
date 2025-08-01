@@ -8,6 +8,7 @@ import { Outlet } from 'react-router';
 import Header from '@/components/header/Header';
 import ThemeContext from '@/context';
 import ItemsPanel from '@/components/items-panel/ItemsPanel';
+import useSelectedItems from '@/store/selectedItems';
 
 function HomePage() {
   const [cards, setCards] = useState<CardInfo[]>([]);
@@ -16,6 +17,7 @@ function HomePage() {
   const [totalPages, setTotalPages] = useState<number>(10);
   const [name, setName] = useState<string>('');
   const { theme } = useContext(ThemeContext);
+  const itemsCount = useSelectedItems((state) => state.itemsCount);
 
   const getCards = async (params: GetCards) => {
     setLoading(true);
@@ -54,7 +56,7 @@ function HomePage() {
           />
         </div>
         <Outlet />
-        <ItemsPanel />
+        {itemsCount > 0 && <ItemsPanel />}
       </div>
     </div>
   );
