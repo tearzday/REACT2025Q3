@@ -11,7 +11,11 @@ function ColorSwitch() {
   };
 
   return (
-    <div className={style.color__switch} onClick={toggleThem}>
+    <div
+      className={style.color__switch}
+      onClick={toggleThem}
+      data-testid="color-switch"
+    >
       <img
         src={
           theme === 'dark'
