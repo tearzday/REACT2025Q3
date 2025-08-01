@@ -12,10 +12,13 @@ export type CardProps = {
 function Card({ info }: CardProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const items = useSelectedItems((state) => state.items);
+
   const { card, card__img, card__info, card__title } = style;
 
   const addItem = useSelectedItems((state) => state.addItem);
   const deleteItem = useSelectedItems((state) => state.deleteItem);
+  const isChecked = items.some((item) => item.id === info.id);
 
   const checkDetails = (e: MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
@@ -33,6 +36,7 @@ function Card({ info }: CardProps) {
       <div className={card__info}>
         <h3 className={card__title}>{info.name}</h3>
         <Checkbox
+          checked={isChecked}
           onChecked={() => {
             addItem(info);
           }}

@@ -1,24 +1,21 @@
-import { useContext, useState, type ChangeEvent } from 'react';
+import { useContext, type ChangeEvent } from 'react';
 import style from './Checkbox.module.scss';
 import ThemeContext from '@/context';
 
 interface CheckboxProps {
   onChecked: () => void;
   onUnchecked: () => void;
-  checked?: boolean;
+  checked: boolean;
 }
 
 function Checkbox({ checked, onChecked, onUnchecked }: CheckboxProps) {
-  const [isChecked, setIsChecked] = useState(!!checked);
-
   const { theme } = useContext(ThemeContext);
 
   const checkboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(checked);
     e.stopPropagation();
-    const currenIsChecked = !isChecked;
-    setIsChecked(currenIsChecked);
 
-    if (currenIsChecked) {
+    if (!checked) {
       onChecked();
     } else {
       onUnchecked();
