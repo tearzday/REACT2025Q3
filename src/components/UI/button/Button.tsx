@@ -1,5 +1,6 @@
-import { type ReactNode } from 'react';
+import { useContext, type ReactNode } from 'react';
 import style from './Button.module.scss';
+import ThemeContext from '@/context';
 
 export type ButtonProps = {
   children: ReactNode;
@@ -9,11 +10,17 @@ export type ButtonProps = {
 };
 
 function Button({ children, onClick, disabled, className }: ButtonProps) {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={[className, style.button].join(' ')}
+      className={[
+        className,
+        style.button,
+        theme === 'dark' ? style.button__dark : style.button__light,
+      ].join(' ')}
     >
       {children}
     </button>

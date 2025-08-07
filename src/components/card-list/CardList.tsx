@@ -23,7 +23,9 @@ function CardList({ cards, isLoading, errorMessage }: CardListProps) {
       {isLoading ? (
         <Loader />
       ) : (
-        cards.map((info) => <Card info={info} key={info.id} />)
+        cards.map((info) => {
+          return <Card info={info} key={info.id} />;
+        })
       )}
     </div>
   );

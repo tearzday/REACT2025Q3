@@ -12,15 +12,26 @@
   width: 30px;
   height: 30px;
   @include glass-effect;
-  color: $color-light;
   cursor: pointer;
   transition: $transition;
 
-  &:hover {
-    background-color: $color-dark;
+  &__light {
+    &:hover {
+      background-color: $color-dark;
+    }
+  }
+
+  &__dark {
+    &:hover {
+      background-color: $color-light;
+    }
   }
 }
 
-.active {
+.active__light {
   background-color: $color-dark;
+}
+
+.active__dark {
+  background-color: $color-light;
 }

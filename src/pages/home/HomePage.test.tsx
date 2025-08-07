@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import HomePage from './HomePage';
 import { MemoryRouter } from 'react-router';
+import ThemeContext from '@/context';
+import { dataCard, mockUseSelectedItems } from '@/__tests__/__mocks__/MockCard';
 
 describe('Tests HomePage Component', () => {
   test('Render HomePage', () => {
@@ -15,5 +17,32 @@ describe('Tests HomePage Component', () => {
 
     expect(searchComponent).toBeInTheDocument();
     expect(main).toBeInTheDocument();
+  });
+
+  test('Check color them', async () => {
+    const mockSetTheme = vi.fn();
+    const mockValue = { theme: 'dark', setTheme: mockSetTheme };
+
+    const { container } = render(
+      <ThemeContext value={mockValue}>
+        <MemoryRouter>
+          <HomePage />
+        </MemoryRouter>
+      </ThemeContext>
+    );
+
+    expect(container.firstChild).toHaveClass(mockValue.theme);
+  });
+
+  test('View ItemsPanel', () => {
+    mockUseSelectedItems().addItem(dataCard);
+
+    render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByTestId('items-panel')).toBeInTheDocument();
   });
 });

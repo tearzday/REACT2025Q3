@@ -1,3 +1,5 @@
+import useSelectedItems from '@/store/selectedItems';
+
 export const dataCards = {
   total: 1,
   cards: [
@@ -70,3 +72,5 @@ export const dataCard = {
     name: 'Citadel of Ricks',
   },
 };
+
+export const mockUseSelectedItems = () => useSelectedItems.getState();

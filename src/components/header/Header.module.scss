@@ -1,19 +1,36 @@
 .header {
-  padding: 20px 0px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
   gap: 30px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .link {
   @include glass-effect;
   text-decoration: none;
   padding: 10px 20px;
-  color: $color-light;
   font-weight: bold;
   cursor: pointer;
+
+  &__light {
+    color: $color-light;
+  }
+  &__dark {
+    color: $color-dark;
+  }
 }

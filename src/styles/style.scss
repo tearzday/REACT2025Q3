@@ -7,12 +7,22 @@
 
 body {
   font-family: $font-stack;
-  background: url('/img/bg.svg') no-repeat center/cover;
   letter-spacing: 1px;
-  min-height: 100svh;
 }
 
 .active {
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.5;
+}
+
+.light {
+  background: url('/img/bg-light.svg') no-repeat center/cover;
+  min-height: 100svh;
+  color: $color-light !important;
+}
+
+.dark {
+  background: url('/img/bg-dark.svg') no-repeat center/cover;
+  min-height: 100svh;
+  color: $color-dark !important;
 }
