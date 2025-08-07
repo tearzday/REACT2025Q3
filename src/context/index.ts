@@ -1,8 +1,8 @@
-import { createContext } from 'react';
+import { createContext, type Dispatch, type SetStateAction } from 'react';
 
 interface ThemeContextType {
   theme: string;
-  setTheme: React.Dispatch<React.SetStateAction<string>>;
+  setTheme: Dispatch<SetStateAction<string>>;
 }
 
 const ThemeContext = createContext<ThemeContextType>({

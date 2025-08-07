@@ -73,4 +73,4 @@ export const dataCard = {
   },
 };
 
-export const seletedItems = () => useSelectedItems.getState();
+export const mockUseSelectedItems = () => useSelectedItems.getState();

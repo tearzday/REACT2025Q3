@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import HomePage from './HomePage';
 import { MemoryRouter } from 'react-router';
 import ThemeContext from '@/context';
-import { dataCard, seletedItems } from '@/__tests__/__mocks__/MockCard';
+import { dataCard, mockUseSelectedItems } from '@/__tests__/__mocks__/MockCard';
 
 describe('Tests HomePage Component', () => {
   test('Render HomePage', () => {
@@ -35,7 +35,7 @@ describe('Tests HomePage Component', () => {
   });
 
   test('View ItemsPanel', () => {
-    seletedItems().addItem(dataCard);
+    mockUseSelectedItems().addItem(dataCard);
 
     render(
       <MemoryRouter>

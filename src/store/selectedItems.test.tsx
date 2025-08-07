@@ -1,19 +1,24 @@
 import {
   dataCard,
   dataCards,
-  seletedItems,
+  mockUseSelectedItems,
 } from '@/__tests__/__mocks__/MockCard';
+import {
+  addSelectedItem,
+  deleteSelectedItem,
+  selectItemsCount,
+} from './selectedItems';
 
 describe('Test useSelectedItems', () => {
   beforeEach(() => {
-    seletedItems().clear();
+    mockUseSelectedItems().clear();
   });
 
   test('Add item', () => {
-    seletedItems().addItem(dataCard);
+    addSelectedItem(mockUseSelectedItems())(dataCard);
 
-    expect(seletedItems().itemsCount).toBe(1);
-    expect(seletedItems().items).toEqual([dataCard]);
+    expect(selectItemsCount(mockUseSelectedItems())).toBe(1);
+    expect(mockUseSelectedItems().items).toEqual([dataCard]);
   });
 
   test('Delete item', () => {
@@ -21,21 +26,21 @@ describe('Test useSelectedItems', () => {
     const cardsCount = cards.length;
 
     for (let i = 0; i < cardsCount; i++) {
-      seletedItems().addItem(cards[i]);
+      addSelectedItem(mockUseSelectedItems())(cards[i]);
     }
 
-    expect(seletedItems().itemsCount).toBe(cardsCount);
+    expect(selectItemsCount(mockUseSelectedItems())).toBe(cardsCount);
 
-    seletedItems().deleteItem(cards[0].id);
+    deleteSelectedItem(mockUseSelectedItems())(cards[0].id);
 
-    expect(seletedItems().itemsCount).toBe(cardsCount - 1);
+    expect(selectItemsCount(mockUseSelectedItems())).toBe(cardsCount - 1);
 
     cards.shift();
-    expect(seletedItems().items).toEqual(cards);
+    expect(mockUseSelectedItems().items).toEqual(cards);
 
-    seletedItems().clear();
+    mockUseSelectedItems().clear();
 
-    expect(seletedItems().itemsCount).toBe(0);
-    expect(seletedItems().items).toEqual([]);
+    expect(selectItemsCount(mockUseSelectedItems())).toBe(0);
+    expect(mockUseSelectedItems().items).toEqual([]);
   });
 });

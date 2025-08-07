@@ -1,4 +1,7 @@
-import { dataCards, seletedItems } from '@/__tests__/__mocks__/MockCard';
+import {
+  dataCards,
+  mockUseSelectedItems,
+} from '@/__tests__/__mocks__/MockCard';
 import ItemsPanel from './ItemsPanel';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -13,9 +16,9 @@ describe('Test ItemsPanel', () => {
   });
 
   beforeEach(() => {
-    seletedItems().clear();
+    mockUseSelectedItems().clear();
     for (let i = 0; i < cardsCount; i++) {
-      seletedItems().addItem(cards[i]);
+      mockUseSelectedItems().addItem(cards[i]);
     }
   });
 

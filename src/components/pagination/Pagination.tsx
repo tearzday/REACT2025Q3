@@ -23,10 +23,7 @@ function Pagination({ count, getCards }: PaginationProps) {
     }
   }, [searchParams]);
 
-  const handlerClick = async (
-    e: MouseEvent<HTMLDivElement>,
-    pageNumber: number
-  ) => {
+  const handlerClick = (e: MouseEvent<HTMLDivElement>, pageNumber: number) => {
     e.stopPropagation();
     navigate(`${location.pathname}?page=${pageNumber}`);
     getCards({ page: String(pageNumber) });

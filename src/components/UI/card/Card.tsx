@@ -3,7 +3,11 @@ import type { CardInfo } from '@/types';
 import { useNavigate, useSearchParams } from 'react-router';
 import { type MouseEvent } from 'react';
 import Checkbox from '../checkbox/Checkbox';
-import useSelectedItems from '@/store/selectedItems';
+import useSelectedItems, {
+  addSelectedItem,
+  deleteSelectedItem,
+  selectedItems,
+} from '@/store/selectedItems';
 
 export type CardProps = {
   info: CardInfo;
@@ -12,12 +16,12 @@ export type CardProps = {
 function Card({ info }: CardProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const items = useSelectedItems((state) => state.items);
+  const items = useSelectedItems(selectedItems);
+  const addItem = useSelectedItems(addSelectedItem);
+  const deleteItem = useSelectedItems(deleteSelectedItem);
 
   const { card, card__img, card__info, card__title } = style;
 
-  const addItem = useSelectedItems((state) => state.addItem);
-  const deleteItem = useSelectedItems((state) => state.deleteItem);
   const isChecked = items.some((item) => item.id === info.id);
 
   const checkDetails = (e: MouseEvent<HTMLElement>) => {

@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import Card from './Card';
-import { dataCard, seletedItems } from '@/__tests__/__mocks__/MockCard';
+import { dataCard, mockUseSelectedItems } from '@/__tests__/__mocks__/MockCard';
 import userEvent from '@testing-library/user-event';
+import { selectItemsCount } from '@/store/selectedItems';
 
 const navigate = vi.fn();
 
@@ -35,8 +36,8 @@ describe('Card Component Tests', () => {
     expect(checkbox).not.toBeChecked();
     await userEvent.click(checkbox);
 
-    expect(seletedItems().itemsCount).toBe(1);
-    expect(seletedItems().items).toEqual([dataCard]);
+    expect(selectItemsCount(mockUseSelectedItems())).toBe(1);
+    expect(mockUseSelectedItems().items).toEqual([dataCard]);
     expect(checkbox).toBeChecked();
   });
 });

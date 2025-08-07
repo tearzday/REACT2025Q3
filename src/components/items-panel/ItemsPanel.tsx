@@ -1,4 +1,8 @@
-import useSelectedItems from '@/store/selectedItems';
+import useSelectedItems, {
+  clearSelectedItem,
+  selectedItems,
+  selectItemsCount,
+} from '@/store/selectedItems';
 import Button from '../UI/button/Button';
 import style from './ItemsPanel.module.scss';
 import { useRef, useState } from 'react';
@@ -7,9 +11,9 @@ function ItemsPanel() {
   const [downloadUrl, setDownloadUrl] = useState('');
   const downloadRef = useRef<HTMLAnchorElement | null>(null);
 
-  const itemsCount = useSelectedItems((state) => state.itemsCount);
-  const clear = useSelectedItems((state) => state.clear);
-  const items = useSelectedItems((state) => state.items);
+  const items = useSelectedItems(selectedItems);
+  const itemsCount = useSelectedItems(selectItemsCount);
+  const clearItems = useSelectedItems(clearSelectedItem);
 
   const handleDownload = () => {
     const content = items.map(
@@ -36,7 +40,7 @@ function ItemsPanel() {
     <div className={style.panel} data-testid="items-panel">
       <h4 className={style.panel__title}>{itemsCount} items are selected</h4>
       <div className={style.panel__controllers}>
-        <Button className={style.panel__btn} onClick={clear}>
+        <Button className={style.panel__btn} onClick={clearItems}>
           Unselect all
         </Button>
         <Button className={style.panel__btn} onClick={handleDownload}>
