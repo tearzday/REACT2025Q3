@@ -2,30 +2,30 @@ import Input from '../UI/input/Input';
 import Button from '../UI/button/Button';
 import style from './Search.module.scss';
 import { useEffect, useState } from 'react';
-import type { GetCards } from '@/types';
-import { useSearchParams } from 'react-router';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import useGetCards from '@/hooks/useGetCards';
+import useAppStore from '@/store/app';
 
-export type SearchProps = {
-  search: (params: GetCards) => void;
-};
-
-function Search({ search }: SearchProps) {
+function Search() {
   const [value, setValue] = useState<string>('');
-  const [searchParams, setSearchParams] = useSearchParams();
   const [lsValue, setLsValue] = useLocalStorage('search-character-value');
+
+  const currentPage = useAppStore((state) => state.currentPage);
+  const currentSearch = useAppStore((state) => state.currentSearch);
+  const setCurrentSearch = useAppStore((state) => state.setCurrentSearch);
+
+  useGetCards({ page: String(currentPage), name: currentSearch });
 
   useEffect(() => {
     setValue(lsValue);
-    search({ name: lsValue, page: searchParams.get('page') || '1' });
+    setCurrentSearch(lsValue);
   }, []);
 
   const handlerClick = () => {
-    setSearchParams('page=1');
     const trimValue = value.trimEnd();
     setValue(trimValue);
-    search({ name: trimValue, page: '1' });
     setLsValue(trimValue);
+    setCurrentSearch(trimValue);
   };
 
   return (

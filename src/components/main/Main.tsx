@@ -1,24 +1,9 @@
 import CardList from '../card-list/CardList';
-import type { CardInfo, GetCards } from '@/types';
 import style from './Main.module.scss';
 import Pagination from '../pagination/Pagination';
 import { useNavigate, useSearchParams } from 'react-router';
 
-interface MainProps {
-  totalPages: number;
-  cards: CardInfo[];
-  loading: boolean;
-  errorMessage: string;
-  getCards: (params: GetCards) => void;
-}
-
-function Main({
-  totalPages,
-  cards,
-  loading,
-  errorMessage,
-  getCards,
-}: MainProps) {
+function Main() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -31,8 +16,8 @@ function Main({
 
   return (
     <main className={style.main} data-testid="main" onClick={closeDetails}>
-      <CardList cards={cards} isLoading={loading} errorMessage={errorMessage} />
-      {!loading && <Pagination count={totalPages} getCards={getCards} />}
+      <CardList />
+      <Pagination />
     </main>
   );
 }

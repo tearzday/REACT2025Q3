@@ -2,16 +2,20 @@ import Card from '../UI/card/Card';
 import style from './CardList.module.scss';
 import Loader from '../UI/loader/Loader';
 import type { CardInfo } from '@/types';
+import useGetCards from '@/hooks/useGetCards';
+import useAppStore from '@/store/app';
 
-export type CardListProps = {
-  cards: CardInfo[];
-  isLoading: boolean;
-  errorMessage: string;
-};
+function CardList() {
+  const currentPage = useAppStore((state) => state.currentPage);
+  const currentSearch = useAppStore((state) => state.currentSearch);
 
-function CardList({ cards, isLoading, errorMessage }: CardListProps) {
-  if (errorMessage) {
-    return <p className={style.error}>{errorMessage}</p>;
+  const { cards, isPending, error } = useGetCards({
+    name: currentSearch,
+    page: String(currentPage),
+  });
+
+  if (error) {
+    return <p className={style.error}>{error.message}</p>;
   }
 
   if (!cards.length) {
@@ -20,10 +24,10 @@ function CardList({ cards, isLoading, errorMessage }: CardListProps) {
 
   return (
     <div className={style.card__list}>
-      {isLoading ? (
+      {isPending ? (
         <Loader />
       ) : (
-        cards.map((info) => {
+        cards.map((info: CardInfo) => {
           return <Card info={info} key={info.id} />;
         })
       )}
