@@ -1,23 +1,16 @@
 import { useEffect, useState } from 'react';
 import style from './Details.module.scss';
-import APICard from '@/api/card';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
-import type { CardInfo } from '@/types';
 import Loader from '@/components/UI/loader/Loader';
 import Button from '@/components/UI/button/Button';
+import useGetCardInfo from '@/hooks/useGetCardInfo';
 
 function DetailsPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { cardId } = useParams();
-  const [info, setInfo] = useState<CardInfo>();
   const [height, setHeight] = useState('calc(100svh - 97.4px)');
-
-  useEffect(() => {
-    APICard.getCardInfo(Number(cardId)).then((body) => {
-      setInfo(body);
-    });
-  }, [cardId]);
+  const { data: info } = useGetCardInfo(cardId || '1');
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;

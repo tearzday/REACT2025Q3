@@ -37,8 +37,8 @@ const APICard = {
     return result;
   },
 
-  async getCardInfo(id: number) {
-    const url = this.baseUrl + '/' + id;
+  async getCardInfo(id: string) {
+    const url = this.baseUrl + id;
     const response = await fetch(url);
     const data = await response.json();
 
