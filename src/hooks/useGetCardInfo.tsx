@@ -7,6 +7,7 @@ const useGetCardInfo = (id?: string) => {
     queryFn: () => APICard.getCardInfo(id || '1'),
     staleTime: 1000 * 60 * 5,
     enabled: !!id,
+    retry: false,
   });
 
   return {

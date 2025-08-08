@@ -19,16 +19,9 @@ const APICard = {
     const data = await response.json();
 
     if (!response.ok) {
-      if (data.error === 'There is nothing here')
-        return {
-          total: 0,
-          cards: [],
-        };
-
-      throw new Error('Something went wrong, try again another time!');
+      throw new Error(data.error);
     }
 
-    // return data
     const result: APIData = {
       total: data.info.pages,
       cards: data.results,
@@ -41,6 +34,10 @@ const APICard = {
     const url = this.baseUrl + id;
     const response = await fetch(url);
     const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
 
     return data;
   },

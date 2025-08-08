@@ -51,7 +51,7 @@ function Header() {
             refetchGetCardInfo();
           }}
         >
-          Clear cache
+          Refresh
         </Button>
       </div>
     </header>

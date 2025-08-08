@@ -17,7 +17,7 @@ function DetailsPage() {
     setCurrentDetailsId(cardId);
   }
 
-  const { data: info, isLoading } = useGetCardInfo(cardId || '1');
+  const { data: info, isLoading, error } = useGetCardInfo(cardId || '1');
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
@@ -70,6 +70,15 @@ function DetailsPage() {
               </Button>
             </div>
           </>
+        )}
+
+        {error && (
+          <div className={style.info__text}>
+            <p className={style.error}>{error.message}</p>{' '}
+            <Button onClick={closeDetails} className={style.btn}>
+              Close
+            </Button>
+          </div>
         )}
       </div>
     </div>

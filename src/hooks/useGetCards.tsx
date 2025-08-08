@@ -8,6 +8,7 @@ const useGetCards = ({ name, page }: GetCards) => {
     queryFn: () => APICard.getCards({ name, page }),
     enabled: true,
     staleTime: 1000 * 60 * 5,
+    retry: false,
   });
 
   return {

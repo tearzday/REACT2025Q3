@@ -32,7 +32,6 @@
     height: 250px !important;
     align-items: center;
     justify-content: center;
-    color: $color-dark;
   }
 }
 
@@ -54,4 +53,8 @@
   @media (max-width: $brackpoint-md) {
     margin-top: 15px;
   }
+}
+
+.error {
+  font-size: $font-m;
 }
