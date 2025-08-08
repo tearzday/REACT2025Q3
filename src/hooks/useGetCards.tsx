@@ -1,20 +1,18 @@
+import APICard from '@/api/card';
 import type { GetCards } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 
-const useGetCards = ({ name, page }: GetCards = { name: 'q', page: '1' }) => {
+const useGetCards = ({ name, page }: GetCards) => {
   const { data, isLoading, error, isPending } = useQuery({
     queryKey: ['character', name, page],
-    queryFn: () =>
-      fetch(
-        `https://rickandmortyapi.com/api/character/?page=${page}&name=${name}`
-      ).then((res) => res.json()),
+    queryFn: () => APICard.getCards({ name, page }),
   });
 
   return {
-    cards: data ? data.results : [],
-    pages: data ? data.info.pages : 1,
+    cards: data ? data.cards : [],
+    pages: data ? data.total : 0,
     isLoading,
-    error: error,
+    error,
     isPending,
   };
 };

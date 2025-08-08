@@ -11,7 +11,7 @@ const APICard = {
       url += `?name=${name}`;
     }
 
-    if (page) {
+    if (page !== 'undefined') {
       url += `${url.includes('?') ? '&' : '?'}page=${page}`;
     }
 
@@ -28,6 +28,7 @@ const APICard = {
       throw new Error('Something went wrong, try again another time!');
     }
 
+    // return data
     const result: APIData = {
       total: data.info.pages,
       cards: data.results,
