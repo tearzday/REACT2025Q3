@@ -17,7 +17,7 @@ function Pagination() {
 
   const { pages, isLoading } = useGetCards({
     name: currentSearch,
-    page: String(currentPage),
+    page: currentPage,
   });
 
   useEffect(() => {

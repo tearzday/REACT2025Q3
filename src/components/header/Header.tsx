@@ -17,7 +17,7 @@ function Header() {
 
   const { refetch: refetchGetCards } = useGetCards({
     name: currentSearch,
-    page: String(currentPage),
+    page: currentPage,
   });
 
   const { refetch: refetchGetCardInfo } = useGetCardInfo(currentDetailsId);

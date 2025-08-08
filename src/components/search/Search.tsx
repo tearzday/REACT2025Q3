@@ -14,7 +14,7 @@ function Search() {
   const currentSearch = useAppStore(search);
   const setCurrentSearch = useAppStore(changeSearch);
 
-  useGetCards({ page: String(currentPage), name: currentSearch });
+  useGetCards({ page: currentPage, name: currentSearch });
 
   useEffect(() => {
     setValue(lsValue);

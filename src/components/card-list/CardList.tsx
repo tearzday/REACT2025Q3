@@ -11,7 +11,7 @@ function CardList() {
 
   const { cards, isLoading, error } = useGetCards({
     name: currentSearch,
-    page: String(currentPage),
+    page: currentPage,
   });
 
   if (error) {
