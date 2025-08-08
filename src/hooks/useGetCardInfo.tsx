@@ -2,7 +2,7 @@ import APICard from '@/api/card';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetCardInfo = (id: string) => {
-  const { data, isLoading, error, isPending } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['character', id],
     queryFn: () => APICard.getCardInfo(id),
     staleTime: 1000 * 60 * 5,
@@ -12,7 +12,6 @@ const useGetCardInfo = (id: string) => {
     data,
     isLoading,
     error,
-    isPending,
   };
 };
 

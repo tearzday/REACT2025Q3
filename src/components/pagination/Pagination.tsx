@@ -15,7 +15,7 @@ function Pagination() {
   const setCurrentPage = useAppStore((state) => state.setCurrentPage);
   const currentSearch = useAppStore((state) => state.currentSearch);
 
-  const { pages } = useGetCards({
+  const { pages, isLoading } = useGetCards({
     name: currentSearch,
     page: String(currentPage),
   });
@@ -34,7 +34,10 @@ function Pagination() {
   };
 
   return (
-    <div className={style.pagination} data-testid="pagination">
+    <div
+      className={[style.pagination, isLoading ? style.none : ''].join(' ')}
+      data-testid="pagination"
+    >
       {Array.from({ length: pages }).map((_, index) => {
         const pageNumber = index + 1;
         return (

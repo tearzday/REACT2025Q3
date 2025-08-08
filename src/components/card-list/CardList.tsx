@@ -9,7 +9,7 @@ function CardList() {
   const currentPage = useAppStore((state) => state.currentPage);
   const currentSearch = useAppStore((state) => state.currentSearch);
 
-  const { cards, isPending, error } = useGetCards({
+  const { cards, isLoading, error } = useGetCards({
     name: currentSearch,
     page: String(currentPage),
   });
@@ -18,13 +18,13 @@ function CardList() {
     return <p className={style.error}>{error.message}</p>;
   }
 
-  if (!cards.length) {
+  if (!cards.length && !isLoading) {
     return <p className={style.error}>No results</p>;
   }
 
   return (
     <div className={style.card__list}>
-      {isPending ? (
+      {isLoading ? (
         <Loader />
       ) : (
         cards.map((info: CardInfo) => {

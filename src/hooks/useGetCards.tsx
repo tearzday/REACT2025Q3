@@ -3,7 +3,7 @@ import type { GetCards } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetCards = ({ name, page }: GetCards) => {
-  const { data, isLoading, error, isPending } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['character', name, page],
     queryFn: () => APICard.getCards({ name, page }),
     staleTime: 1000 * 60 * 5,
@@ -14,7 +14,6 @@ const useGetCards = ({ name, page }: GetCards) => {
     pages: data ? data.total : 0,
     isLoading,
     error,
-    isPending,
   };
 };
 

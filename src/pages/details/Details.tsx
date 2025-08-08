@@ -10,7 +10,7 @@ function DetailsPage() {
   const [searchParams] = useSearchParams();
   const { cardId } = useParams();
   const [height, setHeight] = useState('calc(100svh - 97.4px)');
-  const { data: info } = useGetCardInfo(cardId || '1');
+  const { data: info, isLoading } = useGetCardInfo(cardId || '1');
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
@@ -36,7 +36,8 @@ function DetailsPage() {
   return (
     <div className={style.details__page} data-testid="details-page">
       <div className={style.info} style={{ height }} data-testid="details-info">
-        {info ? (
+        {isLoading && <Loader />}
+        {info && (
           <>
             <img
               className={style.img}
@@ -62,8 +63,6 @@ function DetailsPage() {
               </Button>
             </div>
           </>
-        ) : (
-          <Loader />
         )}
       </div>
     </div>
