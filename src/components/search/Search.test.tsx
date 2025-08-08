@@ -3,8 +3,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 describe('Test Search Component', () => {
-  const searchCards = vi.fn();
-
   vi.mock('react-router', () => ({
     ...vi.importActual('react-router'),
     useNavigate: vi.fn(),
@@ -14,7 +12,7 @@ describe('Test Search Component', () => {
 
   describe('Rendering Tests', () => {
     test('Renders search input and search button', () => {
-      render(<Search search={searchCards} />);
+      render(<Search />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       const btn = screen.getByRole('button');
@@ -24,7 +22,7 @@ describe('Test Search Component', () => {
     });
 
     test('Shows empty input when no saved term exists', () => {
-      render(<Search search={searchCards} />);
+      render(<Search />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
 
@@ -34,7 +32,7 @@ describe('Test Search Component', () => {
 
   describe('User Interaction Tests', () => {
     test('Updates input value when user types', async () => {
-      render(<Search search={searchCards} />);
+      render(<Search />);
       const input = screen.getByPlaceholderText('What are you looking for?');
 
       await userEvent.type(input, 'rick');
@@ -45,7 +43,7 @@ describe('Test Search Component', () => {
     test('Displays previously saved search term from localStorage on mount', () => {
       localStorage.setItem('search-character-value', 'rick');
 
-      render(<Search search={searchCards} />);
+      render(<Search />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
 
@@ -53,7 +51,7 @@ describe('Test Search Component', () => {
     });
 
     test('Updates localStorage when input changes', async () => {
-      render(<Search search={searchCards} />);
+      render(<Search />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick');
@@ -70,7 +68,7 @@ describe('Test Search Component', () => {
     });
 
     test('Saves search term to localStorage when search button is clicked', async () => {
-      render(<Search search={searchCards} />);
+      render(<Search />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick');
@@ -84,7 +82,7 @@ describe('Test Search Component', () => {
     });
 
     test('Trims whitespace from search input before saving', async () => {
-      render(<Search search={searchCards} />);
+      render(<Search />);
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick   ');
@@ -95,20 +93,6 @@ describe('Test Search Component', () => {
       await waitFor(() =>
         expect(localStorage.getItem('search-character-value')).toBe('rick')
       );
-    });
-
-    test('Triggers search callback with correct parameters', async () => {
-      render(<Search search={searchCards} />);
-      const input = screen.getByPlaceholderText('What are you looking for?');
-      await userEvent.type(input, 'rick');
-
-      const btn = screen.getByRole('button');
-
-      await userEvent.click(btn);
-
-      await waitFor(() => {
-        expect(searchCards).toHaveBeenCalled();
-      });
     });
   });
 });
