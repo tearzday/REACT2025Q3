@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Pagination from './Pagination';
 import { ContainerQuery } from '@/__tests__/setupTests';
+import { dataCards } from '@/__tests__/__mocks__/MockCard';
 
 describe('Pagination Component Tests', () => {
   vi.mock('react-router', () => ({
@@ -8,6 +9,16 @@ describe('Pagination Component Tests', () => {
     useNavigate: vi.fn(() => vi.fn()),
     useLocation: vi.fn(() => ({ pathname: '/' })),
     useSearchParams: vi.fn(() => [new URLSearchParams({ page: '1' }), vi.fn()]),
+  }));
+
+  vi.mock('@/hooks/useGetCards', () => ({
+    default: () => ({
+      cards: dataCards.cards,
+      pages: 10,
+      isLoading: false,
+      error: null,
+      refetch: vi.fn(),
+    }),
   }));
 
   test('Render', () => {

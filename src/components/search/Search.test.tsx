@@ -1,3 +1,4 @@
+import { ContainerQuery } from '@/__tests__/setupTests';
 import Search from './Search';
 import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
@@ -12,7 +13,11 @@ describe('Test Search Component', () => {
 
   describe('Rendering Tests', () => {
     test('Renders search input and search button', () => {
-      render(<Search />);
+      render(
+        <ContainerQuery>
+          <Search />
+        </ContainerQuery>
+      );
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       const btn = screen.getByRole('button');
@@ -22,7 +27,11 @@ describe('Test Search Component', () => {
     });
 
     test('Shows empty input when no saved term exists', () => {
-      render(<Search />);
+      render(
+        <ContainerQuery>
+          <Search />
+        </ContainerQuery>
+      );
 
       const input = screen.getByPlaceholderText('What are you looking for?');
 
@@ -32,7 +41,11 @@ describe('Test Search Component', () => {
 
   describe('User Interaction Tests', () => {
     test('Updates input value when user types', async () => {
-      render(<Search />);
+      render(
+        <ContainerQuery>
+          <Search />
+        </ContainerQuery>
+      );
       const input = screen.getByPlaceholderText('What are you looking for?');
 
       await userEvent.type(input, 'rick');
@@ -43,7 +56,11 @@ describe('Test Search Component', () => {
     test('Displays previously saved search term from localStorage on mount', () => {
       localStorage.setItem('search-character-value', 'rick');
 
-      render(<Search />);
+      render(
+        <ContainerQuery>
+          <Search />
+        </ContainerQuery>
+      );
 
       const input = screen.getByPlaceholderText('What are you looking for?');
 
@@ -51,7 +68,11 @@ describe('Test Search Component', () => {
     });
 
     test('Updates localStorage when input changes', async () => {
-      render(<Search />);
+      render(
+        <ContainerQuery>
+          <Search />
+        </ContainerQuery>
+      );
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick');
@@ -68,7 +89,11 @@ describe('Test Search Component', () => {
     });
 
     test('Saves search term to localStorage when search button is clicked', async () => {
-      render(<Search />);
+      render(
+        <ContainerQuery>
+          <Search />
+        </ContainerQuery>
+      );
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick');
@@ -82,7 +107,11 @@ describe('Test Search Component', () => {
     });
 
     test('Trims whitespace from search input before saving', async () => {
-      render(<Search />);
+      render(
+        <ContainerQuery>
+          <Search />
+        </ContainerQuery>
+      );
 
       const input = screen.getByPlaceholderText('What are you looking for?');
       await userEvent.type(input, 'rick   ');
