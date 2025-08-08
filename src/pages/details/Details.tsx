@@ -4,12 +4,19 @@ import { useNavigate, useParams, useSearchParams } from 'react-router';
 import Loader from '@/components/UI/loader/Loader';
 import Button from '@/components/UI/button/Button';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
+import useAppStore from '@/store/app';
 
 function DetailsPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { cardId } = useParams();
   const [height, setHeight] = useState('calc(100svh - 97.4px)');
+  const setCurrentDetailsId = useAppStore((state) => state.setCurrentDetailsId);
+
+  if (cardId) {
+    setCurrentDetailsId(cardId);
+  }
+
   const { data: info, isLoading } = useGetCardInfo(cardId || '1');
 
   const handleScroll = () => {

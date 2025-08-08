@@ -3,8 +3,10 @@ import { create } from 'zustand';
 interface AppStore {
   currentPage: number | undefined;
   currentSearch: string | undefined;
+  currentDetailsId: string | undefined;
   setCurrentPage: (value: number) => void;
   setCurrentSearch: (value: string) => void;
+  setCurrentDetailsId: (value: string) => void;
 }
 
 const getInitialPage = () => {
@@ -15,8 +17,10 @@ const getInitialPage = () => {
 const useAppStore = create<AppStore>()((set) => ({
   currentPage: getInitialPage(),
   currentSearch: undefined,
+  currentDetailsId: undefined,
   setCurrentPage: (value) => set(() => ({ currentPage: value })),
   setCurrentSearch: (value) => set(() => ({ currentSearch: value })),
+  setCurrentDetailsId: (value) => set(() => ({ currentDetailsId: value })),
 }));
 
 export default useAppStore;
