@@ -18,10 +18,6 @@ function CardList() {
     return <p className={style.error}>{error.message}</p>;
   }
 
-  if (!cards.length) {
-    return <p className={style.error}>No results</p>;
-  }
-
   return (
     <div className={style.card__list}>
       {isLoading ? (
