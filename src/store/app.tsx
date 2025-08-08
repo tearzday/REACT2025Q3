@@ -14,9 +14,13 @@ const getInitialPage = () => {
   return Number(params.get('page')) || 1;
 };
 
+const getInitialSearch = () => {
+  return localStorage.getItem('search-character-value') || '';
+};
+
 const useAppStore = create<AppStore>()((set) => ({
   currentPage: getInitialPage(),
-  currentSearch: undefined,
+  currentSearch: getInitialSearch(),
   currentDetailsId: undefined,
   setCurrentPage: (value) => set(() => ({ currentPage: value })),
   setCurrentSearch: (value) => set(() => ({ currentSearch: value })),
