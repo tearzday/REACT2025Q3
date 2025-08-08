@@ -13,9 +13,9 @@ describe('Test API', () => {
     const successGetCards = vi
       .spyOn(APICard, 'getCards')
       .mockResolvedValue(dataCards);
-    const cards = await APICard.getCards({ name: 'rick', page: '1' });
+    const cards = await APICard.getCards({ name: 'rick', page: 1 });
 
-    expect(successGetCards).toHaveBeenCalledWith({ name: 'rick', page: '1' });
+    expect(successGetCards).toHaveBeenCalledWith({ name: 'rick', page: 1 });
 
     expect(cards).toEqual(dataCards);
     successGetCards.mockReset();
@@ -27,7 +27,7 @@ describe('Test API', () => {
       json: vi.fn().mockResolvedValue({ error: 'There is nothing here' }),
     });
 
-    await expect(APICard.getCards({ name: 'rick', page: '1' })).rejects.toThrow(
+    await expect(APICard.getCards({ name: 'rick', page: 1 })).rejects.toThrow(
       'There is nothing here'
     );
   });

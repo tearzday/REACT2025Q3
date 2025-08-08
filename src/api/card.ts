@@ -5,14 +5,10 @@ const APICard = {
 
   async getCards(params: GetCards) {
     const { name, page } = params;
-    let url = this.baseUrl;
+    let url = `${this.baseUrl}?page=${page}`;
 
     if (name) {
-      url += `?name=${name}`;
-    }
-
-    if (page !== 'undefined') {
-      url += `${url.includes('?') ? '&' : '?'}page=${page}`;
+      url += `&name=${name}`;
     }
 
     const response = await fetch(url);

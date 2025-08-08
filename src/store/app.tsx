@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 interface AppStore {
-  currentPage: number | undefined;
+  currentPage: number;
   currentSearch: string | undefined;
   currentDetailsId: string | undefined;
   setCurrentPage: (value: number) => void;
