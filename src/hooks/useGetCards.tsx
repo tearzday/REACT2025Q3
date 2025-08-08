@@ -6,6 +6,7 @@ const useGetCards = ({ name, page }: GetCards) => {
   const { data, isLoading, error, isPending } = useQuery({
     queryKey: ['character', name, page],
     queryFn: () => APICard.getCards({ name, page }),
+    staleTime: 1000 * 60 * 5,
   });
 
   return {

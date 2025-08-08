@@ -34,3 +34,12 @@
     color: $color-dark;
   }
 }
+
+.controller {
+  display: flex;
+  gap: 10px;
+
+  &__btn {
+    min-width: 120px;
+  }
+}

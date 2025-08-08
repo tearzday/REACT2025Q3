@@ -3,9 +3,13 @@ import style from './Header.module.scss';
 import { useContext } from 'react';
 import ThemeContext from '@/context';
 import ColorSwitch from '../UI/color-switch/ColorSwitch';
+import Button from '../UI/button/Button';
+import { useQueryClient } from '@tanstack/react-query';
 
 function Header() {
   const { theme } = useContext(ThemeContext);
+
+  const queryClient = useQueryClient();
 
   const classNameLink = [
     style.link,
@@ -24,7 +28,17 @@ function Header() {
           </NavLink>
         </ul>
       </nav>
-      <ColorSwitch />
+      <div className={style.controller}>
+        <ColorSwitch />
+        <Button
+          className={style.controller__btn}
+          onClick={() => {
+            queryClient.clear();
+          }}
+        >
+          Clear cache
+        </Button>
+      </div>
     </header>
   );
 }
