@@ -4,15 +4,15 @@ import style from './Search.module.scss';
 import { useEffect, useState } from 'react';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import useGetCards from '@/hooks/useGetCards';
-import useAppStore from '@/store/app';
+import useAppStore, { changeSearch, page, search } from '@/store/app';
 
 function Search() {
   const [value, setValue] = useState<string>('');
   const [lsValue, setLsValue] = useLocalStorage('search-character-value');
 
-  const currentPage = useAppStore((state) => state.currentPage);
-  const currentSearch = useAppStore((state) => state.currentSearch);
-  const setCurrentSearch = useAppStore((state) => state.setCurrentSearch);
+  const currentPage = useAppStore(page);
+  const currentSearch = useAppStore(search);
+  const setCurrentSearch = useAppStore(changeSearch);
 
   useGetCards({ page: String(currentPage), name: currentSearch });
 

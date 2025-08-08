@@ -3,7 +3,7 @@ import style from './Pagination.module.scss';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import ThemeContext from '@/context';
 import useGetCards from '@/hooks/useGetCards';
-import useAppStore from '@/store/app';
+import useAppStore, { changePage, page, search } from '@/store/app';
 
 function Pagination() {
   const navigate = useNavigate();
@@ -11,9 +11,9 @@ function Pagination() {
   const [searchParams] = useSearchParams();
   const { theme } = useContext(ThemeContext);
 
-  const currentPage = useAppStore((state) => state.currentPage);
-  const setCurrentPage = useAppStore((state) => state.setCurrentPage);
-  const currentSearch = useAppStore((state) => state.currentSearch);
+  const currentPage = useAppStore(page);
+  const setCurrentPage = useAppStore(changePage);
+  const currentSearch = useAppStore(search);
 
   const { pages, isLoading } = useGetCards({
     name: currentSearch,

@@ -5,15 +5,15 @@ import ThemeContext from '@/context';
 import ColorSwitch from '../UI/color-switch/ColorSwitch';
 import Button from '../UI/button/Button';
 import { useQueryClient } from '@tanstack/react-query';
-import useAppStore from '@/store/app';
+import useAppStore, { detailsId, page, search } from '@/store/app';
 import useGetCards from '@/hooks/useGetCards';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
 
 function Header() {
   const { theme } = useContext(ThemeContext);
-  const currentPage = useAppStore((state) => state.currentPage);
-  const currentSearch = useAppStore((state) => state.currentSearch);
-  const currentDetailsId = useAppStore((state) => state.currentDetailsId);
+  const currentPage = useAppStore(page);
+  const currentSearch = useAppStore(search);
+  const currentDetailsId = useAppStore(detailsId);
 
   const { refetch: refetchGetCards } = useGetCards({
     name: currentSearch,

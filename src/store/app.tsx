@@ -23,4 +23,11 @@ const useAppStore = create<AppStore>()((set) => ({
   setCurrentDetailsId: (value) => set(() => ({ currentDetailsId: value })),
 }));
 
+export const page = (state: AppStore) => state.currentPage;
+export const search = (state: AppStore) => state.currentSearch;
+export const detailsId = (state: AppStore) => state.currentDetailsId;
+export const changePage = (state: AppStore) => state.setCurrentPage;
+export const changeSearch = (state: AppStore) => state.setCurrentSearch;
+export const changeDetailsId = (state: AppStore) => state.setCurrentDetailsId;
+
 export default useAppStore;

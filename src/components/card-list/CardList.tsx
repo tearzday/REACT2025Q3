@@ -3,11 +3,11 @@ import style from './CardList.module.scss';
 import Loader from '../UI/loader/Loader';
 import type { CardInfo } from '@/types';
 import useGetCards from '@/hooks/useGetCards';
-import useAppStore from '@/store/app';
+import useAppStore, { page, search } from '@/store/app';
 
 function CardList() {
-  const currentPage = useAppStore((state) => state.currentPage);
-  const currentSearch = useAppStore((state) => state.currentSearch);
+  const currentPage = useAppStore(page);
+  const currentSearch = useAppStore(search);
 
   const { cards, isLoading, error } = useGetCards({
     name: currentSearch,
@@ -18,7 +18,7 @@ function CardList() {
     return <p className={style.error}>{error.message}</p>;
   }
 
-  if (!cards.length && !isLoading) {
+  if (!cards.length) {
     return <p className={style.error}>No results</p>;
   }
 
