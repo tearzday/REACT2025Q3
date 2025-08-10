@@ -1,13 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import ErrorPage from './ErrorPage';
 import { MemoryRouter } from 'react-router';
+import { ContainerQuery } from '@/__tests__/setupTests';
 
 describe('Error Page Tests', () => {
   test('Render', () => {
     render(
-      <MemoryRouter>
-        <ErrorPage />
-      </MemoryRouter>
+      <ContainerQuery>
+        <MemoryRouter>
+          <ErrorPage />
+        </MemoryRouter>
+      </ContainerQuery>
     );
 
     expect(

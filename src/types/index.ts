@@ -15,4 +15,4 @@ export type APIData = {
   cards: CardInfo[];
 };
 
-export type GetCards = { name?: string; page?: string };
+export type GetCards = { name?: string; page: number };

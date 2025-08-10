@@ -3,13 +3,16 @@ import HomePage from './HomePage';
 import { MemoryRouter } from 'react-router';
 import ThemeContext from '@/context';
 import { dataCard, mockUseSelectedItems } from '@/__tests__/__mocks__/MockCard';
+import { ContainerQuery } from '@/__tests__/setupTests';
 
 describe('Tests HomePage Component', () => {
   test('Render HomePage', () => {
     render(
-      <MemoryRouter>
-        <HomePage />
-      </MemoryRouter>
+      <ContainerQuery>
+        <MemoryRouter>
+          <HomePage />
+        </MemoryRouter>
+      </ContainerQuery>
     );
 
     const searchComponent = screen.getByTestId('search');
@@ -24,11 +27,13 @@ describe('Tests HomePage Component', () => {
     const mockValue = { theme: 'dark', setTheme: mockSetTheme };
 
     const { container } = render(
-      <ThemeContext value={mockValue}>
-        <MemoryRouter>
-          <HomePage />
-        </MemoryRouter>
-      </ThemeContext>
+      <ContainerQuery>
+        <ThemeContext value={mockValue}>
+          <MemoryRouter>
+            <HomePage />
+          </MemoryRouter>
+        </ThemeContext>
+      </ContainerQuery>
     );
 
     expect(container.firstChild).toHaveClass(mockValue.theme);
@@ -38,9 +43,11 @@ describe('Tests HomePage Component', () => {
     mockUseSelectedItems().addItem(dataCard);
 
     render(
-      <MemoryRouter>
-        <HomePage />
-      </MemoryRouter>
+      <ContainerQuery>
+        <MemoryRouter>
+          <HomePage />
+        </MemoryRouter>
+      </ContainerQuery>
     );
 
     expect(screen.getByTestId('items-panel')).toBeInTheDocument();

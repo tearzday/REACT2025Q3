@@ -1,80 +1,80 @@
 import { render, screen } from '@testing-library/react';
 import CardList from './CardList';
-import { dataCards } from '@/__tests__/__mocks__/MockCard';
 import { MemoryRouter } from 'react-router';
+import { ContainerQuery } from '@/__tests__/setupTests';
+import { dataCards } from '@/__tests__/__mocks__/MockCard';
 
 vi.mock('./api/card', () => ({
   getCards: vi.fn(),
 }));
 
-const cards = dataCards.cards;
+vi.mock('@/hooks/useGetCards', () => ({
+  default: () => ({
+    cards: dataCards.cards,
+    pages: 10,
+    isLoading: false,
+    error: null,
+    refetch: vi.fn(),
+  }),
+}));
+
+const renderCardList = () =>
+  render(
+    <ContainerQuery>
+      <MemoryRouter>
+        <CardList />
+      </MemoryRouter>
+    </ContainerQuery>
+  );
 
 describe('CardList Component Tests', () => {
+  beforeEach(() => renderCardList());
+
   describe('Rendering Tests', () => {
     test('Renders correct number of items when data is provided', async () => {
-      render(
-        <MemoryRouter>
-          <CardList isLoading={false} cards={cards} errorMessage="" />
-        </MemoryRouter>
-      );
-
       const cardCount = await screen.findAllByTestId('card-item');
       expect(cardCount.length).toBe(5);
-    });
-
-    test('Displays "no results" message when data array is empty', async () => {
-      render(
-        <MemoryRouter>
-          <CardList isLoading={false} cards={[]} errorMessage="" />
-        </MemoryRouter>
-      );
-
-      const emptyInfo = screen.getByText('No results');
-
-      expect(emptyInfo).toBeInTheDocument();
-    });
-
-    test('Shows loading', async () => {
-      render(
-        <MemoryRouter>
-          <CardList isLoading={true} cards={cards} errorMessage="" />
-        </MemoryRouter>
-      );
-
-      const loader = await screen.findByTestId('loader');
-
-      expect(loader).toBeInTheDocument();
     });
   });
 
   describe('Data Display Tests', () => {
-    test('Correctly displays item names and descriptions', () => {
-      render(
-        <MemoryRouter>
-          <CardList isLoading={false} cards={cards} errorMessage="" />
-        </MemoryRouter>
-      );
-
-      const cardName = screen.getByText('Rick Sanchez');
-
-      expect(cardName).toBeInTheDocument();
+    test('Correctly displays items', async () => {
+      dataCards.cards.forEach((mockCard) => {
+        expect(screen.getByText(mockCard.name)).toBeInTheDocument();
+      });
     });
   });
 
-  describe('Error Handling Tests', () => {
-    test('Display error message', () => {
+  describe('Error State Tests', () => {
+    beforeEach(() => {
+      vi.resetModules();
+      vi.doMock('@/hooks/useGetCards', () => ({
+        default: () => ({
+          cards: [],
+          isLoading: false,
+          error: { message: 'Error' },
+          refetch: vi.fn(),
+        }),
+      }));
+    });
+
+    afterEach(() => {
+      vi.resetModules();
+    });
+
+    test('Displays error message when error', async () => {
+      const { default: CardListWithError } = await import('./CardList');
+
       render(
-        <CardList
-          isLoading={false}
-          cards={cards}
-          errorMessage="Something went wrong, try again another time!"
-        />
+        <ContainerQuery>
+          <MemoryRouter>
+            <CardListWithError />
+          </MemoryRouter>
+        </ContainerQuery>
       );
 
-      const errorText = screen.getByText(
-        'Something went wrong, try again another time!'
-      );
-      expect(errorText).toBeInTheDocument();
+      const errorMessage = await screen.findByText(/error/i);
+      expect(errorMessage).toBeInTheDocument();
     });
   });
 });

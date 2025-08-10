@@ -1,20 +1,24 @@
-import { useContext, useEffect, useState, type MouseEvent } from 'react';
+import { useContext, useEffect, type MouseEvent } from 'react';
 import style from './Pagination.module.scss';
-import type { GetCards } from '@/types';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import ThemeContext from '@/context';
+import useGetCards from '@/hooks/useGetCards';
+import useAppStore, { changePage, page, search } from '@/store/app';
 
-interface PaginationProps {
-  count: number;
-  getCards: (params: GetCards) => void;
-}
-
-function Pagination({ count, getCards }: PaginationProps) {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+function Pagination() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const { theme } = useContext(ThemeContext);
+
+  const currentPage = useAppStore(page);
+  const setCurrentPage = useAppStore(changePage);
+  const currentSearch = useAppStore(search);
+
+  const { pages, isLoading } = useGetCards({
+    name: currentSearch,
+    page: currentPage,
+  });
 
   useEffect(() => {
     const page = searchParams.get('page');
@@ -26,13 +30,15 @@ function Pagination({ count, getCards }: PaginationProps) {
   const handlerClick = (e: MouseEvent<HTMLDivElement>, pageNumber: number) => {
     e.stopPropagation();
     navigate(`${location.pathname}?page=${pageNumber}`);
-    getCards({ page: String(pageNumber) });
     setCurrentPage(pageNumber);
   };
 
   return (
-    <div className={style.pagination} data-testid="pagination">
-      {Array.from({ length: count }).map((_, index) => {
+    <div
+      className={[style.pagination, isLoading ? style.none : ''].join(' ')}
+      data-testid="pagination"
+    >
+      {Array.from({ length: pages }).map((_, index) => {
         const pageNumber = index + 1;
         return (
           <div

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Header from './Header';
 import { MemoryRouter, useLocation } from 'react-router';
+import { ContainerQuery } from '@/__tests__/setupTests';
 
 function LocationDisplay() {
   const location = useLocation();
@@ -10,10 +11,12 @@ function LocationDisplay() {
 describe('Header Component Tests', () => {
   test('Render', () => {
     render(
-      <MemoryRouter>
-        <Header />
-        <LocationDisplay />
-      </MemoryRouter>
+      <ContainerQuery>
+        <MemoryRouter>
+          <Header />
+          <LocationDisplay />
+        </MemoryRouter>
+      </ContainerQuery>
     );
 
     expect(screen.getByTestId('header')).toBeInTheDocument();
@@ -21,9 +24,11 @@ describe('Header Component Tests', () => {
 
   test('Active About Link', async () => {
     render(
-      <MemoryRouter initialEntries={['/about']}>
-        <Header />
-      </MemoryRouter>
+      <ContainerQuery>
+        <MemoryRouter initialEntries={['/about']}>
+          <Header />
+        </MemoryRouter>
+      </ContainerQuery>
     );
 
     const activeLink = screen.getByText('About Us');

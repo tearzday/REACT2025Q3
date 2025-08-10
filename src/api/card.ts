@@ -5,27 +5,17 @@ const APICard = {
 
   async getCards(params: GetCards) {
     const { name, page } = params;
-    let url = this.baseUrl;
+    let url = `${this.baseUrl}?page=${page}`;
 
     if (name) {
-      url += `?name=${name}`;
-    }
-
-    if (page) {
-      url += `${url.includes('?') ? '&' : '?'}page=${page}`;
+      url += `&name=${name}`;
     }
 
     const response = await fetch(url);
     const data = await response.json();
 
     if (!response.ok) {
-      if (data.error === 'There is nothing here')
-        return {
-          total: 0,
-          cards: [],
-        };
-
-      throw new Error('Something went wrong, try again another time!');
+      throw new Error(data.error);
     }
 
     const result: APIData = {
@@ -36,10 +26,14 @@ const APICard = {
     return result;
   },
 
-  async getCardInfo(id: number) {
-    const url = this.baseUrl + '/' + id;
+  async getCardInfo(id: string) {
+    const url = this.baseUrl + id;
     const response = await fetch(url);
     const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
 
     return data;
   },

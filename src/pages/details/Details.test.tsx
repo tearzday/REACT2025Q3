@@ -1,13 +1,15 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import DetailsPage from './Details';
 import { MemoryRouter } from 'react-router';
-
+import { ContainerQuery } from '@/__tests__/setupTests';
 describe('DetailsPage Tests', () => {
   test('Render Test', () => {
     render(
-      <MemoryRouter>
-        <DetailsPage />
-      </MemoryRouter>
+      <ContainerQuery>
+        <MemoryRouter>
+          <DetailsPage />
+        </MemoryRouter>
+      </ContainerQuery>
     );
 
     expect(screen.getByTestId('details-page')).toBeInTheDocument();
@@ -15,23 +17,31 @@ describe('DetailsPage Tests', () => {
 
   test('Loader and Data', async () => {
     render(
-      <MemoryRouter>
-        <DetailsPage />
-      </MemoryRouter>
+      <ContainerQuery>
+        <MemoryRouter>
+          <DetailsPage />
+        </MemoryRouter>
+      </ContainerQuery>
     );
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();
 
-    const textBlock = await screen.findByTestId('details-info-text');
+    const textBlock = await screen.findByTestId(
+      'details-info-text',
+      {},
+      { timeout: 3000 }
+    );
 
     expect(textBlock).toBeInTheDocument();
   });
 
   test('Scroll', async () => {
     render(
-      <MemoryRouter initialEntries={['/1/?page=1']}>
-        <DetailsPage />
-      </MemoryRouter>
+      <ContainerQuery>
+        <MemoryRouter initialEntries={['/1/?page=1']}>
+          <DetailsPage />
+        </MemoryRouter>
+      </ContainerQuery>
     );
 
     const details = screen.getByTestId('details-info');

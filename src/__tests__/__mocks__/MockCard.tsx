@@ -1,3 +1,4 @@
+import useAppStore from '@/store/app';
 import useSelectedItems from '@/store/selectedItems';
 
 export const dataCards = {
@@ -74,3 +75,4 @@ export const dataCard = {
 };
 
 export const mockUseSelectedItems = () => useSelectedItems.getState();
+export const mockUseAppStores = () => useAppStore.getState();
