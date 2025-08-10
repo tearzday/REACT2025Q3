@@ -18,35 +18,63 @@ vi.mock('@/hooks/useGetCards', () => ({
   }),
 }));
 
+const renderCardList = () =>
+  render(
+    <ContainerQuery>
+      <MemoryRouter>
+        <CardList />
+      </MemoryRouter>
+    </ContainerQuery>
+  );
+
 describe('CardList Component Tests', () => {
+  beforeEach(() => renderCardList());
+
   describe('Rendering Tests', () => {
     test('Renders correct number of items when data is provided', async () => {
-      render(
-        <ContainerQuery>
-          <MemoryRouter>
-            <CardList />
-          </MemoryRouter>
-        </ContainerQuery>
-      );
-
       const cardCount = await screen.findAllByTestId('card-item');
       expect(cardCount.length).toBe(5);
     });
   });
 
   describe('Data Display Tests', () => {
-    test('Correctly displays item names and descriptions', () => {
+    test('Correctly displays items', async () => {
+      dataCards.cards.forEach((mockCard) => {
+        expect(screen.getByText(mockCard.name)).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('Error State Tests', () => {
+    beforeEach(() => {
+      vi.resetModules();
+      vi.doMock('@/hooks/useGetCards', () => ({
+        default: () => ({
+          cards: [],
+          isLoading: false,
+          error: { message: 'Error' },
+          refetch: vi.fn(),
+        }),
+      }));
+    });
+
+    afterEach(() => {
+      vi.resetModules();
+    });
+
+    test('Displays error message when error', async () => {
+      const { default: CardListWithError } = await import('./CardList');
+
       render(
         <ContainerQuery>
           <MemoryRouter>
-            <CardList />
+            <CardListWithError />
           </MemoryRouter>
         </ContainerQuery>
       );
 
-      const cardName = screen.getByText('Rick Sanchez');
-
-      expect(cardName).toBeInTheDocument();
+      const errorMessage = await screen.findByText(/error/i);
+      expect(errorMessage).toBeInTheDocument();
     });
   });
 });

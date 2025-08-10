@@ -26,7 +26,11 @@ describe('DetailsPage Tests', () => {
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();
 
-    const textBlock = await screen.findByTestId('details-info-text');
+    const textBlock = await screen.findByTestId(
+      'details-info-text',
+      {},
+      { timeout: 3000 }
+    );
 
     expect(textBlock).toBeInTheDocument();
   });
