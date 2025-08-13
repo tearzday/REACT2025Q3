@@ -1,6 +1,6 @@
 import { useContext, useEffect, type MouseEvent } from 'react';
 import style from './Pagination.module.scss';
-import ThemeContext from '@/context';
+import { ThemeContext } from '@/context';
 import useGetCards from '@/hooks/useGetCards';
 import useAppStore, { changePage, page, search } from '@/store/app';
 

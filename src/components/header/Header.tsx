@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import style from './Header.module.scss';
 import { useContext } from 'react';
-import ThemeContext from '@/context';
+import { ThemeContext } from '@/context';
 import ColorSwitch from '../UI/color-switch/ColorSwitch';
 import Button from '../UI/button/Button';
 import { useQueryClient } from '@tanstack/react-query';

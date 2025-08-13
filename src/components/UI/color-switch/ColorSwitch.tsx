@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import style from './ColorSwitch.module.scss';
-import ThemeContext from '@/context';
+import { ThemeContext } from '@/context';
 
 function ColorSwitch() {
   const { theme, setTheme } = useContext(ThemeContext);

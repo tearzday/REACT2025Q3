@@ -1,6 +1,6 @@
 import { useContext, type ReactNode } from 'react';
 import style from './Button.module.scss';
-import ThemeContext from '@/context';
+import { ThemeContext } from '@/context';
 
 export type ButtonProps = {
   children: ReactNode;

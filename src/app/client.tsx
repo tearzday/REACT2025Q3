@@ -6,7 +6,7 @@ import Main from '@/components/main/Main';
 import style from './home.module.scss';
 // import { Outlet } from 'react-router';
 import Header from '@/components/header/Header';
-import ThemeContext from '@/context';
+import { ThemeContext } from '@/context';
 import ItemsPanel from '@/components/items-panel/ItemsPanel';
 import useSelectedItems, { selectItemsCount } from '@/store/selectedItems';
 

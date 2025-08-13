@@ -1,6 +1,6 @@
 import { useContext, type ChangeEvent } from 'react';
 import style from './Checkbox.module.scss';
-import ThemeContext from '@/context';
+import { ThemeContext } from '@/context';
 
 interface CheckboxProps {
   onChecked: () => void;

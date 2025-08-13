@@ -3,7 +3,7 @@
 import Header from '@/components/header/Header';
 import style from './ErrorPage.module.scss';
 import { useContext } from 'react';
-import ThemeContext from '@/context';
+import { ThemeContext } from '@/context';
 
 function ErrorPage() {
   const { theme } = useContext(ThemeContext);

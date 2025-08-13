@@ -4,7 +4,7 @@ import Header from '@/components/header/Header';
 import style from './about.module.scss';
 import Link from 'next/link';
 import { useContext } from 'react';
-import ThemeContext from '@/context';
+import { ThemeContext } from '@/context';
 
 function AboutPage() {
   const { theme } = useContext(ThemeContext);
