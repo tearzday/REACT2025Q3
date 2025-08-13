@@ -1,10 +1,32 @@
 'use client';
 
-import React from 'react';
-import dynamic from 'next/dynamic';
+import { useContext } from 'react';
+import Search from '@/components/search/Search';
+import Main from '@/components/main/Main';
+import style from './home.module.scss';
+// import { Outlet } from 'react-router';
+import Header from '@/components/header/Header';
+import ThemeContext from '@/context';
+import ItemsPanel from '@/components/items-panel/ItemsPanel';
+import useSelectedItems, { selectItemsCount } from '@/store/selectedItems';
 
-const App = dynamic(() => import('../App'), { ssr: false });
+function HomeClient() {
+  const { theme } = useContext(ThemeContext);
+  const itemsCount = useSelectedItems(selectItemsCount);
 
-export function ClientOnly() {
-  return <App />;
+  return (
+    <div className={theme}>
+      <Header />
+      <div className={style.home__page}>
+        <div className={style.main__content}>
+          <Search />
+          <Main />
+        </div>
+        {/* <Outlet /> */}
+        {itemsCount > 0 && <ItemsPanel />}
+      </div>
+    </div>
+  );
 }
+
+export default HomeClient;

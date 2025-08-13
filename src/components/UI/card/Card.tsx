@@ -1,6 +1,6 @@
 import style from './Card.module.scss';
 import type { CardInfo } from '@/types';
-import { useNavigate, useSearchParams } from 'react-router';
+// import { useNavigate, useSearchParams } from 'react-router';
 import { type MouseEvent } from 'react';
 import Checkbox from '../checkbox/Checkbox';
 import useSelectedItems, {
@@ -8,14 +8,16 @@ import useSelectedItems, {
   deleteSelectedItem,
   selectedItems,
 } from '@/store/selectedItems';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export type CardProps = {
   info: CardInfo;
 };
 
 function Card({ info }: CardProps) {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const items = useSelectedItems(selectedItems);
   const addItem = useSelectedItems(addSelectedItem);
   const deleteItem = useSelectedItems(deleteSelectedItem);
@@ -28,9 +30,9 @@ function Card({ info }: CardProps) {
     const target = e.target as HTMLElement;
     e.stopPropagation();
 
-    if (target.tagName !== 'INPUT') {
+    if (target.tagName !== 'INPUT' && searchParams) {
       const pageNumber = searchParams.get('page') || '1';
-      navigate(`details/${info.id}/?page=${pageNumber}`);
+      router.push(`details/${info.id}/?page=${pageNumber}`);
     }
   };
 

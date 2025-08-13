@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router';
+import Link from 'next/link';
 import style from './Header.module.scss';
 import { useContext } from 'react';
 import ThemeContext from '@/context';
@@ -33,12 +33,12 @@ function Header() {
     <header className={style.header} data-testid="header">
       <nav className={style.nav}>
         <ul className={style.container}>
-          <NavLink className={classNameLink} to="/">
+          <Link className={classNameLink} href="/">
             Home
-          </NavLink>
-          <NavLink className={classNameLink} to="/about">
+          </Link>
+          <Link className={classNameLink} href="/about">
             About Us
-          </NavLink>
+          </Link>
         </ul>
       </nav>
       <div className={style.controller}>

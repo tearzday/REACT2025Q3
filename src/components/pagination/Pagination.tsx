@@ -1,14 +1,14 @@
 import { useContext, useEffect, type MouseEvent } from 'react';
 import style from './Pagination.module.scss';
-import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import ThemeContext from '@/context';
 import useGetCards from '@/hooks/useGetCards';
 import useAppStore, { changePage, page, search } from '@/store/app';
 
+import { useRouter, useSearchParams } from 'next/navigation';
+
 function Pagination() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { theme } = useContext(ThemeContext);
 
   const currentPage = useAppStore(page);
@@ -21,15 +21,17 @@ function Pagination() {
   });
 
   useEffect(() => {
-    const page = searchParams.get('page');
-    if (page) {
-      setCurrentPage(Number(page));
+    if (searchParams) {
+      const page = searchParams.get('page');
+      if (page) {
+        setCurrentPage(Number(page));
+      }
     }
   }, [searchParams]);
 
   const handlerClick = (e: MouseEvent<HTMLDivElement>, pageNumber: number) => {
     e.stopPropagation();
-    navigate(`${location.pathname}?page=${pageNumber}`);
+    router.push(`${location.pathname}?page=${pageNumber}`);
     setCurrentPage(pageNumber);
   };
 

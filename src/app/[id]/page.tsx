@@ -1,15 +1,19 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import style from './Details.module.scss';
-import { useNavigate, useParams, useSearchParams } from 'react-router';
+import style from './details.module.scss';
 import Loader from '@/components/UI/loader/Loader';
 import Button from '@/components/UI/button/Button';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
 import useAppStore, { changeDetailsId } from '@/store/app';
+import { useRouter, useSearchParams, useParams } from 'next/navigation';
 
-function DetailsPage() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const { cardId } = useParams();
+function DetailsClient() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = useParams<{ id: string }>();
+  const cardId = params?.id;
+
   const [height, setHeight] = useState('calc(100svh - 97.4px)');
   const setCurrentDetailsId = useAppStore(changeDetailsId);
 
@@ -37,7 +41,7 @@ function DetailsPage() {
   }, []);
 
   const closeDetails = () => {
-    navigate(`/?page=${searchParams.get('page')}`);
+    router.push(`/?page=${searchParams?.get('page')}`);
   };
 
   return (
@@ -85,4 +89,4 @@ function DetailsPage() {
   );
 }
 
-export default DetailsPage;
+export default DetailsClient;

@@ -1,3 +1,5 @@
+'use client';
+
 import Header from '@/components/header/Header';
 import style from './ErrorPage.module.scss';
 import { useContext } from 'react';

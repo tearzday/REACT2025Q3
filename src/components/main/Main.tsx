@@ -1,16 +1,23 @@
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import CardList from '../card-list/CardList';
 import style from './Main.module.scss';
 import Pagination from '../pagination/Pagination';
-import { useNavigate, useSearchParams } from 'react-router';
 
 function Main() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const closeDetails = () => {
-    const page = searchParams.get('page');
-    if (page) {
-      navigate(`/?page=${page}`);
+    if (searchParams) {
+      const page = searchParams.get('page');
+      if (page) {
+        router.push(`/?page=${page}`);
+      } else {
+        router.push('/');
+      }
     }
   };
 

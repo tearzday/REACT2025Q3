@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '@/styles/normalize.scss';
 import '@/styles/fonts.scss';
 import '@/styles/style.scss';
+import QueryProvider from '@/components/QueryProvider';
 
 export const metadata: Metadata = {
   title: 'Rick And Morty',
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div id="root">{children}</div>
+        <QueryProvider>
+          <div id="root">{children}</div>
+        </QueryProvider>
       </body>
     </html>
   );
