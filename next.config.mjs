@@ -1,5 +1,6 @@
-/** @type {import('next' * ).NextConfig} */
+import createNextIntlPlugin from 'next-intl/plugin';
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   distDir: './dist',
   sassOptions: {
@@ -10,4 +11,6 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin();
+
+export default withNextIntl(nextConfig);

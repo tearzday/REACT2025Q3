@@ -10,12 +10,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import useAppStore, { detailsId, page, search } from '@/store/app';
 import useGetCards from '@/hooks/useGetCards';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
+import { useTranslations } from 'next-intl';
 
 function Header() {
   const { theme } = useContext(ThemeContext);
   const currentPage = useAppStore(page);
   const currentSearch = useAppStore(search);
   const currentDetailsId = useAppStore(detailsId);
+  const t = useTranslations('Header');
 
   const { refetch: refetchGetCards } = useGetCards({
     name: currentSearch,
@@ -36,10 +38,10 @@ function Header() {
       <nav className={style.nav}>
         <ul className={style.container}>
           <Link className={classNameLink} href="/">
-            Home
+            {t('home')}
           </Link>
           <Link className={classNameLink} href="/about">
-            About Us
+            {t('about')}
           </Link>
         </ul>
       </nav>
@@ -53,7 +55,7 @@ function Header() {
             refetchGetCardInfo();
           }}
         >
-          Refresh
+          {t('refresh')}
         </Button>
       </div>
     </header>

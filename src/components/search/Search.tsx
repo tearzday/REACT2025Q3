@@ -7,10 +7,12 @@ import { useState } from 'react';
 // import useLocalStorage from '@/hooks/useLocalStorage';
 import useGetCards from '@/hooks/useGetCards';
 import useAppStore, { changeSearch, page, search } from '@/store/app';
+import { useTranslations } from 'next-intl';
 
 function Search() {
   const [value, setValue] = useState<string>('');
   // const [lsValue, setLsValue] = useLocalStorage('search-character-value');
+  const t = useTranslations('Search');
 
   const currentPage = useAppStore(page);
   const currentSearch = useAppStore(search);
@@ -34,11 +36,11 @@ function Search() {
     <div className={style.search} data-testid="search">
       <Input
         type="text"
-        placeholder="What are you looking for?"
+        placeholder={t('placeholder')}
         value={value}
         onChange={(event) => setValue(event.target.value)}
       ></Input>
-      <Button onClick={handlerClick}>Search</Button>
+      <Button onClick={handlerClick}>{t('btn')}</Button>
     </div>
   );
 }

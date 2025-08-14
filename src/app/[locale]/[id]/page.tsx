@@ -5,9 +5,10 @@ import style from './details.module.scss';
 import Loader from '@/components/UI/loader/Loader';
 import Button from '@/components/UI/button/Button';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
-import useAppStore, { changeDetailsId } from '@/store/app';
+// import useAppStore, { changeDetailsId } from '@/store/app';
 import { useRouter, useSearchParams, useParams } from 'next/navigation';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 function DetailsClient() {
   const router = useRouter();
@@ -16,14 +17,14 @@ function DetailsClient() {
   const cardId = params?.id;
 
   const [height, setHeight] = useState('calc(100svh - 97.4px)');
-  const setCurrentDetailsId = useAppStore(changeDetailsId);
+  // const setCurrentDetailsId = useAppStore(changeDetailsId);
 
-  if (cardId) {
-    setCurrentDetailsId(cardId);
-  }
+  // if (cardId) {
+  //   setCurrentDetailsId(cardId);
+  // }
 
   const { data: info, isLoading, error } = useGetCardInfo(cardId || '1');
-
+  const t = useTranslations('Details');
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
 
@@ -55,23 +56,26 @@ function DetailsClient() {
               className={style.img}
               src={info.image}
               alt={`Image ${info.name}`}
+              width="300"
+              height="300"
             />
             <div className={style.info__text} data-testid="details-info-text">
               <h2 className={style.title}>{info.name}</h2>
               <p className={style.subtitle}>
-                <b>Status:</b> {info.status}
+                <b>{t('status')}:</b> {info.status}
               </p>
               <p className={style.subtitle}>
-                <b>Species:</b> {info.species}
+                <b>{t('species')}:</b> {info.species}
               </p>
               <p className={style.subtitle}>
-                <b>Gender:</b> {info.gender}
+                <b>{t('gender')}:</b> {info.gender}
               </p>
               <p className={style.subtitle}>
-                <b>Location:</b> {info.location ? info.location.name : '-'}
+                <b>{t('location')}:</b>{' '}
+                {info.location ? info.location.name : '-'}
               </p>
               <Button onClick={closeDetails} className={style.btn}>
-                Close
+                {t('btn')}
               </Button>
             </div>
           </>
@@ -81,7 +85,7 @@ function DetailsClient() {
           <div className={style.info__text}>
             <p className={style.error}>{error.message}</p>{' '}
             <Button onClick={closeDetails} className={style.btn}>
-              Close
+              {t('btn')}
             </Button>
           </div>
         )}

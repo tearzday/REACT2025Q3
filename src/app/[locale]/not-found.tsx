@@ -5,9 +5,12 @@ import style from './ErrorPage.module.scss';
 import { useContext } from 'react';
 import { ThemeContext } from '@/context';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 function ErrorPage() {
   const { theme } = useContext(ThemeContext);
+  const t = useTranslations('404');
+
   return (
     <div className={theme}>
       <Header />
@@ -21,7 +24,7 @@ function ErrorPage() {
           />
           <h2 className={style.title}>4</h2>
         </div>
-        <h4 className={style.subtitle}>Oops! This page doesn&apos;t exist.</h4>
+        <h4 className={style.subtitle}>{t('text')}</h4>
       </div>
     </div>
   );

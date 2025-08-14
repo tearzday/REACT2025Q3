@@ -13,7 +13,6 @@ import useSelectedItems, { selectItemsCount } from '@/store/selectedItems';
 function HomeClient() {
   const { theme } = useContext(ThemeContext);
   const itemsCount = useSelectedItems(selectItemsCount);
-
   return (
     <div className={theme}>
       <Header />

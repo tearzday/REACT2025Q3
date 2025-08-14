@@ -5,26 +5,28 @@ import style from './about.module.scss';
 import Link from 'next/link';
 import { useContext } from 'react';
 import { ThemeContext } from '@/context';
+import { useTranslations } from 'next-intl';
 
 function AboutPage() {
   const { theme } = useContext(ThemeContext);
 
   const classNameLink = theme === 'dark' ? style.link__dark : style.link__light;
+  const t = useTranslations('AboutPage');
 
   return (
     <div className={theme}>
       <Header />
       <div className={style.about__page} data-testid="about-page">
         <div className={style.card}>
-          <h2>About us</h2>
+          <h2>{t('author.title')}</h2>
           <p>
-            <b>Name:</b> Daniil
+            <b>{t('author.name.title')}:</b> {t('author.name.value')}
           </p>
           <p>
-            <b>Year:</b> 25
+            <b>{t('author.age.title')}:</b> 25
           </p>
           <p>
-            <b>Location:</b> Saint-Petersburg
+            <b>{t('author.location.title')}:</b> {t('author.name.value')}
           </p>
           <p>
             <b>GitHub:</b>{' '}
@@ -36,18 +38,18 @@ function AboutPage() {
         <div className={style.card}>
           <h2>RS School</h2>
           <p>
-            <b>Course:</b>{' '}
+            <b>{t('course.course')}: </b>
             <Link
               className={classNameLink}
               href="https://rs.school/courses/reactjs"
             >
-              Click
+              {t('course.event')}
             </Link>
           </p>
           <p>
-            <b>Docs:</b>{' '}
+            <b>{t('course.docs')}: </b>
             <Link className={classNameLink} href="https://rs.school/docs/en">
-              Click
+              {t('course.event')}
             </Link>
           </p>
         </div>

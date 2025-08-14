@@ -1,0 +1,42 @@
+{
+  "AboutPage": {
+    "author": {
+      "title": "About us",
+      "name": {
+        "title": "Name",
+        "value": "Daniil"
+      },
+      "age": {
+        "title": "Age"
+      },
+      "location": {
+        "title": "City",
+        "value": "Saint-Petersburg"
+      }
+    },
+    "course": {
+      "course": "Course",
+      "docs": "Docs",
+      "event": "Click"
+    }
+  },
+  "Header": {
+    "home": "Home",
+    "about": "About Us",
+    "refresh": "Refresh"
+  },
+  "Search": {
+    "placeholder": "What are you looking for?",
+    "btn": "Search"
+  },
+  "Details": {
+    "status": "Status",
+    "species": "Species",
+    "gender": "Gender",
+    "location": "Location",
+    "btn": "Close"
+  },
+  "404": {
+    "text": "Oops! This page doesn't exist."
+  }
+}
