@@ -43,3 +43,16 @@
     min-width: 120px;
   }
 }
+
+.selector {
+  font-size: $font-s;
+  border: none;
+  color: $color-dark;
+  background-color: $color-light;
+  border-radius: $radius-m;
+  padding: 5px 0px;
+
+  &:focus {
+    outline: none;
+  }
+}

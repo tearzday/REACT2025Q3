@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import style from './Header.module.scss';
 import { useContext } from 'react';
 import { ThemeContext } from '@/context';
@@ -10,7 +10,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import useAppStore, { detailsId, page, search } from '@/store/app';
 import useGetCards from '@/hooks/useGetCards';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { useRouter, usePathname } from '@/i18n/navigation';
 
 function Header() {
   const { theme } = useContext(ThemeContext);
@@ -32,6 +33,18 @@ function Header() {
     style.link,
     theme === 'dark' ? style.link__dark : style.link__light,
   ].join(' ');
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const currentLocale = useLocale();
+
+  const handleLanguageChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedLanguage = event.target.value;
+    console.log(selectedLanguage);
+    router.push(pathname, { locale: selectedLanguage });
+  };
 
   return (
     <header className={style.header} data-testid="header">
@@ -57,6 +70,14 @@ function Header() {
         >
           {t('refresh')}
         </Button>
+        <select
+          className={style.selector}
+          value={currentLocale}
+          onChange={handleLanguageChange}
+        >
+          <option value="en">EN</option>
+          <option value="ru">RU</option>
+        </select>
       </div>
     </header>
   );

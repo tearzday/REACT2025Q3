@@ -2,7 +2,7 @@
 
 import Header from '@/components/header/Header';
 import style from './about.module.scss';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { useContext } from 'react';
 import { ThemeContext } from '@/context';
 import { useTranslations } from 'next-intl';
