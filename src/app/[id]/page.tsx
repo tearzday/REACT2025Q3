@@ -7,6 +7,7 @@ import Button from '@/components/UI/button/Button';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
 import useAppStore, { changeDetailsId } from '@/store/app';
 import { useRouter, useSearchParams, useParams } from 'next/navigation';
+import Image from 'next/image';
 
 function DetailsClient() {
   const router = useRouter();
@@ -50,7 +51,7 @@ function DetailsClient() {
         {isLoading && <Loader />}
         {info && (
           <>
-            <img
+            <Image
               className={style.img}
               src={info.image}
               alt={`Image ${info.name}`}

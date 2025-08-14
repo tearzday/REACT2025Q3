@@ -5,6 +5,9 @@ const nextConfig = {
   sassOptions: {
     prependData: `@import '@/styles/index.scss';`,
   },
+  images: {
+    domains: ['rickandmortyapi.com'],
+  },
 };
 
 export default nextConfig;

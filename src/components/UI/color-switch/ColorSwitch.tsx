@@ -1,6 +1,9 @@
+'use client';
+
 import { useContext } from 'react';
 import style from './ColorSwitch.module.scss';
 import { ThemeContext } from '@/context';
+import Image from 'next/image';
 
 function ColorSwitch() {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -16,12 +19,15 @@ function ColorSwitch() {
       onClick={toggleThem}
       data-testid="color-switch"
     >
-      <img
+      <Image
         src={
           theme === 'dark'
             ? '/img/icons/dark_mode.svg'
             : '/img/icons/light_mode.svg'
         }
+        alt="Theme icon"
+        width="25"
+        height="25"
       />
     </div>
   );

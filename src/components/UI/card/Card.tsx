@@ -9,6 +9,7 @@ import useSelectedItems, {
   selectedItems,
 } from '@/store/selectedItems';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 
 export type CardProps = {
   info: CardInfo;
@@ -32,13 +33,19 @@ function Card({ info }: CardProps) {
 
     if (target.tagName !== 'INPUT' && searchParams) {
       const pageNumber = searchParams.get('page') || '1';
-      router.push(`details/${info.id}/?page=${pageNumber}`);
+      router.push(`/${info.id}/?page=${pageNumber}`);
     }
   };
 
   return (
     <div data-testid="card-item" className={card} onClick={checkDetails}>
-      <img className={card__img} src={info.image} alt={`Image ${info.name}`} />
+      <Image
+        width="200"
+        height="200"
+        className={card__img}
+        src={info.image}
+        alt={`Image ${info.name}`}
+      />
       <div className={card__info}>
         <h3 className={card__title}>{info.name}</h3>
         <Checkbox

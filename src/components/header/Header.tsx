@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import style from './Header.module.scss';
 import { useContext } from 'react';

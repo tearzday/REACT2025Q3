@@ -4,6 +4,7 @@ import Header from '@/components/header/Header';
 import style from './ErrorPage.module.scss';
 import { useContext } from 'react';
 import { ThemeContext } from '@/context';
+import Image from 'next/image';
 
 function ErrorPage() {
   const { theme } = useContext(ThemeContext);
@@ -13,7 +14,7 @@ function ErrorPage() {
       <div className={style.error__page}>
         <div className={style.container}>
           <h2 className={style.title}>4</h2>
-          <img
+          <Image
             className={style.img}
             src="/img/404.png"
             alt="Rick and Morty in the teleport"
