@@ -33,7 +33,7 @@ function Card({ info }: CardProps) {
 
     if (target.tagName !== 'INPUT' && searchParams) {
       const pageNumber = searchParams.get('page') || '1';
-      router.push(`/${info.id}/?page=${pageNumber}`);
+      router.push(`/home/${info.id}/?page=${pageNumber}`);
     }
   };
 

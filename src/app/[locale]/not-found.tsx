@@ -21,6 +21,8 @@ function ErrorPage() {
             className={style.img}
             src="/img/404.png"
             alt="Rick and Morty in the teleport"
+            width="400"
+            height="400"
           />
           <h2 className={style.title}>4</h2>
         </div>

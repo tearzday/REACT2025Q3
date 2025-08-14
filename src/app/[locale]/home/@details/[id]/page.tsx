@@ -6,13 +6,13 @@ import Loader from '@/components/UI/loader/Loader';
 import Button from '@/components/UI/button/Button';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
 // import useAppStore, { changeDetailsId } from '@/store/app';
-import { useRouter, useSearchParams, useParams } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 function DetailsClient() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const params = useParams<{ id: string }>();
   const cardId = params?.id;
 
@@ -43,7 +43,7 @@ function DetailsClient() {
   }, []);
 
   const closeDetails = () => {
-    router.push(`/?page=${searchParams?.get('page')}`);
+    router.push(`/home/`);
   };
 
   return (
