@@ -7,8 +7,9 @@ import useSelectedItems, {
   deleteSelectedItem,
   selectedItems,
 } from '@/store/selectedItems';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import { useRouter } from '@/i18n/navigation';
 
 export type CardProps = {
   info: CardInfo;

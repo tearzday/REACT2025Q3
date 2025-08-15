@@ -1,10 +1,11 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 import CardList from '../card-list/CardList';
 import style from './Main.module.scss';
 import Pagination from '../pagination/Pagination';
+import { useRouter } from '@/i18n/navigation';
 
 function Main() {
   const router = useRouter();

@@ -4,7 +4,8 @@ import { ThemeContext } from '@/context';
 import useGetCards from '@/hooks/useGetCards';
 import useAppStore, { changePage, page, search } from '@/store/app';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
 
 function Pagination() {
   const router = useRouter();
@@ -31,7 +32,10 @@ function Pagination() {
 
   const handlerClick = (e: MouseEvent<HTMLDivElement>, pageNumber: number) => {
     e.stopPropagation();
-    router.push(`${location.pathname}?page=${pageNumber}`);
+    const detailsId = searchParams.get('details');
+    router.push(
+      `?page=${pageNumber}${detailsId ? `&details=${detailsId}` : ''}`
+    );
     setCurrentPage(pageNumber);
   };
 
