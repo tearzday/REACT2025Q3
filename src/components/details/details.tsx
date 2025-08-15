@@ -47,8 +47,8 @@ function Details({ id }: DetailsProps) {
   const closeQuery = { page: searchParams.get('page') || '1' };
 
   return (
-    <div className={style.details__page} data-testid="details-page">
-      <div className={style.info} style={{ height }} data-testid="details-info">
+    <div className={style.details__page}>
+      <div className={style.info} style={{ height }}>
         {isLoading && <Loader />}
         {info && (
           <>
@@ -59,7 +59,7 @@ function Details({ id }: DetailsProps) {
               width="300"
               height="300"
             />
-            <div className={style.info__text} data-testid="details-info-text">
+            <div className={style.info__text}>
               <h2 className={style.title}>{info.name}</h2>
               <p className={style.subtitle}>
                 <b>{t('status')}:</b> {info.status}

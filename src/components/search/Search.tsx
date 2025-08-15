@@ -33,7 +33,7 @@ function Search() {
   };
 
   return (
-    <div className={style.search} data-testid="search">
+    <div className={style.search}>
       <Input
         type="text"
         placeholder={t('placeholder')}

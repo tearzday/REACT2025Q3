@@ -5,7 +5,6 @@ import '@/styles/style.scss';
 import QueryProvider from '@/components/QueryProvider';
 import { ThemeContextProvider } from '@/context';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
-
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 

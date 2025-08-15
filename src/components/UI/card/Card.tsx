@@ -38,7 +38,7 @@ function Card({ info }: CardProps) {
   };
 
   return (
-    <div data-testid="card-item" className={card} onClick={checkDetails}>
+    <div className={card} onClick={checkDetails}>
       <Image
         width="200"
         height="200"

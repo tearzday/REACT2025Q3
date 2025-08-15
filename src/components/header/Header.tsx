@@ -45,7 +45,7 @@ function Header() {
   };
 
   return (
-    <header className={style.header} data-testid="header">
+    <header className={style.header}>
       <nav className={style.nav}>
         <ul className={style.container}>
           <Link className={classNameLink} href="/">

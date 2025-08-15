@@ -40,15 +40,11 @@ function Pagination() {
   };
 
   return (
-    <div
-      className={[style.pagination, isLoading ? style.none : ''].join(' ')}
-      data-testid="pagination"
-    >
+    <div className={[style.pagination, isLoading ? style.none : ''].join(' ')}>
       {Array.from({ length: pages }).map((_, index) => {
         const pageNumber = index + 1;
         return (
           <div
-            data-testid="pagination-item"
             onClick={(e: MouseEvent<HTMLDivElement>) => {
               handlerClick(e, pageNumber);
             }}

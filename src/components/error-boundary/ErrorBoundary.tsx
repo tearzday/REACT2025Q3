@@ -18,7 +18,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
   render() {
     if (this.state.isError) {
       return (
-        <div data-testid="fallback" className={styles.error}>
+        <div className={styles.error}>
           <h2>Something went wrong behind the scenes.</h2>
           <Button onClick={() => window.location.reload()}>Refresh page</Button>
         </div>

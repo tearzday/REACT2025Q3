@@ -37,7 +37,7 @@ function ItemsPanel() {
   };
 
   return (
-    <div className={style.panel} data-testid="items-panel">
+    <div className={style.panel}>
       <h4 className={style.panel__title}>{itemsCount} items are selected</h4>
       <div className={style.panel__controllers}>
         <Button className={style.panel__btn} onClick={clearItems}>

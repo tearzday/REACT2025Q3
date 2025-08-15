@@ -16,7 +16,7 @@ function AboutPage() {
   return (
     <div className={theme}>
       <Header />
-      <div className={style.about__page} data-testid="about-page">
+      <div className={style.about__page}>
         <div className={style.card}>
           <h2>{t('author.title')}</h2>
           <p>

@@ -23,7 +23,7 @@ function Main() {
   };
 
   return (
-    <main className={style.main} data-testid="main" onClick={closeDetails}>
+    <main className={style.main} onClick={closeDetails}>
       <CardList />
       <Pagination />
     </main>
