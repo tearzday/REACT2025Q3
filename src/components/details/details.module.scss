@@ -58,3 +58,17 @@
 .error {
   font-size: $font-m;
 }
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  cursor: pointer;
+  border: none;
+  border-radius: $radius-m;
+  padding: 10px 0;
+  background-color: $color-light;
+  color: $color-dark;
+  text-decoration: none;
+}

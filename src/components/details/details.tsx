@@ -3,27 +3,22 @@
 import { useEffect, useState } from 'react';
 import style from './details.module.scss';
 import Loader from '@/components/UI/loader/Loader';
-import Button from '@/components/UI/button/Button';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
-// import useAppStore, { changeDetailsId } from '@/store/app';
-import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
+import { useSearchParams } from 'next/navigation';
 
-function DetailsClient() {
-  const router = useRouter();
-  // const searchParams = useSearchParams();
-  const params = useParams<{ id: string }>();
-  const cardId = params?.id;
+type DetailsProps = {
+  id: string;
+};
+
+function Details({ id }: DetailsProps) {
+  const searchParams = useSearchParams();
 
   const [height, setHeight] = useState('calc(100svh - 97.4px)');
-  // const setCurrentDetailsId = useAppStore(changeDetailsId);
 
-  // if (cardId) {
-  //   setCurrentDetailsId(cardId);
-  // }
-
-  const { data: info, isLoading, error } = useGetCardInfo(cardId || '1');
+  const { data: info, isLoading, error } = useGetCardInfo(id);
   const t = useTranslations('Details');
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
@@ -41,10 +36,6 @@ function DetailsClient() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  const closeDetails = () => {
-    router.push(`/home/`);
-  };
 
   return (
     <div className={style.details__page} data-testid="details-page">
@@ -74,9 +65,15 @@ function DetailsClient() {
                 <b>{t('location')}:</b>{' '}
                 {info.location ? info.location.name : '-'}
               </p>
-              <Button onClick={closeDetails} className={style.btn}>
+              <Link
+                className={style.btn}
+                href={{
+                  pathname: '/',
+                  query: { page: searchParams.get('page') || '1' },
+                }}
+              >
                 {t('btn')}
-              </Button>
+              </Link>
             </div>
           </>
         )}
@@ -84,9 +81,15 @@ function DetailsClient() {
         {error && (
           <div className={style.info__text}>
             <p className={style.error}>{error.message}</p>{' '}
-            <Button onClick={closeDetails} className={style.btn}>
+            <Link
+              href={{
+                pathname: '/',
+                query: { page: searchParams.get('page') || '1' },
+              }}
+              className={style.btn}
+            >
               {t('btn')}
-            </Button>
+            </Link>
           </div>
         )}
       </div>
@@ -94,4 +97,4 @@ function DetailsClient() {
   );
 }
 
-export default DetailsClient;
+export default Details;

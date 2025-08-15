@@ -1,6 +1,6 @@
 'use client';
 
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter, usePathname } from '@/i18n/navigation';
 import style from './Header.module.scss';
 import { useContext } from 'react';
 import { ThemeContext } from '@/context';
@@ -11,7 +11,6 @@ import useAppStore, { detailsId, page, search } from '@/store/app';
 import useGetCards from '@/hooks/useGetCards';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
 import { useLocale, useTranslations } from 'next-intl';
-import { useRouter, usePathname } from '@/i18n/navigation';
 
 function Header() {
   const { theme } = useContext(ThemeContext);

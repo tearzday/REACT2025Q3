@@ -1,6 +1,5 @@
 import style from './Card.module.scss';
 import type { CardInfo } from '@/types';
-// import { useNavigate, useSearchParams } from 'react-router';
 import { type MouseEvent } from 'react';
 import Checkbox from '../checkbox/Checkbox';
 import useSelectedItems, {
@@ -33,7 +32,7 @@ function Card({ info }: CardProps) {
 
     if (target.tagName !== 'INPUT' && searchParams) {
       const pageNumber = searchParams.get('page') || '1';
-      router.push(`/home/${info.id}/?page=${pageNumber}`);
+      router.push(`/?page=${pageNumber}&details=${info.id}`);
     }
   };
 
