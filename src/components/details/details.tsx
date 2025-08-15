@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import style from './details.module.scss';
 import Loader from '@/components/UI/loader/Loader';
 import useGetCardInfo from '@/hooks/useGetCardInfo';
@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
+import { ThemeContext } from '@/context';
 
 type DetailsProps = {
   id: string;
@@ -15,6 +16,7 @@ type DetailsProps = {
 
 function Details({ id }: DetailsProps) {
   const searchParams = useSearchParams();
+  const { theme } = useContext(ThemeContext);
 
   const [height, setHeight] = useState('calc(100svh - 97.4px)');
 
@@ -36,6 +38,13 @@ function Details({ id }: DetailsProps) {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const classNameBtn = [
+    style.btn,
+    theme === 'dark' ? style.btn__dark : style.btn__light,
+  ].join(' ');
+
+  const closeQuery = { page: searchParams.get('page') || '1' };
 
   return (
     <div className={style.details__page} data-testid="details-page">
@@ -66,10 +75,10 @@ function Details({ id }: DetailsProps) {
                 {info.location ? info.location.name : '-'}
               </p>
               <Link
-                className={style.btn}
+                className={classNameBtn}
                 href={{
                   pathname: '/',
-                  query: { page: searchParams.get('page') || '1' },
+                  query: closeQuery,
                 }}
               >
                 {t('btn')}
@@ -84,9 +93,9 @@ function Details({ id }: DetailsProps) {
             <Link
               href={{
                 pathname: '/',
-                query: { page: searchParams.get('page') || '1' },
+                query: closeQuery,
               }}
-              className={style.btn}
+              className={classNameBtn}
             >
               {t('btn')}
             </Link>

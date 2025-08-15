@@ -1,10 +1,10 @@
+import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   distDir: './dist',
   sassOptions: {
-    prependData: `@import '@/styles/index.scss';`,
+    prependData: `@use '@/styles/index' as *;`,
   },
   images: {
     domains: ['rickandmortyapi.com'],

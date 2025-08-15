@@ -8,11 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "preview": "vite preview",
     "format:fix": "prettier --write .",
-    "prepare": "husky .husky",
-    "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "prepare": "husky .husky"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js}": [

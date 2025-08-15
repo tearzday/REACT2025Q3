@@ -69,7 +69,10 @@ function Header() {
           {t('refresh')}
         </Button>
         <select
-          className={style.selector}
+          className={[
+            style.selector,
+            theme === 'dark' ? style.selector__dark : style.selector__light,
+          ].join(' ')}
           value={currentLocale}
           onChange={handleLanguageChange}
         >

@@ -18,20 +18,8 @@ function CardList() {
     return <p className={style.error}>{error.message}</p>;
   }
 
-  // const body = {
-  //   name: '',
-  //   page: 1,
-  // };
-
-  // const data: APIData = await APICard.getCards(body);
-
   return (
     <div className={style.card__list}>
-      {/* {
-          data.cards.map((info: CardInfo) => {
-          return <Card info={info} key={info.id} />;
-        })
-      } */}
       {isLoading ? (
         <Loader />
       ) : (

@@ -68,7 +68,15 @@
   border: none;
   border-radius: $radius-m;
   padding: 10px 0;
-  background-color: $color-light;
-  color: $color-dark;
   text-decoration: none;
+
+  &__light {
+    background-color: $color-light;
+    color: $color-dark;
+  }
+
+  &__dark {
+    background-color: $color-dark;
+    color: $color-light;
+  }
 }

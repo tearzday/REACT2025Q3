@@ -27,7 +27,7 @@ function Pagination() {
         setCurrentPage(Number(page));
       }
     }
-  }, [searchParams]);
+  }, [searchParams, setCurrentPage]);
 
   const handlerClick = (e: MouseEvent<HTMLDivElement>, pageNumber: number) => {
     e.stopPropagation();

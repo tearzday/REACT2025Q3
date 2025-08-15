@@ -26,7 +26,7 @@ function AboutPage() {
             <b>{t('author.age.title')}:</b> 25
           </p>
           <p>
-            <b>{t('author.location.title')}:</b> {t('author.name.value')}
+            <b>{t('author.location.title')}:</b> {t('author.location.value')}
           </p>
           <p>
             <b>GitHub:</b>{' '}
