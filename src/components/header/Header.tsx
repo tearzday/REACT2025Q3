@@ -42,7 +42,6 @@ function Header() {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedLanguage = event.target.value;
-    console.log(selectedLanguage);
     router.push(pathname, { locale: selectedLanguage });
   };
 

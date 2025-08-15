@@ -8,6 +8,7 @@ import useSelectedItems, {
 import Button from '../UI/button/Button';
 import style from './ItemsPanel.module.scss';
 import { useRef, useState } from 'react';
+import getCSV from '@/app/api/getCSV';
 
 function ItemsPanel() {
   const [downloadUrl, setDownloadUrl] = useState('');
@@ -17,14 +18,11 @@ function ItemsPanel() {
   const itemsCount = useSelectedItems(selectItemsCount);
   const clearItems = useSelectedItems(clearSelectedItem);
 
-  const handleDownload = () => {
-    const content = items.map(
-      (item, index) =>
-        `${index + 1}. ${item.name}, ${item.gender}, ${item.species}, ${item.status}\n`
-    );
-    const blob = new Blob(content, { type: 'text/csv;charset=utf-8' });
+  const handleDownload = async () => {
+    const file = await getCSV(items);
+    if (!file) return;
 
-    const url = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(file);
 
     setDownloadUrl(url);
 

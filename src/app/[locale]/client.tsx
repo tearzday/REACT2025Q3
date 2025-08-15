@@ -19,7 +19,6 @@ function HomeClient({ initialData }: { initialData: APIData }) {
 
   const { theme } = useContext(ThemeContext);
   const itemsCount = useSelectedItems(selectItemsCount);
-  console.log(initialData);
 
   useGetCards({
     name: currentSearch,

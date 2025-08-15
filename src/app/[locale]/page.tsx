@@ -1,6 +1,6 @@
 import { APIData } from '@/types';
 import HomeClient from './client';
-import APICard from '@/api/card';
+import APICard from '@/app/api/card';
 
 export default async function Page() {
   const body = {

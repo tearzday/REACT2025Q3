@@ -1,4 +1,4 @@
-import APICard from '@/api/card';
+import APICard from '@/app/api/card';
 import type { GetCards } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 
