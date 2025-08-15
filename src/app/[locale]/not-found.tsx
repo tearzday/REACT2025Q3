@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/header/Header';
-import style from './ErrorPage.module.scss';
+import style from './error.module.scss';
 import { useContext } from 'react';
 import { ThemeContext } from '@/context';
 import Image from 'next/image';
@@ -21,8 +21,8 @@ function ErrorPage() {
             className={style.img}
             src="/img/404.png"
             alt="Rick and Morty in the teleport"
-            width="400"
-            height="400"
+            width="200"
+            height="257"
           />
           <h2 className={style.title}>4</h2>
         </div>
