@@ -1,0 +1,47 @@
+{
+  "AboutPage": {
+    "author": {
+      "title": "О нас",
+      "name": {
+        "title": "Имя",
+        "value": "Даниил"
+      },
+      "age": {
+        "title": "Возраст"
+      },
+      "location": {
+        "title": "Город",
+        "value": "Санкт-Петербург"
+      }
+    },
+    "course": {
+      "course": "Курс",
+      "docs": "Документация",
+      "event": "Перейти"
+    }
+  },
+  "Header": {
+    "home": "Главная",
+    "about": "О нас",
+    "refresh": "Обновить"
+  },
+  "Search": {
+    "placeholder": "Что вы ищете?",
+    "btn": "Поиск"
+  },
+  "Details": {
+    "status": "Статус",
+    "species": "Вид",
+    "gender": "Пол",
+    "location": "Местоположение",
+    "btn": "Закрыть"
+  },
+  "Panel": {
+    "title": "выбрано элементов",
+    "unselectedBtn": "Снять выделение",
+    "downloadBtn": "Скачать"
+  },
+  "404": {
+    "text": "Упс! Эта страница не существует."
+  }
+}

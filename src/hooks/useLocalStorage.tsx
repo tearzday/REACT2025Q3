@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type UseLocalStorageReturn = [string, (value: string) => void];
 
 const useLocalStorage = (key: string): UseLocalStorageReturn => {
-  const initValue = localStorage.getItem(key) ?? '';
+  const [localValue, setLocalValue] = useState('');
 
-  const [localValue, setLocalValue] = useState(initValue);
+  useEffect(() => {
+    const initValue = localStorage.getItem(key);
+    if (initValue) {
+      setLocalValue(initValue);
+    }
+  }, [key]);
 
   const setValue = (value: string) => {
     localStorage.setItem('search-character-value', value);

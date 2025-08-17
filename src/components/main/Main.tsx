@@ -1,21 +1,29 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
+
 import CardList from '../card-list/CardList';
 import style from './Main.module.scss';
 import Pagination from '../pagination/Pagination';
-import { useNavigate, useSearchParams } from 'react-router';
+import { useRouter } from '@/i18n/navigation';
 
 function Main() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const closeDetails = () => {
-    const page = searchParams.get('page');
-    if (page) {
-      navigate(`/?page=${page}`);
+    if (searchParams) {
+      const page = searchParams.get('page');
+      if (page) {
+        router.push(`/?page=${page}`);
+      } else {
+        router.push('/');
+      }
     }
   };
 
   return (
-    <main className={style.main} data-testid="main" onClick={closeDetails}>
+    <main className={style.main} onClick={closeDetails}>
       <CardList />
       <Pagination />
     </main>

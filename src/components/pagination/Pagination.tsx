@@ -1,14 +1,15 @@
 import { useContext, useEffect, type MouseEvent } from 'react';
 import style from './Pagination.module.scss';
-import { useLocation, useNavigate, useSearchParams } from 'react-router';
-import ThemeContext from '@/context';
+import { ThemeContext } from '@/context';
 import useGetCards from '@/hooks/useGetCards';
 import useAppStore, { changePage, page, search } from '@/store/app';
 
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
+
 function Pagination() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { theme } = useContext(ThemeContext);
 
   const currentPage = useAppStore(page);
@@ -21,28 +22,29 @@ function Pagination() {
   });
 
   useEffect(() => {
-    const page = searchParams.get('page');
-    if (page) {
-      setCurrentPage(Number(page));
+    if (searchParams) {
+      const page = searchParams.get('page');
+      if (page) {
+        setCurrentPage(Number(page));
+      }
     }
-  }, [searchParams]);
+  }, [searchParams, setCurrentPage]);
 
   const handlerClick = (e: MouseEvent<HTMLDivElement>, pageNumber: number) => {
     e.stopPropagation();
-    navigate(`${location.pathname}?page=${pageNumber}`);
+    const detailsId = searchParams.get('details');
+    router.push(
+      `?page=${pageNumber}${detailsId ? `&details=${detailsId}` : ''}`
+    );
     setCurrentPage(pageNumber);
   };
 
   return (
-    <div
-      className={[style.pagination, isLoading ? style.none : ''].join(' ')}
-      data-testid="pagination"
-    >
+    <div className={[style.pagination, isLoading ? style.none : ''].join(' ')}>
       {Array.from({ length: pages }).map((_, index) => {
         const pageNumber = index + 1;
         return (
           <div
-            data-testid="pagination-item"
             onClick={(e: MouseEvent<HTMLDivElement>) => {
               handlerClick(e, pageNumber);
             }}

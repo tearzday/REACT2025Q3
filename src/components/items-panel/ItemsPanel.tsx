@@ -1,3 +1,5 @@
+'use client';
+
 import useSelectedItems, {
   clearSelectedItem,
   selectedItems,
@@ -5,51 +7,50 @@ import useSelectedItems, {
 } from '@/store/selectedItems';
 import Button from '../UI/button/Button';
 import style from './ItemsPanel.module.scss';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+import getCSV from '@/app/api/getCSV';
+import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 function ItemsPanel() {
-  const [downloadUrl, setDownloadUrl] = useState('');
   const downloadRef = useRef<HTMLAnchorElement | null>(null);
+  const t = useTranslations('Panel');
 
   const items = useSelectedItems(selectedItems);
   const itemsCount = useSelectedItems(selectItemsCount);
   const clearItems = useSelectedItems(clearSelectedItem);
 
-  const handleDownload = () => {
-    const content = items.map(
-      (item, index) =>
-        `${index + 1}. ${item.name}, ${item.gender}, ${item.species}, ${item.status}\n`
-    );
-    const blob = new Blob(content, { type: 'text/csv;charset=utf-8' });
+  const handleDownload = async () => {
+    const file = await getCSV(items);
+    if (!file) return;
 
-    const url = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(file);
 
-    setDownloadUrl(url);
+    if (downloadRef.current) {
+      downloadRef.current.href = url;
+      downloadRef.current.download = `${itemsCount}_items.csv`;
+      downloadRef.current.click();
 
-    setTimeout(() => {
-      const ref = downloadRef.current;
-      if (ref) {
-        ref.click();
-        URL.revokeObjectURL(url);
-        setDownloadUrl('');
-      }
-    }, 0);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
   };
 
   return (
-    <div className={style.panel} data-testid="items-panel">
-      <h4 className={style.panel__title}>{itemsCount} items are selected</h4>
+    <div className={style.panel}>
+      <h4 className={style.panel__title}>
+        {itemsCount} {t('title')}
+      </h4>
       <div className={style.panel__controllers}>
         <Button className={style.panel__btn} onClick={clearItems}>
-          Unselect all
+          {t('unselectedBtn')}
         </Button>
         <Button className={style.panel__btn} onClick={handleDownload}>
-          Download
+          {t('downloadBtn')}
         </Button>
-        <a
+        <Link
           role="link"
           ref={downloadRef}
-          href={downloadUrl}
+          href=""
           className={style.blob__link}
           download={`${itemsCount}_items.csv`}
         />

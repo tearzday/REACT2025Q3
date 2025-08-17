@@ -1,3 +1,4 @@
+'use client';
 import { create } from 'zustand';
 
 interface AppStore {
@@ -9,18 +10,9 @@ interface AppStore {
   setCurrentDetailsId: (value: string) => void;
 }
 
-const getInitialPage = () => {
-  const params = new URLSearchParams(window.location.search);
-  return Number(params.get('page')) || 1;
-};
-
-const getInitialSearch = () => {
-  return localStorage.getItem('search-character-value') || '';
-};
-
 const useAppStore = create<AppStore>()((set) => ({
-  currentPage: getInitialPage(),
-  currentSearch: getInitialSearch(),
+  currentPage: 1,
+  currentSearch: '',
   currentDetailsId: undefined,
   setCurrentPage: (value) => set(() => ({ currentPage: value })),
   setCurrentSearch: (value) => set(() => ({ currentSearch: value })),

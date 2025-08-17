@@ -1,6 +1,5 @@
 import style from './Card.module.scss';
 import type { CardInfo } from '@/types';
-import { useNavigate, useSearchParams } from 'react-router';
 import { type MouseEvent } from 'react';
 import Checkbox from '../checkbox/Checkbox';
 import useSelectedItems, {
@@ -8,14 +7,18 @@ import useSelectedItems, {
   deleteSelectedItem,
   selectedItems,
 } from '@/store/selectedItems';
+import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
+import { useRouter } from '@/i18n/navigation';
 
 export type CardProps = {
   info: CardInfo;
 };
 
 function Card({ info }: CardProps) {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const items = useSelectedItems(selectedItems);
   const addItem = useSelectedItems(addSelectedItem);
   const deleteItem = useSelectedItems(deleteSelectedItem);
@@ -28,15 +31,21 @@ function Card({ info }: CardProps) {
     const target = e.target as HTMLElement;
     e.stopPropagation();
 
-    if (target.tagName !== 'INPUT') {
+    if (target.tagName !== 'INPUT' && searchParams) {
       const pageNumber = searchParams.get('page') || '1';
-      navigate(`details/${info.id}/?page=${pageNumber}`);
+      router.push(`/?page=${pageNumber}&details=${info.id}`);
     }
   };
 
   return (
-    <div data-testid="card-item" className={card} onClick={checkDetails}>
-      <img className={card__img} src={info.image} alt={`Image ${info.name}`} />
+    <div className={card} onClick={checkDetails}>
+      <Image
+        width="200"
+        height="200"
+        className={card__img}
+        src={info.image}
+        alt={`Image ${info.name}`}
+      />
       <div className={card__info}>
         <h3 className={card__title}>{info.name}</h3>
         <Checkbox

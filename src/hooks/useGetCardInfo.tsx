@@ -1,4 +1,4 @@
-import APICard from '@/api/card';
+import APICard from '@/app/api/card';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetCardInfo = (id?: string) => {
