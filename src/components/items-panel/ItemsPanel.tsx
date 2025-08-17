@@ -10,9 +10,11 @@ import style from './ItemsPanel.module.scss';
 import { useRef } from 'react';
 import getCSV from '@/app/api/getCSV';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 function ItemsPanel() {
   const downloadRef = useRef<HTMLAnchorElement | null>(null);
+  const t = useTranslations('Panel');
 
   const items = useSelectedItems(selectedItems);
   const itemsCount = useSelectedItems(selectItemsCount);
@@ -35,13 +37,15 @@ function ItemsPanel() {
 
   return (
     <div className={style.panel}>
-      <h4 className={style.panel__title}>{itemsCount} items are selected</h4>
+      <h4 className={style.panel__title}>
+        {itemsCount} {t('title')}
+      </h4>
       <div className={style.panel__controllers}>
         <Button className={style.panel__btn} onClick={clearItems}>
-          Unselect all
+          {t('unselectedBtn')}
         </Button>
         <Button className={style.panel__btn} onClick={handleDownload}>
-          Download
+          {t('downloadBtn')}
         </Button>
         <Link
           role="link"

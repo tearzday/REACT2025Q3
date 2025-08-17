@@ -36,6 +36,11 @@
     "location": "Location",
     "btn": "Close"
   },
+  "Panel": {
+    "title": "items are selected",
+    "unselectedBtn": "Unselect all",
+    "downloadBtn": "Download"
+  },
   "404": {
     "text": "Oops! This page doesn't exist."
   }
