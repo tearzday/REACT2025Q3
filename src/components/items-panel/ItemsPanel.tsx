@@ -7,11 +7,11 @@ import useSelectedItems, {
 } from '@/store/selectedItems';
 import Button from '../UI/button/Button';
 import style from './ItemsPanel.module.scss';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import getCSV from '@/app/api/getCSV';
+import { Link } from '@/i18n/navigation';
 
 function ItemsPanel() {
-  const [downloadUrl, setDownloadUrl] = useState('');
   const downloadRef = useRef<HTMLAnchorElement | null>(null);
 
   const items = useSelectedItems(selectedItems);
@@ -24,16 +24,13 @@ function ItemsPanel() {
 
     const url = URL.createObjectURL(file);
 
-    setDownloadUrl(url);
+    if (downloadRef.current) {
+      downloadRef.current.href = url;
+      downloadRef.current.download = `${itemsCount}_items.csv`;
+      downloadRef.current.click();
 
-    setTimeout(() => {
-      const ref = downloadRef.current;
-      if (ref) {
-        ref.click();
-        URL.revokeObjectURL(url);
-        setDownloadUrl('');
-      }
-    }, 0);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
   };
 
   return (
@@ -46,10 +43,10 @@ function ItemsPanel() {
         <Button className={style.panel__btn} onClick={handleDownload}>
           Download
         </Button>
-        <a
+        <Link
           role="link"
           ref={downloadRef}
-          href={downloadUrl}
+          href=""
           className={style.blob__link}
           download={`${itemsCount}_items.csv`}
         />
