@@ -1,11 +1,20 @@
-import './App.css'
+import { useState } from 'react';
+import Modal from './components/modal/Modal';
+import { createPortal } from 'react-dom';
 
-function App() {
+export default function App() {
+  const [showModal, setShowModal] = useState(false);
   return (
     <>
-      Start
-    </>
-  )
-}
+      <button onClick={() => setShowModal(true)}>Open Modal</button>
 
-export default App
+      {showModal &&
+        createPortal(
+          <Modal onClose={() => setShowModal(false)}>
+            <p>Modal Content</p>
+          </Modal>,
+          document.body
+        )}
+    </>
+  );
+}
