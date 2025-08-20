@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from './components/modal/Modal';
 import { createPortal } from 'react-dom';
+import UncontrolledForm from './components/forms/uncontrolled-form/UncontrolledForm';
 
 export default function App() {
   const [showModal, setShowModal] = useState(false);
@@ -11,7 +12,7 @@ export default function App() {
       {showModal &&
         createPortal(
           <Modal onClose={() => setShowModal(false)}>
-            <p>Modal Content</p>
+            <UncontrolledForm />
           </Modal>,
           document.body
         )}
