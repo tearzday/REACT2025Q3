@@ -1,12 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { formsSetData, useForms } from '../../../hooks/useForms';
 import type { FormData } from '../../../types';
+import InputDefault from '../../UI/Input/Default';
 
 export default function HookForm() {
   const setData = useForms(formsSetData);
   const { register, handleSubmit } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
+    console.log(data);
     const formData = {
       name: data.name,
       age: data.age,
@@ -26,58 +28,41 @@ export default function HookForm() {
     <>
       <h1>Hook Form</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="name">Name: </label>
-          <input
-            id="name"
-            className="text-black"
-            type="text"
-            placeholder="Enter name"
-            {...register('name')}
-          />
-        </div>
-        <div>
-          <label htmlFor="age">Age: </label>
-          <input
-            id="age"
-            className="text-black"
-            type="number"
-            placeholder="Enter age"
-            {...register('age')}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email">Email: </label>
-          <input
-            id="email"
-            className="text-black"
-            type="email"
-            placeholder="Enter email"
-            {...register('email')}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input
-            id="password"
-            className="text-black"
-            type="password"
-            placeholder="Enter password"
-            {...register('password')}
-          />
-        </div>
-        <div>
-          <label htmlFor="repeat-password">Repeat Password: </label>
-          <input
-            id="repeat-password"
-            className="text-black"
-            type="password"
-            placeholder="Repeat password"
-            {...register('repeatPassword')}
-          />
-        </div>
+        <InputDefault
+          id="name"
+          label="Name"
+          placeholder="Enter name"
+          type="text"
+          register={register}
+        />
+        <InputDefault
+          id="age"
+          label="Age"
+          placeholder="Enter age"
+          type="number"
+          register={register}
+        />
+        <InputDefault
+          id="email"
+          label="Email"
+          placeholder="Enter email"
+          type="email"
+          register={register}
+        />
+        <InputDefault
+          id="password"
+          label="Password"
+          placeholder="Enter password"
+          type="password"
+          register={register}
+        />
+        <InputDefault
+          id="repeatPassword"
+          label="Repeat Password"
+          placeholder="Repeat password"
+          type="password"
+          register={register}
+        />
 
         <div>
           <label htmlFor="man">Man</label>

@@ -1,5 +1,6 @@
 import { useRef, type FormEvent } from 'react';
 import { formsSetData, useForms } from '../../../hooks/useForms';
+import InputDefault from '../../UI/Input/Default';
 
 export default function UncontrolledForm() {
   const name = useRef<HTMLInputElement>(null);
@@ -26,6 +27,10 @@ export default function UncontrolledForm() {
     const termsCurrent = terms.current;
     const fileCurrent = file.current;
     const countryCurrent = country.current;
+
+    if (nameCurrent) {
+      console.log(nameCurrent.value);
+    }
 
     if (
       nameCurrent &&
@@ -56,57 +61,41 @@ export default function UncontrolledForm() {
 
   return (
     <form onSubmit={submitForm}>
-      <div>
-        <label htmlFor="name">Name: </label>
-        <input
-          id="name"
-          className="text-black"
-          type="text"
-          placeholder="Enter name"
-          ref={name}
-        />
-      </div>
-      <div>
-        <label htmlFor="age">Age: </label>
-        <input
-          id="age"
-          className="text-black"
-          type="number"
-          placeholder="Enter age"
-          ref={age}
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Email: </label>
-        <input
-          id="email"
-          className="text-black"
-          type="email"
-          placeholder="Enter email"
-          ref={email}
-        />
-      </div>
-
-      <div>
-        <label htmlFor="password">Password: </label>
-        <input
-          id="password"
-          className="text-black"
-          type="password"
-          placeholder="Enter password"
-          ref={password}
-        />
-      </div>
-      <div>
-        <label htmlFor="repeat-password">Repeat Password: </label>
-        <input
-          id="repeat-password"
-          className="text-black"
-          type="password"
-          placeholder="Repeat password"
-          ref={repeatPassword}
-        />
-      </div>
+      <InputDefault
+        id="name"
+        label="Name"
+        placeholder="Enter name"
+        type="text"
+        ref={name}
+      />
+      <InputDefault
+        id="age"
+        label="Age"
+        placeholder="Enter age"
+        type="number"
+        ref={age}
+      />
+      <InputDefault
+        id="email"
+        label="Email"
+        placeholder="Enter email"
+        type="email"
+        ref={email}
+      />
+      <InputDefault
+        id="password"
+        label="Password"
+        placeholder="Enter password"
+        type="password"
+        ref={password}
+      />
+      <InputDefault
+        id="repeatPassword"
+        label="Repeat Password"
+        placeholder="Repeat password"
+        type="password"
+        ref={repeatPassword}
+      />
 
       <div>
         <label htmlFor="man">Man</label>
