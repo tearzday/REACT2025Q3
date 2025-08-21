@@ -1,4 +1,5 @@
 import { useRef, type FormEvent } from 'react';
+import { formsSetData, useForms } from '../../../hooks/useForms';
 
 export default function UncontrolledForm() {
   const name = useRef<HTMLInputElement>(null);
@@ -12,9 +13,47 @@ export default function UncontrolledForm() {
   const file = useRef<HTMLInputElement>(null);
   const country = useRef<HTMLInputElement>(null);
 
+  const setData = useForms(formsSetData);
+
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
+    const nameCurrent = name.current;
+    const ageCurrent = age.current;
+    const emailCurrent = email.current;
+    const passwordCurrent = password.current;
+    const repeatPasswordCurrent = repeatPassword.current;
+    const genderCurrent = genderMan.current;
+    const termsCurrent = terms.current;
+    const fileCurrent = file.current;
+    const countryCurrent = country.current;
+
+    if (
+      nameCurrent &&
+      ageCurrent &&
+      emailCurrent &&
+      passwordCurrent &&
+      repeatPasswordCurrent &&
+      genderCurrent &&
+      termsCurrent &&
+      fileCurrent &&
+      countryCurrent
+    ) {
+      const formData = {
+        name: nameCurrent.value,
+        age: ageCurrent.value,
+        email: emailCurrent.value,
+        password: passwordCurrent.value,
+        repeatPassword: repeatPasswordCurrent.value,
+        gender: genderCurrent.checked ? 'man' : 'woman',
+        terms: termsCurrent.checked,
+        file: null,
+        country: countryCurrent.value,
+      };
+
+      setData(formData);
+    }
   };
+
   return (
     <form onSubmit={submitForm}>
       <div>
