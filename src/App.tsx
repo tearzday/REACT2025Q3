@@ -3,7 +3,7 @@ import Modal from './components/modal/Modal';
 import { createPortal } from 'react-dom';
 import UncontrolledForm from './components/forms/uncontrolled-form/UncontrolledForm';
 import HookForm from './components/forms/hook-form/HookForm';
-import ButtonDefault from './components/UI/Button/Default';
+import ButtonDefault from './components/UI/button/Default';
 
 export default function App() {
   const [showUncontrolledForm, setShowUncontrolledForm] = useState(false);

@@ -1,9 +1,25 @@
 import { useForm } from 'react-hook-form';
 // import { formsSetData, useForms } from '../../../hooks/useForms';
 import type { FormData } from '../../../types';
-import InputDefault from '../../UI/Input/Default';
+import InputDefault from '../../UI/input/Default';
+import RadioList from '../../UI/radio-list/Default';
 
 export default function HookForm() {
+  const radioListData = [
+    {
+      id: 0,
+      label: 'Man',
+      value: 'man',
+      name: 'gender' as const,
+    },
+    {
+      id: 1,
+      label: 'Woman',
+      value: 'woman',
+      name: 'gender' as const,
+    },
+  ];
+
   // const setData = useForms(formsSetData);
   const { register, handleSubmit } = useForm<FormData>();
 
@@ -64,18 +80,7 @@ export default function HookForm() {
           register={register}
         />
 
-        <div>
-          <label htmlFor="man">Man</label>
-          <input type="radio" id="man" value="man" {...register('gender')} />
-
-          <label htmlFor="woman">Woman</label>
-          <input
-            type="radio"
-            id="woman"
-            value="woman"
-            {...register('gender')}
-          />
-        </div>
+        <RadioList data={radioListData} {...register('gender')} />
 
         <div>
           <input type="checkbox" id="terms" {...register('terms')} />

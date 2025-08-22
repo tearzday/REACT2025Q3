@@ -1,9 +1,25 @@
 import { type FormEvent } from 'react';
 import { formsSetData, useForms } from '../../../hooks/useForms';
-import InputDefault from '../../UI/Input/Default';
+import InputDefault from '../../UI/input/Default';
 import { formSchema } from '../../../schemas/formSchema';
+import RadioList from '../../UI/radio-list/Default';
 
 export default function UncontrolledForm() {
+  const radioListData = [
+    {
+      id: 0,
+      label: 'Man',
+      value: 'man',
+      name: 'gender' as const,
+    },
+    {
+      id: 1,
+      label: 'Woman',
+      value: 'woman',
+      name: 'gender' as const,
+    },
+  ];
+
   const setData = useForms(formsSetData);
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
@@ -57,13 +73,7 @@ export default function UncontrolledForm() {
         type="password"
       />
 
-      <div>
-        <label htmlFor="man">Man</label>
-        <input type="radio" id="man" name="gender" value="man" />
-
-        <label htmlFor="woman">Woman</label>
-        <input type="radio" id="woman" name="gender" value="woman" />
-      </div>
+      <RadioList data={radioListData} />
 
       <div>
         <input type="checkbox" id="terms" name="terms" />
