@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import type { FormData } from '../../../types';
 import InputDefault from '../../UI/input/Default';
 import RadioList from '../../UI/radio-list/Default';
+import CheckboxDefault from '../../UI/checkbox/Default';
 
 export default function HookForm() {
   const radioListData = [
@@ -81,11 +82,7 @@ export default function HookForm() {
         />
 
         <RadioList data={radioListData} {...register('gender')} />
-
-        <div>
-          <input type="checkbox" id="terms" {...register('terms')} />
-          <label htmlFor="terms">Accept T&C</label>
-        </div>
+        <CheckboxDefault id="terms" label="Accept T&C" register={register} />
 
         <div>
           <label htmlFor="file">Add file: </label>

@@ -3,6 +3,7 @@ import { formsSetData, useForms } from '../../../hooks/useForms';
 import InputDefault from '../../UI/input/Default';
 import { formSchema } from '../../../schemas/formSchema';
 import RadioList from '../../UI/radio-list/Default';
+import CheckboxDefault from '../../UI/checkbox/Default';
 
 export default function UncontrolledForm() {
   const radioListData = [
@@ -74,11 +75,7 @@ export default function UncontrolledForm() {
       />
 
       <RadioList data={radioListData} />
-
-      <div>
-        <input type="checkbox" id="terms" name="terms" />
-        <label htmlFor="terms">Accept T&C</label>
-      </div>
+      <CheckboxDefault id="terms" label="Accept T&C" />
 
       <div>
         <label htmlFor="file">Add img: </label>

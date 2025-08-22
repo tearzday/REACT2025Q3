@@ -1,4 +1,3 @@
-import type { Ref } from 'react';
 import type { Path, UseFormRegister } from 'react-hook-form';
 import type { FormData } from '../../../types';
 
@@ -8,7 +7,6 @@ interface InputDefaultProps {
   type: string;
   label: string;
   name?: string;
-  ref?: Ref<HTMLInputElement>;
   register?: UseFormRegister<FormData>;
 }
 
