@@ -4,6 +4,7 @@ import InputDefault from '../../UI/input/Default';
 import { formSchema } from '../../../schemas/formSchema';
 import RadioList from '../../UI/radio-list/Default';
 import CheckboxDefault from '../../UI/checkbox/Default';
+import AddFile from '../../UI/add-file/AddFile';
 
 export default function UncontrolledForm() {
   const radioListData = [
@@ -76,11 +77,7 @@ export default function UncontrolledForm() {
 
       <RadioList data={radioListData} />
       <CheckboxDefault id="terms" label="Accept T&C" />
-
-      <div>
-        <label htmlFor="file">Add img: </label>
-        <input id="file" type="file" />
-      </div>
+      <AddFile id="file" label="Add img" />
 
       <div>
         <label htmlFor="country">Country:</label>

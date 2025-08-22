@@ -4,6 +4,7 @@ import type { FormData } from '../../../types';
 import InputDefault from '../../UI/input/Default';
 import RadioList from '../../UI/radio-list/Default';
 import CheckboxDefault from '../../UI/checkbox/Default';
+import AddFile from '../../UI/add-file/AddFile';
 
 export default function HookForm() {
   const radioListData = [
@@ -81,13 +82,9 @@ export default function HookForm() {
           register={register}
         />
 
-        <RadioList data={radioListData} {...register('gender')} />
+        <RadioList data={radioListData} register={register} />
         <CheckboxDefault id="terms" label="Accept T&C" register={register} />
-
-        <div>
-          <label htmlFor="file">Add file: </label>
-          <input id="file" type="file" {...register('file')} />
-        </div>
+        <AddFile id="file" label="Add img" register={register} />
 
         <div>
           <label htmlFor="country">Country:</label>
