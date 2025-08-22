@@ -7,6 +7,7 @@ interface InputDefaultProps {
   placeholder: string;
   type: string;
   label: string;
+  name?: string;
   ref?: Ref<HTMLInputElement>;
   register?: UseFormRegister<FormData>;
 }
@@ -16,7 +17,7 @@ export default function InputDefault({
   placeholder,
   type,
   label,
-  ref,
+  name,
   register,
 }: InputDefaultProps) {
   return (
@@ -29,7 +30,8 @@ export default function InputDefault({
         className="rounded-lg p-2 bg-transparent border-2 border-neutral-700 outline-none"
         type={type}
         placeholder={placeholder}
-        {...(register ? register(id) : { ref })}
+        name={name}
+        {...(register ? register(id) : null)}
       />
     </div>
   );

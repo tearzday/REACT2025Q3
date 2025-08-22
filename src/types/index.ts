@@ -1,11 +1,11 @@
 export interface FormData {
   name: string;
-  age: string;
+  age: number;
   email: string;
   password: string;
   repeatPassword: string;
-  gender: string;
+  gender: 'man' | 'woman';
   terms: boolean;
-  file: null;
+  file: File;
   country: string;
 }

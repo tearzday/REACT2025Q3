@@ -1,14 +1,13 @@
 import { useForm } from 'react-hook-form';
-import { formsSetData, useForms } from '../../../hooks/useForms';
+// import { formsSetData, useForms } from '../../../hooks/useForms';
 import type { FormData } from '../../../types';
 import InputDefault from '../../UI/Input/Default';
 
 export default function HookForm() {
-  const setData = useForms(formsSetData);
+  // const setData = useForms(formsSetData);
   const { register, handleSubmit } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
     const formData = {
       name: data.name,
       age: data.age,
@@ -21,7 +20,8 @@ export default function HookForm() {
       country: data.country,
     };
 
-    setData(formData);
+    console.log(formData);
+    // setData(formData);
   };
 
   return (
