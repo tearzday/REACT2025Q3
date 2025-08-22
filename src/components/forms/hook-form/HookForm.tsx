@@ -7,6 +7,7 @@ import CheckboxDefault from '../../UI/checkbox/Default';
 import AddFile from '../../UI/add-file/AddFile';
 import DataList from '../../UI/datalist/Default';
 import { countries } from '../../../data/countries';
+import ButtonDefault from '../../UI/button/Default';
 
 export default function HookForm() {
   const radioListData = [
@@ -46,8 +47,7 @@ export default function HookForm() {
 
   return (
     <>
-      <h1>Hook Form</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <InputDefault
           id="name"
           label="Name"
@@ -96,7 +96,7 @@ export default function HookForm() {
           placeholder="Select country"
         />
 
-        <button type="submit">Submit</button>
+        <ButtonDefault>Submit</ButtonDefault>
       </form>
     </>
   );

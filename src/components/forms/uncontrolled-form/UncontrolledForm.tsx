@@ -7,6 +7,7 @@ import CheckboxDefault from '../../UI/checkbox/Default';
 import AddFile from '../../UI/add-file/AddFile';
 import DataList from '../../UI/datalist/Default';
 import { countries } from '../../../data/countries';
+import ButtonDefault from '../../UI/button/Default';
 
 export default function UncontrolledForm() {
   const radioListData = [
@@ -40,7 +41,7 @@ export default function UncontrolledForm() {
   };
 
   return (
-    <form onSubmit={submitForm}>
+    <form onSubmit={submitForm} className="flex flex-col gap-4">
       <InputDefault
         id="name"
         name="name"
@@ -88,7 +89,7 @@ export default function UncontrolledForm() {
         placeholder="Select country"
       />
 
-      <button type="submit">Submit</button>
+      <ButtonDefault>Submit</ButtonDefault>
     </form>
   );
 }
