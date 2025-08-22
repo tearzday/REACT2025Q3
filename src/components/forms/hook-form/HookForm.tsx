@@ -5,6 +5,8 @@ import InputDefault from '../../UI/input/Default';
 import RadioList from '../../UI/radio-list/Default';
 import CheckboxDefault from '../../UI/checkbox/Default';
 import AddFile from '../../UI/add-file/AddFile';
+import DataList from '../../UI/datalist/Default';
+import { countries } from '../../../data/countries';
 
 export default function HookForm() {
   const radioListData = [
@@ -85,23 +87,15 @@ export default function HookForm() {
         <RadioList data={radioListData} register={register} />
         <CheckboxDefault id="terms" label="Accept T&C" register={register} />
         <AddFile id="file" label="Add img" register={register} />
+        <DataList
+          id="country"
+          label="Country"
+          listName="country-list"
+          listOptions={countries}
+          register={register}
+          placeholder="Select country"
+        />
 
-        <div>
-          <label htmlFor="country">Country:</label>
-          <input
-            type="text"
-            className="text-black"
-            list="country-list"
-            id="country"
-            {...register('country')}
-          />
-          <datalist id="country-list">
-            <option value="USA" />
-            <option value="Canada" />
-            <option value="UK" />
-            <option value="Australia" />
-          </datalist>
-        </div>
         <button type="submit">Submit</button>
       </form>
     </>

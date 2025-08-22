@@ -5,6 +5,8 @@ import { formSchema } from '../../../schemas/formSchema';
 import RadioList from '../../UI/radio-list/Default';
 import CheckboxDefault from '../../UI/checkbox/Default';
 import AddFile from '../../UI/add-file/AddFile';
+import DataList from '../../UI/datalist/Default';
+import { countries } from '../../../data/countries';
 
 export default function UncontrolledForm() {
   const radioListData = [
@@ -78,23 +80,14 @@ export default function UncontrolledForm() {
       <RadioList data={radioListData} />
       <CheckboxDefault id="terms" label="Accept T&C" />
       <AddFile id="file" label="Add img" />
+      <DataList
+        id="country"
+        label="Country"
+        listName="country-list"
+        listOptions={countries}
+        placeholder="Select country"
+      />
 
-      <div>
-        <label htmlFor="country">Country:</label>
-        <input
-          type="text"
-          className="text-black"
-          list="country-list"
-          id="country"
-          name="country"
-        />
-        <datalist id="country-list">
-          <option value="USA" />
-          <option value="Canada" />
-          <option value="UK" />
-          <option value="Australia" />
-        </datalist>
-      </div>
       <button type="submit">Submit</button>
     </form>
   );
