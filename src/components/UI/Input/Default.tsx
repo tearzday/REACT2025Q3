@@ -6,6 +6,7 @@ interface InputDefaultProps {
   placeholder: string;
   type: string;
   label: string;
+  error?: string;
   name?: string;
   register?: UseFormRegister<FormData>;
 }
@@ -17,20 +18,26 @@ export default function InputDefault({
   label,
   name,
   register,
+  error,
 }: InputDefaultProps) {
   return (
-    <div className="flex items-center justify-between text-neutral-700">
-      <label htmlFor={id} className="text-lg font-bold">
-        {label}:{' '}
-      </label>
-      <input
-        id={id}
-        className="rounded-lg p-2 bg-transparent border-2 border-neutral-700 outline-none"
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        {...(register ? register(id) : null)}
-      />
+    <div className="flex flex-col relative h-[60px]">
+      <div className="flex items-center justify-between text-neutral-700">
+        <label htmlFor={id} className="text-lg font-bold">
+          {label}:{' '}
+        </label>
+        <input
+          id={id}
+          className="rounded-lg p-2 bg-transparent border-2 border-neutral-700 outline-none"
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          {...(register ? register(id) : null)}
+        />
+      </div>
+      <p className="text-sm text-red-700 text-right absolute right-0 bottom-0">
+        {error}
+      </p>
     </div>
   );
 }

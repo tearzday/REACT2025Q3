@@ -9,3 +9,7 @@ export interface FormData {
   file: File;
   country: string;
 }
+
+export type FormDataErrors = {
+  [K in keyof FormData]?: string;
+};
