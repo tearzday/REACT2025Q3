@@ -4,13 +4,14 @@ import { createPortal } from 'react-dom';
 import UncontrolledForm from './components/forms/uncontrolled-form/UncontrolledForm';
 import HookForm from './components/forms/hook-form/HookForm';
 import ButtonDefault from './components/UI/button/Default';
+import Result from './components/result/result';
 
 export default function App() {
   const [showUncontrolledForm, setShowUncontrolledForm] = useState(false);
   const [showReactHookForm, setShowReactHookForm] = useState(false);
 
   return (
-    <main className="w-svw h-svh bg-color-olive flex items-center justify-center">
+    <main className="w-svw min-h-svh bg-color-olive flex flex-col items-center pt-20">
       <div className="flex gap-5">
         <ButtonDefault onClick={() => setShowUncontrolledForm(true)}>
           Open UncontrolledForm
@@ -19,6 +20,7 @@ export default function App() {
           Open ReactHookForm
         </ButtonDefault>
       </div>
+      <Result />
       {showUncontrolledForm &&
         createPortal(
           <Modal onClose={() => setShowUncontrolledForm(false)}>

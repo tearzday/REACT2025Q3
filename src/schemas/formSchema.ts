@@ -37,7 +37,7 @@ export const formSchema = yup.object({
 
   gender: yup.mixed<'man' | 'woman'>().required('Gender is required'),
 
-  terms: yup.boolean().required('T&C is required'),
+  terms: yup.boolean().oneOf([true], 'T&C is required').required(),
 
   file: yup
     .mixed<File>()

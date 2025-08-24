@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-// import { formsSetData, useForms } from '../../../hooks/useForms';
+import { formsSetData, useForms } from '../../../hooks/useForms';
 import type { FormData } from '../../../types';
 import InputDefault from '../../UI/input/Default';
 import RadioList from '../../UI/radio-list/Default';
@@ -27,7 +27,7 @@ export default function HookForm() {
     },
   ];
 
-  // const setData = useForms(formsSetData);
+  const setData = useForms(formsSetData);
 
   const {
     register,
@@ -47,12 +47,12 @@ export default function HookForm() {
       repeatPassword: data.repeatPassword,
       gender: data.gender,
       terms: data.terms,
-      file: null,
+      file: data.file,
       country: data.country,
     };
 
     console.log(formData);
-    // setData(formData);
+    setData(formData);
   };
 
   return (

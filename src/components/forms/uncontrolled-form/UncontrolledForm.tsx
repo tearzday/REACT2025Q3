@@ -37,6 +37,7 @@ export default function UncontrolledForm() {
     const data = {
       ...Object.fromEntries(formData.entries()),
       file,
+      terms: formData.get('terms') === 'on',
     };
 
     try {
