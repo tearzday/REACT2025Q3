@@ -1,5 +1,5 @@
 import type { Path, UseFormRegister } from 'react-hook-form';
-import type { FormData } from '../../../types';
+import type { FormData } from '@/types';
 
 interface CheckboxDefaultProps {
   id: Path<FormData>;

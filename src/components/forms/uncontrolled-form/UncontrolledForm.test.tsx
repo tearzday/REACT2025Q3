@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import UncontrolledForm from './UncontrolledForm';
-import { mockOnClose } from '../../../__tests__/__mocks__';
+import { mockOnClose } from '@/__tests__/__mocks__';
 import userEvent from '@testing-library/user-event';
 
 describe('UncontrolledForm', () => {

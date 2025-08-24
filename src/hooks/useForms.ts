@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import type { FormData } from '../types';
-import { countries } from '../data/countries';
+import type { FormData } from '@/types';
+import { countries } from '@/data/countries';
 
 interface FormsState {
   countries: string[];

@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Result from './result';
-import { mockData } from '../../__tests__/__mocks__';
+import { mockData } from '@/__tests__/__mocks__';
 
-vi.mock('../../hooks/useForms', () => ({
-  useForms: vi.fn(() => mockData),
+vi.mock('@/hooks/useForms', () => ({
+  useForms: () => mockData,
   formsGetData: vi.fn(),
 }));
 

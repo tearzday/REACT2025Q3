@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { countries } from '../data/countries';
+import { countries } from '@/data/countries';
 
 export const formSchema = yup.object({
   name: yup

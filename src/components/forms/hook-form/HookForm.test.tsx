@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import HookForm from './HookForm';
-import { file, mockOnClose } from '../../../__tests__/__mocks__';
+import { file, mockOnClose } from '@/__tests__/__mocks__';
 import userEvent from '@testing-library/user-event';
 
 describe('HookForm', () => {

@@ -1,41 +1,23 @@
 import { useState, type FormEvent } from 'react';
-import {
-  formsGetCountries,
-  formsSetData,
-  useForms,
-} from '../../../hooks/useForms';
-import InputDefault from '../../UI/input';
-import { formSchema } from '../../../schemas/formSchema';
-import RadioList from '../../UI/radio-list';
-import CheckboxDefault from '../../UI/checkbox';
-import AddFile from '../../UI/add-file';
-import DataList from '../../UI/datalist';
-import ButtonDefault from '../../UI/button';
-import type { FormDataErrors } from '../../../types';
+import { formsGetCountries, formsSetData, useForms } from '@/hooks/useForms';
+import InputDefault from '@/components/UI/input';
+import { formSchema } from '@/schemas/formSchema';
+import RadioList from '@/components/UI/radio-list';
+import CheckboxDefault from '@/components/UI/checkbox';
+import AddFile from '@/components/UI/add-file';
+import DataList from '@/components/UI/datalist';
+import ButtonDefault from '@/components/UI/button';
+import type { FormDataErrors } from '@/types';
 import { ValidationError } from 'yup';
-import fileToBase64 from '../../../utils/convertToBase64';
-import { getPasswordStrength } from '../../../utils/showPasswordStrength';
+import fileToBase64 from '@/utils/convertToBase64';
+import { getPasswordStrength } from '@/utils/showPasswordStrength';
+import { radioListData } from '@/data/radioList';
 
 interface UncontrolledFormProps {
   onClose: () => void;
 }
 
 export default function UncontrolledForm({ onClose }: UncontrolledFormProps) {
-  const radioListData = [
-    {
-      id: 0,
-      label: 'Man',
-      value: 'man',
-      name: 'gender' as const,
-    },
-    {
-      id: 1,
-      label: 'Woman',
-      value: 'woman',
-      name: 'gender' as const,
-    },
-  ];
-
   const countries = useForms(formsGetCountries);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [strength, setStrength] = useState('');

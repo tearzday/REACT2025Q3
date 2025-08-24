@@ -1,4 +1,4 @@
-import { formsGetData, useForms } from '../../hooks/useForms';
+import { formsGetData, useForms } from '@/hooks/useForms';
 
 export default function Result() {
   const data = useForms(formsGetData);
