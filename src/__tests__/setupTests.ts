@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom';
+
 import { beforeEach, vi } from 'vitest';
 import { mockSetData } from './__mocks__';
 
