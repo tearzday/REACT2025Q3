@@ -9,6 +9,7 @@ import DataList from '../../UI/datalist/Default';
 import { countries } from '../../../data/countries';
 import ButtonDefault from '../../UI/button/Default';
 import type { FormDataErrors } from '../../../types';
+import { ValidationError } from 'yup';
 
 export default function UncontrolledForm() {
   const radioListData = [
@@ -29,7 +30,7 @@ export default function UncontrolledForm() {
 
   const setData = useForms(formsSetData);
 
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
+  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const file = formData.get('file');
@@ -38,17 +39,22 @@ export default function UncontrolledForm() {
       file,
     };
 
-    const result = formSchema.safeParse(data);
-
-    if (!result.success) {
-      const newErrors: FormDataErrors = {};
-
-      result.error.issues.forEach((err) => {
-        newErrors[err.path[0] as keyof FormDataErrors] = err.message;
+    try {
+      const validatedData = await formSchema.validate(data, {
+        abortEarly: false,
       });
-      setErrors(newErrors);
-    } else {
-      setData(result.data);
+      setErrors({});
+      setData(validatedData);
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        const newErrors: FormDataErrors = {};
+        err.inner.forEach((e) => {
+          if (e.path) {
+            newErrors[e.path as keyof FormDataErrors] = e.message;
+          }
+        });
+        setErrors(newErrors);
+      }
     }
   };
 
