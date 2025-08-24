@@ -1,13 +1,13 @@
 import { useState, type FormEvent } from 'react';
 import { formsSetData, useForms } from '../../../hooks/useForms';
-import InputDefault from '../../UI/input/Default';
+import InputDefault from '../../UI/input';
 import { formSchema } from '../../../schemas/formSchema';
-import RadioList from '../../UI/radio-list/Default';
-import CheckboxDefault from '../../UI/checkbox/Default';
-import AddFile from '../../UI/add-file/AddFile';
-import DataList from '../../UI/datalist/Default';
+import RadioList from '../../UI/radio-list';
+import CheckboxDefault from '../../UI/checkbox';
+import AddFile from '../../UI/add-file';
+import DataList from '../../UI/datalist';
 import { countries } from '../../../data/countries';
-import ButtonDefault from '../../UI/button/Default';
+import ButtonDefault from '../../UI/button';
 import type { FormDataErrors } from '../../../types';
 import { ValidationError } from 'yup';
 import fileToBase64 from '../../../utils/convertToBase64';
@@ -76,7 +76,7 @@ export default function UncontrolledForm({ onClose }: UncontrolledFormProps) {
   };
 
   return (
-    <form onSubmit={submitForm}>
+    <form onSubmit={submitForm} className="flex flex-col">
       <InputDefault
         id="name"
         name="name"
