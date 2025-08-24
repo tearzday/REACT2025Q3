@@ -11,6 +11,7 @@ import ButtonDefault from '../../UI/button/Default';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema } from '../../../schemas/formSchema';
 import fileToBase64 from '../../../utils/convertToBase64';
+import { getPasswordStrength } from '../../../utils/showPasswordStrength';
 
 interface HookFormProps {
   onClose: () => void;
@@ -38,10 +39,12 @@ export default function HookForm({ onClose }: HookFormProps) {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    watch,
   } = useForm<FormData>({
     resolver: yupResolver(formSchema),
     mode: 'onChange',
   });
+  const password = watch('password');
 
   const onSubmit = async (data: FormData) => {
     const fileObj = data.file?.[0];
@@ -98,6 +101,7 @@ export default function HookForm({ onClose }: HookFormProps) {
           type="password"
           register={register}
           error={errors.password?.message}
+          strength={getPasswordStrength(password)}
         />
         <InputDefault
           id="repeatPassword"

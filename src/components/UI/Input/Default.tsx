@@ -6,6 +6,7 @@ interface InputDefaultProps {
   placeholder: string;
   type: string;
   label: string;
+  strength?: string;
   error?: string;
   name?: string;
   register?: UseFormRegister<FormData>;
@@ -19,6 +20,7 @@ export default function InputDefault({
   name,
   register,
   error,
+  strength,
 }: InputDefaultProps) {
   return (
     <div className="flex flex-col relative h-[60px]">
@@ -38,6 +40,11 @@ export default function InputDefault({
       <p className="text-sm text-red-700 text-right absolute right-0 bottom-0">
         {error}
       </p>
+      {strength && (
+        <p className="text-sm text-green-700 text-right absolute right-0 bottom-0">
+          Strength: {strength}
+        </p>
+      )}
     </div>
   );
 }

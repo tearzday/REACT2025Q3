@@ -22,13 +22,7 @@ export const formSchema = yup.object({
 
   email: yup.string().required('Email is required').email('Incorrect email'),
 
-  password: yup
-    .string()
-    .required('Password is required')
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/,
-      'Password must contain uppercase, lowercase, number, and special character'
-    ),
+  password: yup.string().required('Password is required'),
 
   repeatPassword: yup
     .string()

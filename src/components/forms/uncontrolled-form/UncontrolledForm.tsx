@@ -11,6 +11,7 @@ import ButtonDefault from '../../UI/button/Default';
 import type { FormDataErrors } from '../../../types';
 import { ValidationError } from 'yup';
 import fileToBase64 from '../../../utils/convertToBase64';
+import { getPasswordStrength } from '../../../utils/showPasswordStrength';
 
 interface UncontrolledFormProps {
   onClose: () => void;
@@ -32,12 +33,19 @@ export default function UncontrolledForm({ onClose }: UncontrolledFormProps) {
     },
   ];
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [strength, setStrength] = useState('');
 
   const setData = useForms(formsSetData);
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+
+    const password = formData.get('password');
+    if (typeof password === 'string') {
+      setStrength(getPasswordStrength(password));
+    }
+
     const file = formData.get('file');
     const fileBase64 = file instanceof File ? await fileToBase64(file) : '';
 
@@ -100,6 +108,7 @@ export default function UncontrolledForm({ onClose }: UncontrolledFormProps) {
         placeholder="Enter password"
         type="password"
         error={errors.password}
+        strength={strength}
       />
       <InputDefault
         id="repeatPassword"
