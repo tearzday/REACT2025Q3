@@ -27,7 +27,7 @@ export default function Modal({ onClose, children }: ModalProps) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-3/6 bg-color-olive border-2 border-neutral-700 rounded-xl flex flex-col p-2 text-white"
+        className="w-96 xl:w-2/6 bg-color-olive border-2 border-neutral-700 rounded-xl flex flex-col p-2 text-white"
       >
         <button className="self-end text-neutral-700 mb-2" onClick={onClose}>
           Close
