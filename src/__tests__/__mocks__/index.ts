@@ -22,3 +22,5 @@ export const mockData = [
     file: null,
   },
 ];
+
+export const mockCountries = ['United States', 'Canada'];

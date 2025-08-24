@@ -1,12 +1,15 @@
 import { useState, type FormEvent } from 'react';
-import { formsSetData, useForms } from '../../../hooks/useForms';
+import {
+  formsGetCountries,
+  formsSetData,
+  useForms,
+} from '../../../hooks/useForms';
 import InputDefault from '../../UI/input';
 import { formSchema } from '../../../schemas/formSchema';
 import RadioList from '../../UI/radio-list';
 import CheckboxDefault from '../../UI/checkbox';
 import AddFile from '../../UI/add-file';
 import DataList from '../../UI/datalist';
-import { countries } from '../../../data/countries';
 import ButtonDefault from '../../UI/button';
 import type { FormDataErrors } from '../../../types';
 import { ValidationError } from 'yup';
@@ -32,6 +35,8 @@ export default function UncontrolledForm({ onClose }: UncontrolledFormProps) {
       name: 'gender' as const,
     },
   ];
+
+  const countries = useForms(formsGetCountries);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [strength, setStrength] = useState('');
 

@@ -1,12 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { formsSetData, useForms } from '../../../hooks/useForms';
+import {
+  formsGetCountries,
+  formsSetData,
+  useForms,
+} from '../../../hooks/useForms';
 import type { FormData } from '../../../types';
 import InputDefault from '../../UI/input';
 import RadioList from '../../UI/radio-list';
 import CheckboxDefault from '../../UI/checkbox';
 import AddFile from '../../UI/add-file';
 import DataList from '../../UI/datalist';
-import { countries } from '../../../data/countries';
 import ButtonDefault from '../../UI/button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema } from '../../../schemas/formSchema';
@@ -33,6 +36,7 @@ export default function HookForm({ onClose }: HookFormProps) {
     },
   ];
 
+  const countries = useForms(formsGetCountries);
   const setData = useForms(formsSetData);
 
   const {

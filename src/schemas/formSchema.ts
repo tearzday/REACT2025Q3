@@ -1,8 +1,6 @@
 import * as yup from 'yup';
 import { countries } from '../data/countries';
 
-const countryEnum = countries;
-
 export const formSchema = yup.object({
   name: yup
     .string()
@@ -67,5 +65,5 @@ export const formSchema = yup.object({
   country: yup
     .string()
     .required('Country is required')
-    .oneOf(countryEnum, 'Select valid country'),
+    .oneOf(countries, 'Select valid country'),
 });
