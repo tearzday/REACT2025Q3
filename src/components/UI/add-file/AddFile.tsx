@@ -20,13 +20,7 @@ export default function AddFile({ id, label, register, error }: AddFileProps) {
           id={id}
           type="file"
           name={id}
-          {...(register
-            ? register(id, {
-                onChange: (e) => {
-                  e.target.value = e.target.files?.[0] || null;
-                },
-              })
-            : null)}
+          {...(register ? register(id) : null)}
           className="file:bg-neutral-700 file:text-color-olive file:py-2 file:px-4 file:rounded-lg"
         />
       </div>

@@ -6,7 +6,7 @@ export interface FormData {
   repeatPassword: string;
   gender: 'man' | 'woman';
   terms: boolean;
-  file: File;
+  file: FileList | string;
   country: string;
 }
 

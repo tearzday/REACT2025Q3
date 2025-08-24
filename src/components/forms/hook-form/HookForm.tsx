@@ -10,8 +10,13 @@ import { countries } from '../../../data/countries';
 import ButtonDefault from '../../UI/button/Default';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema } from '../../../schemas/formSchema';
+import fileToBase64 from '../../../utils/convertToBase64';
 
-export default function HookForm() {
+interface HookFormProps {
+  onClose: () => void;
+}
+
+export default function HookForm({ onClose }: HookFormProps) {
   const radioListData = [
     {
       id: 0,
@@ -38,7 +43,11 @@ export default function HookForm() {
     mode: 'onChange',
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
+    const fileObj = data.file?.[0];
+    const fileBase64 =
+      fileObj instanceof File ? await fileToBase64(fileObj) : '';
+
     const formData = {
       name: data.name,
       age: data.age,
@@ -47,12 +56,12 @@ export default function HookForm() {
       repeatPassword: data.repeatPassword,
       gender: data.gender,
       terms: data.terms,
-      file: data.file,
+      file: fileBase64,
       country: data.country,
     };
 
-    console.log(formData);
     setData(formData);
+    onClose();
   };
 
   return (

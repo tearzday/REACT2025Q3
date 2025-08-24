@@ -10,8 +10,13 @@ import { countries } from '../../../data/countries';
 import ButtonDefault from '../../UI/button/Default';
 import type { FormDataErrors } from '../../../types';
 import { ValidationError } from 'yup';
+import fileToBase64 from '../../../utils/convertToBase64';
 
-export default function UncontrolledForm() {
+interface UncontrolledFormProps {
+  onClose: () => void;
+}
+
+export default function UncontrolledForm({ onClose }: UncontrolledFormProps) {
   const radioListData = [
     {
       id: 0,
@@ -34,9 +39,11 @@ export default function UncontrolledForm() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const file = formData.get('file');
+    const fileBase64 = file instanceof File ? await fileToBase64(file) : '';
+
     const data = {
       ...Object.fromEntries(formData.entries()),
-      file,
+      file: fileBase64,
       terms: formData.get('terms') === 'on',
     };
 
@@ -46,6 +53,7 @@ export default function UncontrolledForm() {
       });
       setErrors({});
       setData(validatedData);
+      onClose();
     } catch (err) {
       if (err instanceof ValidationError) {
         const newErrors: FormDataErrors = {};

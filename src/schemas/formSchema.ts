@@ -40,16 +40,35 @@ export const formSchema = yup.object({
   terms: yup.boolean().oneOf([true], 'T&C is required').required(),
 
   file: yup
-    .mixed<File>()
+    .mixed<FileList | string>()
     .required('File is required')
-    .test('fileSize', 'File size should be less than 1MB', (file) =>
-      file instanceof File ? file.size <= 1_000_000 : false
-    )
-    .test('fileType', 'Only PNG and JPEG files are allowed', (file) =>
-      file instanceof File
-        ? ['image/png', 'image/jpeg'].includes(file.type)
-        : false
-    ),
+    .test('fileType', 'Only PNG and JPEG', (value) => {
+      if (typeof value === 'string') {
+        return /^data:image\/(png|jpeg);base64,/.test(value);
+      }
+
+      if (value instanceof FileList) {
+        if (value.length === 0) return false;
+        const file = value[0];
+        return ['image/png', 'image/jpeg'].includes(file.type);
+      }
+
+      return false;
+    })
+    .test('fileSize', 'File size should be less than 1MB', (value) => {
+      if (typeof value === 'string') {
+        const sizeInBytes = Math.ceil((value.length * 3) / 4);
+        return sizeInBytes <= 1_000_000;
+      }
+
+      if (value instanceof FileList) {
+        if (value.length === 0) return false;
+        const file = value[0];
+        return file.size <= 1_000_000;
+      }
+
+      return false;
+    }),
 
   country: yup
     .string()

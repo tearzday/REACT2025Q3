@@ -24,7 +24,7 @@ export default function App() {
       {showUncontrolledForm &&
         createPortal(
           <Modal onClose={() => setShowUncontrolledForm(false)}>
-            <UncontrolledForm />
+            <UncontrolledForm onClose={() => setShowUncontrolledForm(false)} />
           </Modal>,
           document.body
         )}
@@ -32,7 +32,7 @@ export default function App() {
       {showReactHookForm &&
         createPortal(
           <Modal onClose={() => setShowReactHookForm(false)}>
-            <HookForm />
+            <HookForm onClose={() => setShowReactHookForm(false)} />
           </Modal>,
           document.body
         )}

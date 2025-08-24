@@ -10,10 +10,15 @@ export default function Result() {
           key={index}
           className="p-5 bg-neutral-700 rounded-md w-96 text-color-olive"
         >
-          <div>
-            <h2 className="text-2xl font-bold mb-4 border-b border-color-olive pb-5">
-              {item.name}
-            </h2>
+          <div className="flex gap-4 items-center border-b border-color-olive mb-4 pb-4">
+            {typeof item.file === 'string' && (
+              <img
+                src={item.file}
+                alt={`Image of ${item.name}`}
+                className="w-[50px] h-[50px] rounded-md"
+              />
+            )}
+            <h2 className="text-2xl font-bold">{item.name}</h2>
           </div>
 
           <div className="text-l">
