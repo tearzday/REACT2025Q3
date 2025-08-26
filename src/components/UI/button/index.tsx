@@ -9,7 +9,7 @@ export default function Button({ onClick, children }: ButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="bg-blue-800 text-white py-2 px-4 rounded-xl font-medium cursor-pointer"
+      className="min-w-[150px] bg-blue-800 text-white py-2 px-4 rounded-xl font-medium cursor-pointer"
     >
       {children}
     </button>
