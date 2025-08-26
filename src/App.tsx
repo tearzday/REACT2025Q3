@@ -4,9 +4,11 @@ import { getCO2Info } from './api';
 import Table from './components/table/Table';
 import Selector from './components/UI/selector';
 import Button from './components/UI/button';
+import Input from './components/UI/input';
 
 export default function App() {
   const [data, setData] = useState<Data | null>(null);
+  const [inputValue, setInputValue] = useState<string>('');
   const tableHeader = [
     'Country',
     'ISO',
@@ -35,6 +37,12 @@ export default function App() {
         >
           Click me
         </Button>
+
+        <Input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="test"
+        />
       </header>
       <Table dataHeader={tableHeader} dataBody={data} />
     </div>
