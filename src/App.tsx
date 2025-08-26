@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { Data } from './types';
 import { getCO2Info } from './api';
 import Table from './components/table/Table';
+import Selector from './components/UI/selector';
 
 export default function App() {
   const [data, setData] = useState<Data | null>(null);
@@ -23,8 +24,11 @@ export default function App() {
   }, []);
 
   return (
-    <main className="bg-slate-900 text-slate-300 p-8 min-h-screen">
+    <div className="bg-slate-900 text-slate-300 p-8 min-h-screen">
+      <header>
+        <Selector options={['test', '222']} label="Test" />
+      </header>
       <Table dataHeader={tableHeader} dataBody={data} />
-    </main>
+    </div>
   );
 }
