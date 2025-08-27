@@ -4,6 +4,9 @@ import { getCO2Info } from './api';
 import Table from './components/table/Table';
 import Search from './components/search';
 import Selector from './components/UI/selector';
+import Button from './components/UI/button';
+import { createPortal } from 'react-dom';
+import Modal from './components/modal';
 
 export default function App() {
   const [data, setData] = useState<Data | null>(null);
@@ -11,6 +14,7 @@ export default function App() {
   const [searchValue, setSearchValue] = useState<string>('');
   const [sortValue, setSortValue] = useState<string | number>('');
   const [yearValue, setYearValue] = useState<string | number>('');
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const tableHeader = [
     'Country',
@@ -152,8 +156,17 @@ export default function App() {
           value={sortValue}
           onChange={setSortValue}
         />
+        <Button onClick={() => setModalOpen(true)}>Modal</Button>
       </header>
       <Table dataHeader={tableHeader} dataBody={currentData} />
+
+      {modalOpen &&
+        createPortal(
+          <Modal onClose={() => setModalOpen(false)}>
+            <div>awf</div>
+          </Modal>,
+          document.body
+        )}
     </div>
   );
 }
