@@ -56,11 +56,78 @@ export default function App() {
     }
   };
 
+  const sortingByValue = (value: number | string) => {
+    if (currentData) {
+      switch (value) {
+        case 'Population: High to Low': {
+          const sortedData = Object.fromEntries(
+            Object.entries(currentData).sort(([, a], [, b]) => {
+              const popA = a.data[0]?.population;
+              const popB = b.data[0]?.population;
+
+              if (!popA && !popB) return 0;
+              if (!popA) return 1;
+              if (!popB) return -1;
+
+              return popB - popA;
+            })
+          );
+          setCurrentData(sortedData);
+          break;
+        }
+        case 'Population: Low to High': {
+          const sortedData = Object.fromEntries(
+            Object.entries(currentData).sort(([, a], [, b]) => {
+              const popA = a.data[0]?.population;
+              const popB = b.data[0]?.population;
+
+              if (!popA && !popB) return 0;
+              if (!popA) return -1;
+              if (!popB) return 1;
+
+              return popA - popB;
+            })
+          );
+          setCurrentData(sortedData);
+          break;
+        }
+        case 'Name: A → Z': {
+          const sortedData = Object.fromEntries(
+            Object.entries(currentData).sort(([a], [b]) => {
+              if (a < b) return -1;
+              if (a > b) return 1;
+
+              return 0;
+            })
+          );
+          setCurrentData(sortedData);
+          break;
+        }
+        case 'Name: Z → A': {
+          const sortedData = Object.fromEntries(
+            Object.entries(currentData).sort(([a], [b]) => {
+              if (a < b) return 1;
+              if (a > b) return -1;
+
+              return 0;
+            })
+          );
+          setCurrentData(sortedData);
+          break;
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    filterByYear('');
+  }, [data]);
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await getCO2Info();
       setData(result);
-      setCurrentData(result);
+      // setCurrentData(result);
     };
     fetchData();
   }, []);
@@ -74,6 +141,16 @@ export default function App() {
           onClick={searchForCountry}
         />
         <Selector label="Set year" options={years} onChange={filterByYear} />
+        <Selector
+          label="Sorting by"
+          options={[
+            'Population: High to Low',
+            'Population: Low to High',
+            'Name: A → Z',
+            'Name: Z → A',
+          ]}
+          onChange={sortingByValue}
+        />
       </header>
       <Table dataHeader={tableHeader} dataBody={currentData} />
     </div>
