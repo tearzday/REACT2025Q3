@@ -26,6 +26,8 @@ export default function Table({ dataBody, dataHeader }: TableProps) {
       </thead>
       <tbody>
         {Object.entries(dataBody).map(([countryName, countryData]) => {
+          const data = countryData.data;
+          const latestData = data[data.length - 1];
           return (
             <tr key={countryName} className="border border-slate-600">
               <td className="border border-slate-600 p-2">{countryName}</td>
@@ -33,16 +35,16 @@ export default function Table({ dataBody, dataHeader }: TableProps) {
                 {countryData.iso_code}
               </td>
               <td className="border border-slate-600 p-2">
-                {countryData.data[0]?.population ?? '-'}
+                {latestData?.population ?? '-'}
               </td>
               <td className="border border-slate-600 p-2">
-                {countryData.data[0]?.year ?? '-'}
+                {latestData?.year ?? '-'}
               </td>
               <td className="border border-slate-600 p-2">
-                {countryData.data[0]?.cement_co2 ?? '-'}
+                {latestData?.cement_co2 ?? '-'}
               </td>
               <td className="border border-slate-600 p-2">
-                {countryData.data[0]?.cement_co2_per_capita ?? '-'}
+                {latestData?.cement_co2_per_capita ?? '-'}
               </td>
             </tr>
           );
