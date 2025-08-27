@@ -33,16 +33,16 @@ export default function Table({ dataBody, dataHeader }: TableProps) {
                 {countryData.iso_code}
               </td>
               <td className="border border-slate-600 p-2">
-                {countryData.data[0].population}
+                {countryData.data[0]?.population ?? '-'}
               </td>
               <td className="border border-slate-600 p-2">
-                {countryData.data[0].year}
+                {countryData.data[0]?.year ?? '-'}
               </td>
               <td className="border border-slate-600 p-2">
-                {countryData.data[0].cement_co2}
+                {countryData.data[0]?.cement_co2 ?? '-'}
               </td>
               <td className="border border-slate-600 p-2">
-                {countryData.data[0].cement_co2_per_capita}
+                {countryData.data[0]?.cement_co2_per_capita ?? '-'}
               </td>
             </tr>
           );
