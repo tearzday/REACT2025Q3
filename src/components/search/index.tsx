@@ -10,7 +10,7 @@ export default function Search({ onClick }: SearchProps) {
   const [value, setValue] = useState<string>('');
 
   return (
-    <div className="max-w-4xl flex gap-4  mx-auto my-5">
+    <div className="mx-auto flex gap-4  mx-auto my-5">
       <Input
         value={value}
         onChange={(e) => setValue(e.target.value)}

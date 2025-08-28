@@ -14,3 +14,8 @@ export type CountryInfo = {
 export type Data = {
   [key: string]: CountryInfo;
 };
+
+export type Column<T> = {
+  label: T;
+  value: T;
+};

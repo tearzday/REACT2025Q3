@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { Data } from './types';
+import type { Column, Data } from './types';
 import { getCO2Info } from './api';
 import Table from './components/table/Table';
 import Search from './components/search';
@@ -7,25 +7,66 @@ import Selector from './components/UI/selector';
 import Button from './components/UI/button';
 import { createPortal } from 'react-dom';
 import Modal from './components/modal';
+import ColumnAdder from './components/сolumn-adder';
 
 export default function App() {
   const [data, setData] = useState<Data | null>(null);
   const [currentData, setCurrentData] = useState<Data | null>(null);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [sortValue, setSortValue] = useState<string | number>('');
-  const [yearValue, setYearValue] = useState<string | number>('');
+  const [sortValue, setSortValue] = useState<string>('');
+  const [yearValue, setYearValue] = useState<number>(2023);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const tableHeader = [
-    'Country',
-    'ISO',
-    'Population',
-    'Year',
-    'CO2',
-    'CO2 per Capita',
-  ];
+  const [tableColumns, setTableColumns] = useState<Column<string>[]>([
+    {
+      label: 'Country',
+      value: 'country',
+    },
+    {
+      label: 'ISO',
+      value: 'iso_code',
+    },
+    {
+      label: 'Population',
+      value: 'population',
+    },
+    {
+      label: 'Year',
+      value: 'year',
+    },
+    {
+      label: 'CO2',
+      value: 'cement_co2',
+    },
+    {
+      label: 'CO2 per Capita',
+      value: 'cement_co2_per_capita',
+    },
+  ]);
 
-  const years = Array.from({ length: 2023 - 1750 + 1 }, (_, i) => 1750 + i);
+  const years = Array.from({ length: 2023 - 1750 + 1 }, (_, i) => {
+    const year = 1750 + i;
+    return { label: year, value: year };
+  });
+
+  const sortedData = [
+    {
+      label: 'Population: High to Low',
+      value: 'pop-high',
+    },
+    {
+      label: 'Population: Low to High',
+      value: 'pop-low',
+    },
+    {
+      label: 'Name: A → Z',
+      value: 'name-a',
+    },
+    {
+      label: 'Name: Z → A',
+      value: 'name-z',
+    },
+  ];
 
   const searchForCountry = (data: Data, value: string): Data => {
     const countries = Object.keys(data);
@@ -39,12 +80,13 @@ export default function App() {
     return newData;
   };
 
-  const filterByYear = (data: Data, value: number | string): Data => {
+  const filterByYear = (data: Data, value: number): Data => {
+    console.log(value);
     const filteredData = Object.fromEntries(
       Object.entries(data).map(([country, info]) => {
         const data = info.data;
         let filteredCountryData;
-        if (value === '') {
+        if (!value) {
           filteredCountryData = [data[data.length - 1]];
         } else {
           filteredCountryData = data.filter((item) => {
@@ -55,12 +97,13 @@ export default function App() {
         return [country, { ...info, data: filteredCountryData }];
       })
     );
+    console.log(filteredData);
     return filteredData;
   };
 
-  const sortingByValue = (data: Data, value: number | string): Data => {
+  const sortingByValue = (data: Data, value: string): Data => {
     switch (value) {
-      case 'Population: High to Low': {
+      case 'pop-high': {
         const sortedData = Object.fromEntries(
           Object.entries(data).sort(([, a], [, b]) => {
             const popA = a.data[0]?.population;
@@ -75,7 +118,7 @@ export default function App() {
         );
         return sortedData;
       }
-      case 'Population: Low to High': {
+      case 'pop-low': {
         const sortedData = Object.fromEntries(
           Object.entries(data).sort(([, a], [, b]) => {
             const popA = a.data[0]?.population;
@@ -90,7 +133,7 @@ export default function App() {
         );
         return sortedData;
       }
-      case 'Name: A → Z': {
+      case 'name-a': {
         const sortedData = Object.fromEntries(
           Object.entries(data).sort(([a], [b]) => {
             if (a < b) return -1;
@@ -101,7 +144,7 @@ export default function App() {
         );
         return sortedData;
       }
-      case 'Name: Z → A': {
+      case 'name-z': {
         const sortedData = Object.fromEntries(
           Object.entries(data).sort(([a], [b]) => {
             if (a < b) return 1;
@@ -137,33 +180,34 @@ export default function App() {
 
   return (
     <div className="bg-slate-900 text-slate-300 p-8 min-h-screen">
-      <header>
+      <header className="max-w-4xl mx-auto mb-8">
         <Search onClick={setSearchValue} />
-        <Selector
-          label="Set year"
-          options={years}
-          onChange={setYearValue}
-          value={yearValue}
-        />
-        <Selector
-          label="Sorting by"
-          options={[
-            'Population: High to Low',
-            'Population: Low to High',
-            'Name: A → Z',
-            'Name: Z → A',
-          ]}
-          value={sortValue}
-          onChange={setSortValue}
-        />
-        <Button onClick={() => setModalOpen(true)}>Modal</Button>
+        <div className="flex items-center justify-center gap-4">
+          <Selector
+            label="Set year"
+            options={years}
+            onChange={setYearValue}
+            value={yearValue}
+          />
+          <Selector
+            label="Sorting by"
+            options={sortedData}
+            value={sortValue}
+            onChange={setSortValue}
+          />
+          <Button onClick={() => setModalOpen(true)}>Modal</Button>
+        </div>
       </header>
-      <Table dataHeader={tableHeader} dataBody={currentData} />
+      <Table dataHeader={tableColumns} dataBody={currentData} />
 
       {modalOpen &&
         createPortal(
           <Modal onClose={() => setModalOpen(false)}>
-            <div>awf</div>
+            <ColumnAdder
+              onClose={() => setModalOpen(false)}
+              currentColumns={tableColumns}
+              onAddColumn={setTableColumns}
+            />
           </Modal>,
           document.body
         )}
