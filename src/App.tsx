@@ -14,7 +14,7 @@ export default function App() {
   const data = use(co2DataPromise);
   const [searchValue, setSearchValue] = useState<string>('');
   const [sortValue, setSortValue] = useState<string>('');
-  const [yearValue, setYearValue] = useState<number>(2023);
+  const [yearValue, setYearValue] = useState<number>(0);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const defaultColumns = useMemo<Column<string>[]>(

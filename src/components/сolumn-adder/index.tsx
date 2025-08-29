@@ -15,6 +15,7 @@ export default function ColumnAdder({
   onClose,
 }: ColumnAdderProps) {
   const [selectedColumn, setSelectedColumn] = useState<string>('');
+  const [error, setError] = useState<string>('');
   const columns = [
     {
       label: 'Oil CO2',
@@ -38,18 +39,34 @@ export default function ColumnAdder({
     const newColumn = columns.find(
       (column) => column.value === selectedColumn
     ) as Column<string>;
-    onAddColumn([...currentColumns, newColumn]);
-    onClose();
+
+    const hasColumn = currentColumns.some(
+      (column) => column.value === newColumn.value
+    );
+    if (!hasColumn) {
+      onAddColumn([...currentColumns, newColumn]);
+      onClose();
+    } else {
+      setError('Column already exists');
+    }
+  };
+
+  const changeSelector = (value: string) => {
+    setSelectedColumn(value);
+    setError('');
   };
 
   return (
-    <div className="flex flex-col gap-8 p-8 ">
+    <div className="flex flex-col p-8 gap-8 relative">
       <Selector
         label="Add column"
         options={columns}
-        onChange={setSelectedColumn}
+        onChange={(value) => {
+          changeSelector(value);
+        }}
         value={selectedColumn}
       />
+      {error && <p className="text-red-500 absolute top-19">{error}</p>}
       <Button onClick={addNewColumn}>Add new column</Button>
     </div>
   );

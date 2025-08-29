@@ -1,4 +1,4 @@
-import type { CountryData } from '@/types';
+import { type CountryData } from '@/types';
 import { memo, useEffect, useRef, useState } from 'react';
 
 interface TableRowProps {
@@ -15,21 +15,24 @@ const TableRow = memo(
 
     useEffect(() => {
       const prevData = prevDataRef.current;
-
-      if (prevData) {
-        for (const key of keys) {
+      for (const key of keys) {
+        if (prevData == null && data == null) {
+          continue;
+        }
+        if (!data || (!prevData && prevData !== null)) {
+          setHighlighted((prev) => ({ ...prev, [key]: true }));
+        } else if (prevData) {
           if (
             prevData[key as keyof CountryData] !==
-              data[key as keyof CountryData] &&
-            key !== 'year'
+            data[key as keyof CountryData]
           ) {
             setHighlighted((prev) => ({ ...prev, [key]: true }));
-
-            setTimeout(() => {
-              setHighlighted({});
-            }, 1000);
           }
         }
+
+        setTimeout(() => {
+          setHighlighted({});
+        }, 1000);
       }
 
       prevDataRef.current = data;
@@ -40,6 +43,7 @@ const TableRow = memo(
         <td className="border border-slate-600 p-2">{countryName}</td>
         <td className="border border-slate-600 p-2">{iso_code}</td>
         {keys.map((key) => {
+          const value = data ? data[key as keyof typeof data] : null;
           return (
             <td
               key={key}
@@ -47,7 +51,7 @@ const TableRow = memo(
                 highlighted[key] ? 'text-purple-400' : ''
               }`}
             >
-              {data[key as keyof typeof data] ?? 'N/A'}
+              {value !== 0 && value != null ? value : 'N/A'}
             </td>
           );
         })}
