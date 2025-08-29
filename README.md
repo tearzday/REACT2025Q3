@@ -1,47 +1,43 @@
-Показатели до оптимизации
+# First render (before receiving the data)
 
-Profiler: App — MOUNT (первое открытие)
+| Before  | After  | 
+|:-------|:-------:|
+| ![BeforeFirstRender](./docs/before/first-open.png) | ![AfterFirstRender](./docs/before/first-open.png) |
+| **Render**: 131.1ms<br>**Committed at:** 1s |  - |
 
-Actual duration: 21.00 ms
-Base duration: 14.70 ms
-Start time: 03:00:00
-Commit time: 03:00:00
+# Rerender after receiving data
 
-Profiler: App — UPDATE
-Замеры делались с максимальным списком данных и колонками, которые отображаются по умолчанию
-(при первом отображении данных)
+| Before  | After  | 
+|:-------|:-------:|
+| ![BeforeData](./docs/before/first-data.png) | ![AfterData](./docs/before/first-data.png) |
+| **Render**: 24.8ms<br>**Committed at:** 0s | -  |
 
-Actual duration: 107.90 ms
-Base duration: 98.90 ms
-Start time: 03:00:00
-Commit time: 03:00:00
+# Use sorting
 
-(сортировка всех данных)
-Actual duration: 117.50 ms
-Base duration: 117.10 ms
-Start time: 03:01:34
-Commit time: 03:01:34
+| Before  | After  | 
+|:-------|:-------:|
+| ![BeforeSored](./docs/before/sorted.png) | ![AfterSorted](./docs/before/sorted.png) |
+| **Render**: 129.1ms<br>**Committed at:** 4.1s<br>**Passive effects**: 5.3ms<br>**Layout effects**: <0.1ms | -  |
 
-(изменения года)
-Actual duration: 114.10 ms
-Base duration: 113.20 ms
-Start time: 03:01:14
-Commit time: 03:01:14
 
-(поиск по одной букве "A" дабы захватить как можно больше данных)
-Actual duration: 99.10 ms
-Base duration: 97.00 ms
-Start time: 03:02:06
-Commit time: 03:02:06
+# Use filter year
 
-(открытие и закрытие модального окна)
-Actual duration: 90.70 ms
-Base duration: 90.30 ms
-Start time: 03:00:04
-Commit time: 03:00:04
+| Before  | After  | 
+|:-------|:-------:|
+| ![BeforeFilter](./docs/before/selected-year.png) | ![AfterFilter](./docs/before/selected-year.png) |
+| **Render**: 126.1ms<br>**Committed at:** 3.1s<br>**Passive effects**: 4.9ms<br>**Layout effects**: <0.1ms | - |
 
-(добавление нового одного столбца)
-Actual duration: 112.90 ms
-main.tsx:18 Base duration: 110.20 ms
-main.tsx:19 Start time: 03:00:42
-main.tsx:20 Commit time: 03:00:42
+
+# Use search (value = "f" )
+
+| Before  | After  | 
+|:-------|:-------:|
+| ![BeforeSearchF](./docs/before/search-f.png) | ![AfterSearchF](./docs/before/search-f.png) |
+| **Render**: 124.6ms<br>**Committed at:** 2.7s<br>**Passive effects**: 0.9ms<br>**Layout effects**: <0.1ms | -  |
+
+# Add new column for table
+
+| Before  | After  | 
+|:-------|:-------:|
+| ![BeforeNewCol](./docs/before/new-col.png) | ![AfterNewCol](./docs/before/new-col.png) |
+| **Render**: 123.7ms<br>**Committed at:** 4.2s<br>**Passive effects**: 0.1ms<br>**Layout effects**: <0.1ms | -  |
