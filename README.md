@@ -1,69 +1,47 @@
-# React + TypeScript + Vite
+Показатели до оптимизации
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Profiler: App — MOUNT (первое открытие)
 
-Currently, two official plugins are available:
+Actual duration: 21.00 ms
+Base duration: 14.70 ms
+Start time: 03:00:00
+Commit time: 03:00:00
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Profiler: App — UPDATE
+Замеры делались с максимальным списком данных и колонками, которые отображаются по умолчанию
+(при первом отображении данных)
 
-## Expanding the ESLint configuration
+Actual duration: 107.90 ms
+Base duration: 98.90 ms
+Start time: 03:00:00
+Commit time: 03:00:00
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+(сортировка всех данных)
+Actual duration: 117.50 ms
+Base duration: 117.10 ms
+Start time: 03:01:34
+Commit time: 03:01:34
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+(изменения года)
+Actual duration: 114.10 ms
+Base duration: 113.20 ms
+Start time: 03:01:14
+Commit time: 03:01:14
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+(поиск по одной букве "A" дабы захватить как можно больше данных)
+Actual duration: 99.10 ms
+Base duration: 97.00 ms
+Start time: 03:02:06
+Commit time: 03:02:06
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+(открытие и закрытие модального окна)
+Actual duration: 90.70 ms
+Base duration: 90.30 ms
+Start time: 03:00:04
+Commit time: 03:00:04
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+(добавление нового одного столбца)
+Actual duration: 112.90 ms
+main.tsx:18 Base duration: 110.20 ms
+main.tsx:19 Start time: 03:00:42
+main.tsx:20 Commit time: 03:00:42

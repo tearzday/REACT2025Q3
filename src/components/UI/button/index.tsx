@@ -1,11 +1,11 @@
-import type { ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 
 interface ButtonProps {
   onClick: () => void;
   children: ReactNode;
 }
 
-export default function Button({ onClick, children }: ButtonProps) {
+const Button = memo(({ onClick, children }: ButtonProps) => {
   return (
     <button
       onClick={onClick}
@@ -14,4 +14,8 @@ export default function Button({ onClick, children }: ButtonProps) {
       {children}
     </button>
   );
-}
+});
+
+Button.displayName = 'Button';
+
+export default Button;

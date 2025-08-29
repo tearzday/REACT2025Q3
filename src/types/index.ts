@@ -7,7 +7,7 @@ export type CountryData = {
 };
 
 export type CountryInfo = {
-  iso_code?: string;
+  iso_code: string;
   data: CountryData[];
 };
 

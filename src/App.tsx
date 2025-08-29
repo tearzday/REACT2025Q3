@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Column, Data } from './types';
 import { getCO2Info } from './api';
 import Table from './components/table/Table';
@@ -11,62 +11,58 @@ import ColumnAdder from './components/сolumn-adder';
 
 export default function App() {
   const [data, setData] = useState<Data | null>(null);
-  const [currentData, setCurrentData] = useState<Data | null>(null);
   const [searchValue, setSearchValue] = useState<string>('');
   const [sortValue, setSortValue] = useState<string>('');
   const [yearValue, setYearValue] = useState<number>(2023);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const [tableColumns, setTableColumns] = useState<Column<string>[]>([
-    {
-      label: 'Country',
-      value: 'country',
-    },
-    {
-      label: 'ISO',
-      value: 'iso_code',
-    },
-    {
-      label: 'Population',
-      value: 'population',
-    },
-    {
-      label: 'Year',
-      value: 'year',
-    },
-    {
-      label: 'CO2',
-      value: 'cement_co2',
-    },
-    {
-      label: 'CO2 per Capita',
-      value: 'cement_co2_per_capita',
-    },
-  ]);
+  const defaultColumns = useMemo<Column<string>[]>(
+    () => [
+      { label: 'Country', value: 'country' },
+      { label: 'ISO', value: 'iso_code' },
+      { label: 'Population', value: 'population' },
+      { label: 'Year', value: 'year' },
+      { label: 'CO2', value: 'cement_co2' },
+      { label: 'CO2 per Capita', value: 'cement_co2_per_capita' },
+    ],
+    []
+  );
+  const [tableColumns, setTableColumns] =
+    useState<Column<string>[]>(defaultColumns);
 
-  const years = Array.from({ length: 2023 - 1750 + 1 }, (_, i) => {
-    const year = 1750 + i;
-    return { label: year, value: year };
-  });
+  const years = useMemo(
+    () =>
+      Array.from({ length: 2023 - 1750 + 1 }, (_, i) => {
+        const year = 1750 + i;
+        return { label: year, value: year };
+      }),
+    []
+  );
 
-  const sortedData = [
-    {
-      label: 'Population: High to Low',
-      value: 'pop-high',
-    },
-    {
-      label: 'Population: Low to High',
-      value: 'pop-low',
-    },
-    {
-      label: 'Name: A → Z',
-      value: 'name-a',
-    },
-    {
-      label: 'Name: Z → A',
-      value: 'name-z',
-    },
-  ];
+  const sortedData = useMemo(
+    () => [
+      { label: 'Population: High to Low', value: 'pop-high' },
+      { label: 'Population: Low to High', value: 'pop-low' },
+      { label: 'Name: A → Z', value: 'name-a' },
+      { label: 'Name: Z → A', value: 'name-z' },
+    ],
+    []
+  );
+
+  const handleSearch = useCallback(
+    (value: string) => setSearchValue(value),
+    []
+  );
+  const handleSortChange = useCallback(
+    (value: string) => setSortValue(value),
+    []
+  );
+  const handleYearChange = useCallback(
+    (value: number) => setYearValue(value),
+    []
+  );
+  const handleModalOpen = useCallback(() => setModalOpen(true), []);
+  const handleModalClose = useCallback(() => setModalOpen(false), []);
 
   const searchForCountry = (data: Data, value: string): Data => {
     const countries = Object.keys(data);
@@ -81,7 +77,6 @@ export default function App() {
   };
 
   const filterByYear = (data: Data, value: number): Data => {
-    console.log(value);
     const filteredData = Object.fromEntries(
       Object.entries(data).map(([country, info]) => {
         const data = info.data;
@@ -97,7 +92,6 @@ export default function App() {
         return [country, { ...info, data: filteredCountryData }];
       })
     );
-    console.log(filteredData);
     return filteredData;
   };
 
@@ -160,20 +154,20 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    if (data) {
-      const newData = searchForCountry(data, searchValue);
-      const filteredData = filterByYear(newData, yearValue);
-      const sortedData = sortingByValue(filteredData, sortValue);
-      setCurrentData(sortedData);
-    }
-  }, [searchValue, sortValue, yearValue]);
+  const filteredAndSortedData = useMemo(() => {
+    if (!data) return null;
+
+    const searched = searchForCountry(data, searchValue);
+    const filtered = filterByYear(searched, yearValue);
+    const sorted = sortingByValue(filtered, sortValue);
+
+    return sorted;
+  }, [data, searchValue, yearValue, sortValue]);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await getCO2Info();
       setData(result);
-      setCurrentData(result);
     };
     fetchData();
   }, []);
@@ -181,30 +175,30 @@ export default function App() {
   return (
     <div className="bg-slate-900 text-slate-300 p-8 min-h-screen">
       <header className="max-w-4xl mx-auto mb-8">
-        <Search onClick={setSearchValue} />
+        <Search onClick={handleSearch} />
         <div className="flex items-center justify-center gap-4">
           <Selector
             label="Set year"
             options={years}
-            onChange={setYearValue}
+            onChange={handleYearChange}
             value={yearValue}
           />
           <Selector
             label="Sorting by"
             options={sortedData}
             value={sortValue}
-            onChange={setSortValue}
+            onChange={handleSortChange}
           />
-          <Button onClick={() => setModalOpen(true)}>Modal</Button>
+          <Button onClick={handleModalOpen}>Modal</Button>
         </div>
       </header>
-      <Table dataHeader={tableColumns} dataBody={currentData} />
+      <Table dataHeader={tableColumns} dataBody={filteredAndSortedData} />
 
       {modalOpen &&
         createPortal(
-          <Modal onClose={() => setModalOpen(false)}>
+          <Modal onClose={handleModalClose}>
             <ColumnAdder
-              onClose={() => setModalOpen(false)}
+              onClose={handleModalClose}
               currentColumns={tableColumns}
               onAddColumn={setTableColumns}
             />

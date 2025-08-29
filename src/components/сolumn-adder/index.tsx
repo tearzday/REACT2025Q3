@@ -38,7 +38,6 @@ export default function ColumnAdder({
     const newColumn = columns.find(
       (column) => column.value === selectedColumn
     ) as Column<string>;
-    console.log(newColumn);
     onAddColumn([...currentColumns, newColumn]);
     onClose();
   };
