@@ -23,8 +23,8 @@ export default function App() {
       { label: 'ISO', value: 'iso_code' },
       { label: 'Population', value: 'population' },
       { label: 'Year', value: 'year' },
-      { label: 'CO2', value: 'cement_co2' },
-      { label: 'CO2 per Capita', value: 'cement_co2_per_capita' },
+      { label: 'CO2', value: 'co2' },
+      { label: 'CO2 per Capita', value: 'co2_per_capita' },
     ],
     []
   );
@@ -164,7 +164,7 @@ export default function App() {
   }, [data, searchValue, yearValue, sortValue]);
 
   return (
-    <div className="bg-slate-900 text-slate-300 p-8 min-h-screen">
+    <div className="overflow-auto w-full bg-slate-900 text-slate-300 p-8 min-h-screen">
       <header className="max-w-4xl mx-auto mb-8">
         <Search onClick={handleSearch} />
         <div className="flex items-center justify-center gap-4">

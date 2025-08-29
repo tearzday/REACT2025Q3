@@ -16,7 +16,7 @@ const Table = ({ dataBody, dataHeader }: TableProps) => {
   }
 
   return (
-    <table className="border-collapse border mx-auto">
+    <table className="border-collapse border mx-auto px-[20px]">
       <thead className="bg-slate-800">
         <tr>
           {dataHeader.map((item) => {
