@@ -3,7 +3,7 @@ import TableRow from './TableRow';
 
 interface TableProps {
   dataHeader: Column<string>[];
-  dataBody: Data | null;
+  dataBody: Data;
 }
 
 const Table = ({ dataBody, dataHeader }: TableProps) => {
@@ -11,8 +11,8 @@ const Table = ({ dataBody, dataHeader }: TableProps) => {
     (item) => !['country', 'iso_code'].includes(item.value)
   );
 
-  if (!dataBody) {
-    return <div>Loading...</div>;
+  if (Object.keys(dataBody).length === 0) {
+    return <div className="text-center text-2xl">Countries not found</div>;
   }
 
   return (

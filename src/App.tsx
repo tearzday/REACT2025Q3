@@ -1,16 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, use, useCallback, useMemo, useState } from 'react';
 import type { Column, Data } from './types';
-import { getCO2Info } from './api';
-import Table from './components/table/Table';
+import { co2DataPromise } from './api';
+const Table = lazy(() => import('./components/table/Table'));
 import Search from './components/search';
 import Selector from './components/UI/selector';
 import Button from './components/UI/button';
 import { createPortal } from 'react-dom';
 import Modal from './components/modal';
 import ColumnAdder from './components/сolumn-adder';
+import Loading from './components/lodaing';
 
 export default function App() {
-  const [data, setData] = useState<Data | null>(null);
+  const data = use(co2DataPromise);
   const [searchValue, setSearchValue] = useState<string>('');
   const [sortValue, setSortValue] = useState<string>('');
   const [yearValue, setYearValue] = useState<number>(2023);
@@ -155,22 +156,12 @@ export default function App() {
   };
 
   const filteredAndSortedData = useMemo(() => {
-    if (!data) return null;
-
     const searched = searchForCountry(data, searchValue);
     const filtered = filterByYear(searched, yearValue);
     const sorted = sortingByValue(filtered, sortValue);
 
     return sorted;
   }, [data, searchValue, yearValue, sortValue]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getCO2Info();
-      setData(result);
-    };
-    fetchData();
-  }, []);
 
   return (
     <div className="bg-slate-900 text-slate-300 p-8 min-h-screen">
@@ -192,7 +183,9 @@ export default function App() {
           <Button onClick={handleModalOpen}>Modal</Button>
         </div>
       </header>
-      <Table dataHeader={tableColumns} dataBody={filteredAndSortedData} />
+      <Suspense fallback={<Loading />}>
+        <Table dataHeader={tableColumns} dataBody={filteredAndSortedData} />
+      </Suspense>
 
       {modalOpen &&
         createPortal(

@@ -10,3 +10,5 @@ export async function getCO2Info(): Promise<Data> {
 
   return Object.fromEntries(currentData);
 }
+
+export const co2DataPromise = getCO2Info();
