@@ -1,11 +1,11 @@
-import { memo, type ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 
 interface ModalProps {
   onClose: () => void;
   children: ReactNode;
 }
 
-const Modal = memo(({ onClose, children }: ModalProps) => {
+const Modal = ({ onClose, children }: ModalProps) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -36,8 +36,6 @@ const Modal = memo(({ onClose, children }: ModalProps) => {
       </div>
     </div>
   );
-});
-
-Modal.displayName = 'Modal';
+};
 
 export default Modal;

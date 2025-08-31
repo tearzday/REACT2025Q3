@@ -1,4 +1,4 @@
-import { lazy, Suspense, use, useCallback, useMemo, useState } from 'react';
+import { lazy, Suspense, use, useEffect, useState } from 'react';
 import type { Column, Data } from './types';
 import { co2DataPromise } from './api';
 const Table = lazy(() => import('./components/table/Table'));
@@ -16,54 +16,30 @@ export default function App() {
   const [sortValue, setSortValue] = useState<string>('');
   const [yearValue, setYearValue] = useState<number>(0);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [currentData, setCurrentData] = useState<Data>(data);
 
-  const defaultColumns = useMemo<Column<string>[]>(
-    () => [
-      { label: 'Country', value: 'country' },
-      { label: 'ISO', value: 'iso_code' },
-      { label: 'Population', value: 'population' },
-      { label: 'Year', value: 'year' },
-      { label: 'CO2', value: 'co2' },
-      { label: 'CO2 per Capita', value: 'co2_per_capita' },
-    ],
-    []
-  );
+  const defaultColumns = [
+    { label: 'Country', value: 'country' },
+    { label: 'ISO', value: 'iso_code' },
+    { label: 'Population', value: 'population' },
+    { label: 'Year', value: 'year' },
+    { label: 'CO2', value: 'co2' },
+    { label: 'CO2 per Capita', value: 'co2_per_capita' },
+  ];
   const [tableColumns, setTableColumns] =
     useState<Column<string>[]>(defaultColumns);
 
-  const years = useMemo(
-    () =>
-      Array.from({ length: 2023 - 1750 + 1 }, (_, i) => {
-        const year = 1750 + i;
-        return { label: year, value: year };
-      }),
-    []
-  );
+  const years = Array.from({ length: 2023 - 1750 + 1 }, (_, i) => {
+    const year = 1750 + i;
+    return { label: year, value: year };
+  });
 
-  const sortedData = useMemo(
-    () => [
-      { label: 'Population: High to Low', value: 'pop-high' },
-      { label: 'Population: Low to High', value: 'pop-low' },
-      { label: 'Name: A → Z', value: 'name-a' },
-      { label: 'Name: Z → A', value: 'name-z' },
-    ],
-    []
-  );
-
-  const handleSearch = useCallback(
-    (value: string) => setSearchValue(value),
-    []
-  );
-  const handleSortChange = useCallback(
-    (value: string) => setSortValue(value),
-    []
-  );
-  const handleYearChange = useCallback(
-    (value: number) => setYearValue(value),
-    []
-  );
-  const handleModalOpen = useCallback(() => setModalOpen(true), []);
-  const handleModalClose = useCallback(() => setModalOpen(false), []);
+  const sortedData = [
+    { label: 'Population: High to Low', value: 'pop-high' },
+    { label: 'Population: Low to High', value: 'pop-low' },
+    { label: 'Name: A → Z', value: 'name-a' },
+    { label: 'Name: Z → A', value: 'name-z' },
+  ];
 
   const searchForCountry = (data: Data, value: string): Data => {
     const countries = Object.keys(data);
@@ -155,43 +131,43 @@ export default function App() {
     }
   };
 
-  const filteredAndSortedData = useMemo(() => {
+  useEffect(() => {
     const searched = searchForCountry(data, searchValue);
     const filtered = filterByYear(searched, yearValue);
     const sorted = sortingByValue(filtered, sortValue);
 
-    return sorted;
+    setCurrentData(sorted);
   }, [data, searchValue, yearValue, sortValue]);
 
   return (
     <div className="overflow-auto w-full bg-slate-900 text-slate-300 p-8 min-h-screen">
       <header className="max-w-4xl mx-auto mb-8">
-        <Search onClick={handleSearch} />
+        <Search onClick={setSearchValue} />
         <div className="flex items-center justify-center gap-4">
           <Selector
             label="Set year"
             options={years}
-            onChange={handleYearChange}
+            onChange={setYearValue}
             value={yearValue}
           />
           <Selector
             label="Sorting by"
             options={sortedData}
             value={sortValue}
-            onChange={handleSortChange}
+            onChange={setSortValue}
           />
-          <Button onClick={handleModalOpen}>Modal</Button>
+          <Button onClick={() => setModalOpen(true)}>Modal</Button>
         </div>
       </header>
       <Suspense fallback={<Loading />}>
-        <Table dataHeader={tableColumns} dataBody={filteredAndSortedData} />
+        <Table dataHeader={tableColumns} dataBody={currentData} />
       </Suspense>
 
       {modalOpen &&
         createPortal(
-          <Modal onClose={handleModalClose}>
+          <Modal onClose={() => setModalOpen(false)}>
             <ColumnAdder
-              onClose={handleModalClose}
+              onClose={() => setModalOpen(false)}
               currentColumns={tableColumns}
               onAddColumn={setTableColumns}
             />
