@@ -1,10 +1,28 @@
 export const defaultColumns = [
-  { label: 'Country', value: 'country' },
-  { label: 'ISO', value: 'iso_code' },
-  { label: 'Population', value: 'population' },
-  { label: 'Year', value: 'year' },
-  { label: 'CO2', value: 'co2' },
-  { label: 'CO2 per Capita', value: 'co2_per_capita' },
+  { label: 'Population', value: 'population', checked: true },
+  { label: 'Year', value: 'year', checked: true },
+  { label: 'CO2', value: 'co2', checked: true },
+  { label: 'CO2 per Capita', value: 'co2_per_capita', checked: true },
+  {
+    label: 'Oil CO2',
+    value: 'oil_co2',
+    checked: false,
+  },
+  {
+    label: 'Temperature Change from CO2',
+    value: 'temperature_change_from_co2',
+    checked: false,
+  },
+  {
+    label: 'Gas CO2',
+    value: 'gas_co2',
+    checked: false,
+  },
+  {
+    label: 'Methane',
+    value: 'methane',
+    checked: false,
+  },
 ];
 
 export const sortedData = [

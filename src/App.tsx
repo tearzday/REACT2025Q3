@@ -1,4 +1,4 @@
-import { lazy, Suspense, use, useMemo, useState } from 'react';
+import { lazy, Suspense, use, useCallback, useMemo, useState } from 'react';
 import type { Column, Data } from './types';
 import { co2DataPromise } from './api';
 const Table = lazy(() => import('./components/table/Table'));
@@ -118,6 +118,20 @@ export default function App() {
     }
   };
 
+  const currentTableHeader = useMemo(
+    () => tableColumns.filter((item) => item.checked),
+    [tableColumns]
+  );
+
+  const changeColumns = useCallback((newColumns: Record<string, boolean>) => {
+    setTableColumns((prevColumns) =>
+      prevColumns.map((column) => ({
+        ...column,
+        checked: newColumns[column.value] ?? false,
+      }))
+    );
+  }, []);
+
   const currentData = useMemo(() => {
     const searched = searchForCountry(data, searchValue);
     const filtered = filterByYear(searched, yearValue);
@@ -146,7 +160,7 @@ export default function App() {
         </div>
       </header>
       <Suspense fallback={<Loading />}>
-        <Table dataHeader={tableColumns} dataBody={currentData} />
+        <Table dataHeader={currentTableHeader} dataBody={currentData} />
       </Suspense>
 
       {modalOpen &&
@@ -155,7 +169,7 @@ export default function App() {
             <ColumnAdder
               onClose={() => setModalOpen(false)}
               currentColumns={tableColumns}
-              onAddColumn={setTableColumns}
+              onChangeColumn={changeColumns}
             />
           </Modal>,
           document.body

@@ -21,4 +21,5 @@ export type Data = {
 export type Column<T> = {
   label: T;
   value: T;
+  checked?: boolean;
 };
