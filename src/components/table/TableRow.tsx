@@ -1,5 +1,6 @@
 import { type CountryData } from '@/types';
 import { memo, useEffect, useRef, useState } from 'react';
+import TableCell from './TableCell';
 
 interface TableRowProps {
   countryName: string;
@@ -40,19 +41,18 @@ const TableRow = memo(
 
     return (
       <tr className="border border-slate-600">
-        <td className="border border-slate-600 p-2">{countryName}</td>
-        <td className="border border-slate-600 p-2">{iso_code}</td>
+        <TableCell value={countryName} />
+        <TableCell value={iso_code} />
         {keys.map((key) => {
           const value = data ? data[key as keyof typeof data] : null;
           return (
-            <td
+            <TableCell
               key={key}
-              className={`border border-slate-600 p-2 transition-colors duration-500 ${
-                highlighted[key] ? 'text-purple-400' : ''
-              }`}
-            >
-              {value !== 0 && value != null ? value : 'N/A'}
-            </td>
+              value={
+                value !== undefined && value !== null ? String(value) : 'N/A'
+              }
+              className={`${highlighted[key] ? 'text-purple-400' : ''}`}
+            />
           );
         })}
       </tr>
