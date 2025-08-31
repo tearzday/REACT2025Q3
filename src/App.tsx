@@ -1,4 +1,4 @@
-import { lazy, Suspense, use, useEffect, useState } from 'react';
+import { lazy, Suspense, use, useMemo, useState } from 'react';
 import type { Column, Data } from './types';
 import { co2DataPromise } from './api';
 const Table = lazy(() => import('./components/table/Table'));
@@ -9,6 +9,7 @@ import { createPortal } from 'react-dom';
 import Modal from './components/modal';
 import ColumnAdder from './components/сolumn-adder';
 import Loading from './components/lodaing';
+import { defaultColumns, sortedData } from './constants';
 
 export default function App() {
   const data = use(co2DataPromise);
@@ -16,30 +17,16 @@ export default function App() {
   const [sortValue, setSortValue] = useState<string>('');
   const [yearValue, setYearValue] = useState<number>(0);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [currentData, setCurrentData] = useState<Data>(data);
 
-  const defaultColumns = [
-    { label: 'Country', value: 'country' },
-    { label: 'ISO', value: 'iso_code' },
-    { label: 'Population', value: 'population' },
-    { label: 'Year', value: 'year' },
-    { label: 'CO2', value: 'co2' },
-    { label: 'CO2 per Capita', value: 'co2_per_capita' },
-  ];
   const [tableColumns, setTableColumns] =
     useState<Column<string>[]>(defaultColumns);
 
-  const years = Array.from({ length: 2023 - 1750 + 1 }, (_, i) => {
-    const year = 1750 + i;
-    return { label: year, value: year };
-  });
-
-  const sortedData = [
-    { label: 'Population: High to Low', value: 'pop-high' },
-    { label: 'Population: Low to High', value: 'pop-low' },
-    { label: 'Name: A → Z', value: 'name-a' },
-    { label: 'Name: Z → A', value: 'name-z' },
-  ];
+  const years = useMemo(() => {
+    return Array.from({ length: 2023 - 1750 + 1 }, (_, i) => {
+      const year = 1750 + i;
+      return { label: year, value: year };
+    });
+  }, []);
 
   const searchForCountry = (data: Data, value: string): Data => {
     const countries = Object.keys(data);
@@ -131,12 +118,11 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
+  const currentData = useMemo(() => {
     const searched = searchForCountry(data, searchValue);
     const filtered = filterByYear(searched, yearValue);
     const sorted = sortingByValue(filtered, sortValue);
-
-    setCurrentData(sorted);
+    return sorted;
   }, [data, searchValue, yearValue, sortValue]);
 
   return (

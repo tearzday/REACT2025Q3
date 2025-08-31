@@ -1,4 +1,5 @@
 import type { Column } from '@/types';
+import { memo } from 'react';
 
 interface SelectorProps<T> {
   value: T;
@@ -7,7 +8,7 @@ interface SelectorProps<T> {
   onChange: (value: T) => void;
 }
 
-export default function Selector<T extends string | number>({
+function SelectorComponent<T extends string | number>({
   value,
   label,
   options,
@@ -18,16 +19,22 @@ export default function Selector<T extends string | number>({
       value={value}
       className="border border-slate-600 p-2 bg-slate-800 rounded-xl cursor-pointer"
       onChange={(e) => {
-        const value = e.target.value as T;
-        onChange(value);
+        const selectedValue = e.target.value as T;
+        onChange(selectedValue);
       }}
     >
       <option value="">{label}</option>
       {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
+        <Option key={option.value} value={option.value} label={option.label} />
       ))}
     </select>
   );
 }
+
+const Option = memo(({ value, label }: Column<string | number>) => {
+  return <option value={value}>{label}</option>;
+});
+
+Option.displayName = 'Option';
+
+export default memo(SelectorComponent) as typeof SelectorComponent;

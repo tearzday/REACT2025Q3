@@ -1,12 +1,14 @@
 import type { Column, Data } from '@/types';
 import TableRow from './TableRow';
+import TableCellHeader from './TableCellHeader';
+import { memo } from 'react';
 
 interface TableProps {
   dataHeader: Column<string>[];
   dataBody: Data;
 }
 
-const Table = ({ dataBody, dataHeader }: TableProps) => {
+function Table({ dataBody, dataHeader }: TableProps) {
   const bodyKeys: Column<string>[] = dataHeader.filter(
     (item) => !['country', 'iso_code'].includes(item.value)
   );
@@ -20,14 +22,7 @@ const Table = ({ dataBody, dataHeader }: TableProps) => {
       <thead className="bg-slate-800">
         <tr>
           {dataHeader.map((item) => {
-            return (
-              <th
-                key={item.value}
-                className="border border-slate-600 px-8 py-4"
-              >
-                {item.label}
-              </th>
-            );
+            return <TableCellHeader key={item.value} value={item.label} />;
           })}
         </tr>
       </thead>
@@ -48,6 +43,6 @@ const Table = ({ dataBody, dataHeader }: TableProps) => {
       </tbody>
     </table>
   );
-};
+}
 
-export default Table;
+export default memo(Table);

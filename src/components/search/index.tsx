@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useRef } from 'react';
 import Button from '../UI/button';
 import Input from '../UI/input';
 
@@ -7,17 +7,19 @@ interface SearchProps {
 }
 
 export default function Search({ onClick }: SearchProps) {
-  const [value, setValue] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleClick = useCallback(() => {
+    if (inputRef.current) {
+      onClick(inputRef.current.value);
+    }
+  }, [onClick]);
 
   return (
     <div className="mx-auto flex gap-4  mx-auto my-5">
-      <Input
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder="Search for a country..."
-      />
+      <Input ref={inputRef} placeholder="Search for a country..." />
 
-      <Button onClick={() => onClick(value)}>Search</Button>
+      <Button onClick={handleClick}>Search</Button>
     </div>
   );
 }

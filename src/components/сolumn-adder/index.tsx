@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Selector from '../UI/selector';
 import Button from '../UI/button';
 import type { Column } from '@/types';
+import { newColumns } from '@/constants';
 
 interface ColumnAdderProps {
   currentColumns: Column<string>[];
@@ -16,27 +17,9 @@ export default function ColumnAdder({
 }: ColumnAdderProps) {
   const [selectedColumn, setSelectedColumn] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const columns = [
-    {
-      label: 'Oil CO2',
-      value: 'oil_co2',
-    },
-    {
-      label: 'Temperature Change from CO2',
-      value: 'temperature_change_from_co2',
-    },
-    {
-      label: 'Gas CO2',
-      value: 'gas_co2',
-    },
-    {
-      label: 'Methane',
-      value: 'methane',
-    },
-  ];
 
   const addNewColumn = () => {
-    const newColumn = columns.find(
+    const newColumn = newColumns.find(
       (column) => column.value === selectedColumn
     ) as Column<string>;
 
@@ -60,7 +43,7 @@ export default function ColumnAdder({
     <div className="flex flex-col p-8 gap-8 relative">
       <Selector
         label="Add column"
-        options={columns}
+        options={newColumns}
         onChange={(value) => {
           changeSelector(value);
         }}

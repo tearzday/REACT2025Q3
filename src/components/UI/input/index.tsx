@@ -1,20 +1,16 @@
-import { type ChangeEvent } from 'react';
+import { type Ref } from 'react';
 
 interface InputProps {
+  ref: Ref<HTMLInputElement>;
   placeholder: string;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ placeholder, value, onChange }: InputProps) => {
+export default function Input({ placeholder, ref }: InputProps) {
   return (
     <input
       className="w-full border border-slate-600 p-2 bg-slate-800 rounded-xl outline-none"
       placeholder={placeholder}
-      value={value}
-      onChange={onChange}
+      ref={ref}
     />
   );
-};
-
-export default Input;
+}

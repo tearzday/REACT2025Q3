@@ -1,5 +1,5 @@
 import { type CountryData } from '@/types';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import TableCell from './TableCell';
 
 interface TableRowProps {
@@ -9,7 +9,7 @@ interface TableRowProps {
   data: CountryData;
 }
 
-const TableRow = ({ countryName, iso_code, keys, data }: TableRowProps) => {
+function TableRow({ countryName, iso_code, keys, data }: TableRowProps) {
   const [highlighted, setHighlighted] = useState<Record<string, boolean>>({});
   const prevDataRef = useRef<CountryData | null>(null);
 
@@ -55,7 +55,6 @@ const TableRow = ({ countryName, iso_code, keys, data }: TableRowProps) => {
       })}
     </tr>
   );
-};
-TableRow.displayName = 'TableRow';
+}
 
-export default TableRow;
+export default memo(TableRow);
