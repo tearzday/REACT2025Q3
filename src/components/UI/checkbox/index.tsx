@@ -9,18 +9,16 @@ interface CheckboxProps {
 
 function Checkbox({ value, label, checked, onChange }: CheckboxProps) {
   return (
-    <div>
-      <label>
-        <input
-          type="checkbox"
-          checked={checked}
-          value={value}
-          onChange={onChange}
-          className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-        />
-        {label}
-      </label>
-    </div>
+    <label className="flex items-center gap-2 cursor-pointer">
+      <input
+        type="checkbox"
+        checked={checked}
+        value={value}
+        onChange={onChange}
+        className="w-4 h-4 accent-blue-800"
+      />
+      {label}
+    </label>
   );
 }
 
