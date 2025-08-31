@@ -139,22 +139,34 @@ export default function App() {
     return sorted;
   }, [data, searchValue, yearValue, sortValue]);
 
+  const handlerSort = useCallback((newSortValue: string) => {
+    setSortValue(newSortValue);
+  }, []);
+
+  const handlerSearch = useCallback((newSearchValue: string) => {
+    setSearchValue(newSearchValue);
+  }, []);
+
+  const handlerYear = useCallback((newYearValue: number) => {
+    setYearValue(newYearValue);
+  }, []);
+
   return (
     <div className="overflow-auto w-full bg-slate-900 text-slate-300 p-8 min-h-screen">
       <header className="max-w-4xl mx-auto mb-8">
-        <Search onClick={setSearchValue} />
+        <Search onClick={handlerSearch} />
         <div className="flex items-center justify-center gap-4">
           <Selector
             label="Set year"
             options={years}
-            onChange={setYearValue}
+            onChange={handlerYear}
             value={yearValue}
           />
           <Selector
             label="Sorting by"
             options={sortedData}
             value={sortValue}
-            onChange={setSortValue}
+            onChange={handlerSort}
           />
           <Button onClick={() => setModalOpen(true)}>Modal</Button>
         </div>
