@@ -132,12 +132,24 @@ export default function App() {
     );
   }, []);
 
-  const currentData = useMemo(() => {
-    const searched = searchForCountry(data, searchValue);
-    const filtered = filterByYear(searched, yearValue);
-    const sorted = sortingByValue(filtered, sortValue);
-    return sorted;
-  }, [data, searchValue, yearValue, sortValue]);
+  const searched = useMemo(() => {
+    return searchForCountry(data, searchValue);
+  }, [data, searchValue]);
+
+  const filtered = useMemo(() => {
+    return filterByYear(searched, yearValue);
+  }, [searched, yearValue]);
+
+  const sorted = useMemo(() => {
+    return sortingByValue(filtered, sortValue);
+  }, [filtered, sortValue]);
+
+  // const currentData = useMemo(() => {
+  //   // const searched = searchForCountry(data, searchValue);
+  //   const filtered = filterByYear(searched, yearValue);
+  //   const sorted = sortingByValue(filtered, sortValue);
+  //   return sorted;
+  // }, [data, searchValue, yearValue, sortValue]);
 
   const handlerSort = useCallback((newSortValue: string) => {
     setSortValue(newSortValue);
@@ -172,7 +184,7 @@ export default function App() {
         </div>
       </header>
       <Suspense fallback={<Loading />}>
-        <Table dataHeader={currentTableHeader} dataBody={currentData} />
+        <Table dataHeader={currentTableHeader} dataBody={sorted} />
       </Suspense>
 
       {modalOpen &&
