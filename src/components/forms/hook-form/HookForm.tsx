@@ -1,0 +1,132 @@
+import { useForm } from 'react-hook-form';
+import { formsGetCountries, formsSetData, useForms } from '@/hooks/useForms';
+import type { FormData } from '@/types';
+import InputDefault from '@/components/UI/input';
+import RadioList from '@/components/UI/radio-list';
+import CheckboxDefault from '@/components/UI/checkbox';
+import AddFile from '@/components/UI/add-file';
+import DataList from '@/components//UI/datalist';
+import ButtonDefault from '@/components/UI/button';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { formSchema } from '@/schemas/formSchema';
+import fileToBase64 from '@/utils/convertToBase64';
+import { getPasswordStrength } from '@/utils/showPasswordStrength';
+import { radioListData } from '@/data/radioList';
+
+interface HookFormProps {
+  onClose: () => void;
+}
+
+export default function HookForm({ onClose }: HookFormProps) {
+  const countries = useForms(formsGetCountries);
+  const setData = useForms(formsSetData);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    watch,
+  } = useForm<FormData>({
+    resolver: yupResolver(formSchema),
+    mode: 'onChange',
+  });
+  const password = watch('password');
+
+  const onSubmit = async (data: FormData) => {
+    const fileObj = data.file?.[0];
+    const fileBase64 =
+      fileObj instanceof File ? await fileToBase64(fileObj) : '';
+
+    const formData = {
+      name: data.name,
+      age: data.age,
+      email: data.email,
+      password: data.password,
+      repeatPassword: data.repeatPassword,
+      gender: data.gender,
+      terms: data.terms,
+      file: fileBase64,
+      country: data.country,
+    };
+
+    setData(formData);
+    onClose();
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+        <InputDefault
+          id="name"
+          label="Name"
+          placeholder="Enter name"
+          type="text"
+          register={register}
+          error={errors.name?.message}
+        />
+        <InputDefault
+          id="age"
+          label="Age"
+          placeholder="Enter age"
+          type="number"
+          register={register}
+          error={errors.age?.message}
+        />
+        <InputDefault
+          id="email"
+          label="Email"
+          placeholder="Enter email"
+          type="email"
+          register={register}
+          error={errors.email?.message}
+        />
+        <InputDefault
+          id="password"
+          label="Password"
+          placeholder="Enter password"
+          type="password"
+          register={register}
+          error={errors.password?.message}
+          strength={getPasswordStrength(password)}
+        />
+        <InputDefault
+          id="repeatPassword"
+          label="Repeat Password"
+          placeholder="Repeat password"
+          type="password"
+          register={register}
+          error={errors.repeatPassword?.message}
+        />
+
+        <RadioList
+          data={radioListData}
+          register={register}
+          error={errors.gender?.message}
+        />
+        <CheckboxDefault
+          id="terms"
+          label="Accept T&C"
+          register={register}
+          error={errors.terms?.message}
+        />
+        <AddFile
+          id="file"
+          label="Add img"
+          register={register}
+          error={errors.file?.message}
+        />
+        <DataList
+          id="country"
+          label="Country"
+          listName="country-list"
+          listOptions={countries}
+          register={register}
+          placeholder="Select country"
+          error={errors.country?.message}
+        />
+
+        <ButtonDefault disabled={!isValid}>Submit</ButtonDefault>
+      </form>
+    </>
+  );
+}
