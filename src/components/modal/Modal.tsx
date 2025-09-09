@@ -22,11 +22,11 @@ export default function Modal({ onClose, children }: ModalProps) {
 
   return (
     <div
-      onClick={onClose}
+      onMouseDown={onClose}
       className="w-svw h-svh bg-black/30 d-flex content-center justify-items-center absolute top-0"
     >
       <div
-        onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
         className="w-96 xl:w-2/6 bg-color-olive border-2 border-neutral-700 rounded-xl flex flex-col p-2 text-white"
       >
         <button className="self-end text-neutral-700 mb-2" onClick={onClose}>
